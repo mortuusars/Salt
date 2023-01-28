@@ -2,6 +2,7 @@ package io.github.mortuusars.salt.crafting.recipe;
 
 import io.github.mortuusars.salt.Registry;
 import io.github.mortuusars.salt.Salt;
+import io.github.mortuusars.salt.Salting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -43,10 +44,7 @@ public class SaltingRecipe extends CustomRecipe {
                 hasSalt = true;
             }
             else if (CAN_BE_SALTED.test(itemStack)) {
-                if (itemStack.hasTag() && itemStack.getTag().contains(Salt.SALTED_KEY))
-                    return false; // Already salted
-
-                if (hasSaltedIngredient)
+                if (hasSaltedIngredient || Salting.isSalted(itemStack))
                     return false;
 
                 hasSaltedIngredient = true;
@@ -65,10 +63,7 @@ public class SaltingRecipe extends CustomRecipe {
                 ItemStack resultStack = itemStack.copy();
                 resultStack.setCount(1);
 
-                CompoundTag tag = resultStack.getOrCreateTag();
-                tag.putBoolean(Salt.SALTED_KEY, true);
-
-                return resultStack;
+                return Salting.setSalted(resultStack);
             }
         }
 
