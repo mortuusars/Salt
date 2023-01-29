@@ -1,6 +1,7 @@
 package io.github.mortuusars.salt;
 
 import io.github.mortuusars.salt.block.SaltBlock;
+import io.github.mortuusars.salt.block.SaltCauldronBlock;
 import io.github.mortuusars.salt.crafting.recipe.SaltingRecipe;
 import io.github.mortuusars.salt.item.SaltItem;
 import net.minecraft.resources.ResourceLocation;
@@ -11,6 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LayeredCauldronBlock;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -20,8 +22,11 @@ public class Registry {
     public static class Blocks {
         private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Salt.ID);
 
-        public static final RegistryObject<Block> ROCK_SALT = BLOCKS.register("rock_salt",
+        public static final RegistryObject<SaltBlock> ROCK_SALT = BLOCKS.register("rock_salt",
                 () -> new SaltBlock());
+
+        public static final RegistryObject<SaltCauldronBlock> SALT_CAULDRON = BLOCKS.register("salt_cauldron",
+                () -> new SaltCauldronBlock(LayeredCauldronBlock.RAIN));
     }
 
     public static class Items {

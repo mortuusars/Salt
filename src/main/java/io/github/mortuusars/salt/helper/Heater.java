@@ -5,7 +5,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 public class Heater {
-    public static boolean canProduceHeat(BlockState blockState) {
+    public static boolean isHeatSource(BlockState blockState) {
         if (blockState.is(Registry.BlockTags.HEATERS)) {
             if (!blockState.hasProperty(BlockStateProperties.LIT) || blockState.getValue(BlockStateProperties.LIT))
                 return true;

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "level=1": {
+      "model": "salt:block/salt_cauldron_level_1"
+    },
+    "level=2": {
+      "model": "salt:block/salt_cauldron_level_2"
+    },
+    "level=3": {
+      "model": "salt:block/salt_cauldron_full"
+    }
+  }
+}
