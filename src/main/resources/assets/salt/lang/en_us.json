@@ -1,3 +1,6 @@
 {
+  "item.salt.salt": "Salt",
+  "block.salt.rock_salt": "Rock Salt",
+
   "salt.gui.tooltip.salted": "Salted"
 }
