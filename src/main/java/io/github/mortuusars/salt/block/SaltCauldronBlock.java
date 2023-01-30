@@ -1,16 +1,13 @@
 package io.github.mortuusars.salt.block;
 
-import io.github.mortuusars.salt.Registry;
 import io.github.mortuusars.salt.Salt;
 import io.github.mortuusars.salt.helper.Heater;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.Util;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
@@ -47,20 +44,10 @@ import java.util.Random;
 import java.util.function.Predicate;
 
 public class SaltCauldronBlock extends LayeredCauldronBlock {
-
-    private static final Map<Item, CauldronInteraction> interactions;
-
-    static {
-        interactions = Util.make(new Object2ObjectOpenHashMap<>(),
-                (map) -> map.defaultReturnValue((blockState, level, blockPos, player, hand, stack) ->
-                        InteractionResult.PASS));
-
-    }
-
     private Predicate<Biome.Precipitation> fillPredicate;
 
-    public SaltCauldronBlock(Predicate<Biome.Precipitation> fillPredicate) {
-        super(BlockBehaviour.Properties.copy(Blocks.CAULDRON), fillPredicate, CauldronInteraction.EMPTY);
+    public SaltCauldronBlock(Predicate<Biome.Precipitation> fillPredicate, Map<Item, CauldronInteraction> interactions) {
+        super(BlockBehaviour.Properties.copy(Blocks.CAULDRON), fillPredicate, interactions);
         this.fillPredicate = fillPredicate;
     }
 
@@ -68,10 +55,7 @@ public class SaltCauldronBlock extends LayeredCauldronBlock {
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult blockHitResult) {
         if (player.getItemInHand(hand).isEmpty()) {
             if (!level.isClientSide) {
-                for (int i = 0; i < 100; i++) {
-                    dropContents(state, (ServerLevel)level, pos, player, hand, blockHitResult);
-                }
-
+                dropContents(state, (ServerLevel)level, pos, player, hand, blockHitResult);
                 level.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
                 level.playSound(null, pos, SoundEvents.DRIPSTONE_BLOCK_HIT, SoundSource.BLOCKS, 1.0F, 1.0F);
             }
@@ -152,10 +136,5 @@ public class SaltCauldronBlock extends LayeredCauldronBlock {
             level.levelEvent(LevelEvent.SOUND_DRIP_WATER_INTO_CAULDRON, pos, 0);
             level.gameEvent(null, GameEvent.FLUID_PLACE, pos);
         }
-    }
-
-    @Override
-    public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom) {
-        super.tick(pState, pLevel, pPos, pRandom);
     }
 }

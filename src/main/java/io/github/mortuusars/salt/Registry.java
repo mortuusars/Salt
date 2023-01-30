@@ -4,6 +4,7 @@ import io.github.mortuusars.salt.block.SaltBlock;
 import io.github.mortuusars.salt.block.SaltCauldronBlock;
 import io.github.mortuusars.salt.crafting.recipe.SaltingRecipe;
 import io.github.mortuusars.salt.item.SaltItem;
+import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BlockItem;
@@ -26,7 +27,7 @@ public class Registry {
                 () -> new SaltBlock());
 
         public static final RegistryObject<SaltCauldronBlock> SALT_CAULDRON = BLOCKS.register("salt_cauldron",
-                () -> new SaltCauldronBlock(LayeredCauldronBlock.RAIN));
+                () -> new SaltCauldronBlock(LayeredCauldronBlock.RAIN, CauldronInteraction.EMPTY));
     }
 
     public static class Items {
