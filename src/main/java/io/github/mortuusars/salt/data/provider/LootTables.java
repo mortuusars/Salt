@@ -9,19 +9,13 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.HashCache;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.ConfiguredStructureTags;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.functions.*;
 import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
-import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -40,6 +34,18 @@ public class LootTables extends LootTableProvider {
 
     @Override
     public void run(HashCache cache) {
+
+        // Blocks:
+
+        writeTable(cache, Registry.Blocks.SALT_CAULDRON.getId(),
+                LootTable.lootTable().withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1))
+                                .when(ExplosionCondition.survivesExplosion())
+                                .add(LootItem.lootTableItem(Items.CAULDRON)))
+                        .build());
+
+        // Evaporated salt:
 
         writeTable(cache, Salt.resource("cauldron/salt_level_1"),
                 LootTable.lootTable().withPool(
@@ -68,8 +74,6 @@ public class LootTables extends LootTableProvider {
                                         .add(LootItem.lootTableItem(Registry.Items.SALT.get())
                                                 .when(LootItemRandomChanceCondition.randomChance(0.25f))))
                         .build());
-
-
     }
 
     private void writeTable(HashCache cache, ResourceLocation location, LootTable lootTable) {
