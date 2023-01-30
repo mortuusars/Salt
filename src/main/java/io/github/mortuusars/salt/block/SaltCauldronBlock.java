@@ -1,12 +1,16 @@
 package io.github.mortuusars.salt.block;
 
 import io.github.mortuusars.salt.Registry;
+import io.github.mortuusars.salt.Salt;
 import io.github.mortuusars.salt.helper.Heater;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.Util;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.cauldron.CauldronInteraction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
@@ -30,9 +34,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.function.Predicate;
@@ -59,8 +68,9 @@ public class SaltCauldronBlock extends LayeredCauldronBlock {
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult blockHitResult) {
         if (player.getItemInHand(hand).isEmpty()) {
             if (!level.isClientSide) {
-                Vec3 p = Vec3.atCenterOf(pos);
-                Containers.dropItemStack(level, p.x, p.y + 0.2d, p.z, new ItemStack(Registry.Items.SALT.get()));
+                for (int i = 0; i < 100; i++) {
+                    dropContents(state, (ServerLevel)level, pos, player, hand, blockHitResult);
+                }
 
                 level.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
                 level.playSound(null, pos, SoundEvents.DRIPSTONE_BLOCK_HIT, SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -70,6 +80,32 @@ public class SaltCauldronBlock extends LayeredCauldronBlock {
         }
 
         return super.use(state, level, pos, player, hand, blockHitResult);
+    }
+
+    protected void dropContents(BlockState state, ServerLevel level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult blockHitResult) {
+        ResourceLocation lootTablePath = Salt.resource("cauldron/salt_" + getFullnessString(state));
+        LootTable lootTable = level.getServer().getLootTables().get(lootTablePath);
+
+        LootContext.Builder lootContextBuilder = (new LootContext.Builder(level))
+                .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(pos));
+
+        List<ItemStack> randomItems = lootTable.getRandomItems(lootContextBuilder.create(LootContextParamSets.EMPTY));
+
+        Vec3 center = Vec3.atCenterOf(pos);
+        Random random = level.getRandom();
+
+        for (ItemStack itemStack : randomItems) {
+            Containers.dropItemStack(level, (random.nextGaussian() * 0.2d) + center.x,
+                    (random.nextGaussian() * 0.2d) + center.y + 0.2d, (random.nextGaussian() * 0.2d) + center.z, itemStack);
+        }
+    }
+
+    protected String getFullnessString(BlockState state) {
+        return switch (state.getValue(LEVEL)) {
+            case 1 -> "level_1";
+            case 2 -> "level_2";
+            default -> "full";
+        };
     }
 
     @Override
