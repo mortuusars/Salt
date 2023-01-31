@@ -24,30 +24,28 @@ public abstract class ItemModelShaperMixin {
     private static final ResourceLocation SALT_OVERLAY = Salt.resource("item/salted_overlay");
 
     @Shadow
-    abstract BakedModel getItemModel(Item item);
-
-    @Shadow
     protected static int getIndex(Item pItem) {
         return 0;
     }
 
     @Inject(method = "getItemModel(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/client/resources/model/BakedModel;",
-            at = @At("HEAD"), cancellable = true)
-    private void getItemModel(ItemStack stack, CallbackInfoReturnable<BakedModel> cir) {
+            at = @At("RETURN"), cancellable = true)
+    private void onGetItemModel(ItemStack stack, CallbackInfoReturnable<BakedModel> cir) {
+
         //TODO: Disable in config
-        if (Salting.isSalted(stack) && !CallStackHelper.isCalledFrom(CallStackHelper.ITEM_IN_HAND)) {
-            BakedModel cachedModel = LayeredBakedModel.Cache.get(getIndex(stack.getItem()));
-            if (cachedModel != null)
-                cir.setReturnValue(cachedModel);
-            else {
-                BakedModel originalModel = this.getItemModel(stack.getItem());
-                if (originalModel != null) {
-                    BakedModel saltOverlayModel = Minecraft.getInstance().getModelManager().getModel(SALT_OVERLAY);
-                    LayeredBakedModel layeredModel = new LayeredBakedModel(List.of(originalModel, saltOverlayModel));
-                    LayeredBakedModel.Cache.add(getIndex(stack.getItem()), layeredModel);
-                    cir.setReturnValue(layeredModel);
-                }
-            }
+
+        if (!Salting.isSalted(stack) || CallStackHelper.isCalledFrom(CallStackHelper.ITEM_IN_HAND))
+            return;
+
+        BakedModel cachedModel = LayeredBakedModel.Cache.get(getIndex(stack.getItem()));
+        if (cachedModel != null)
+            cir.setReturnValue(cachedModel);
+        else {
+            BakedModel originalModel = cir.getReturnValue();
+            BakedModel saltOverlayModel = Minecraft.getInstance().getModelManager().getModel(SALT_OVERLAY);
+            LayeredBakedModel layeredModel = new LayeredBakedModel(List.of(originalModel, saltOverlayModel));
+            LayeredBakedModel.Cache.add(getIndex(stack.getItem()), layeredModel);
+            cir.setReturnValue(layeredModel);
         }
     }
 }
