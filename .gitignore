@@ -16,7 +16,7 @@ out
 # gradle
 build
 .gradle
-mcmodrepo
+mcmodsrepo
 
 # other
 eclipse
