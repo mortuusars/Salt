@@ -1,6 +1,9 @@
 {
   "item.salt.salt": "Salt",
-  "block.salt.rock_salt": "Rock Salt",
 
-  "salt.gui.tooltip.salted": "Salted"
+  "block.salt.rock_salt": "Rock Salt",
+  "block.salt.salt_cauldron": "Salt Cauldron",
+
+  "salt.gui.tooltip.salted": "Salted",
+  "salt.gui.tooltip.salted_expanded_part": ": +%s nutrition"
 }
