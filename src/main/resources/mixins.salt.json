@@ -5,9 +5,11 @@
   "compatibilityLevel": "JAVA_16",
   "refmap": "mixins.salt.refmap.json",
   "mixins": [
-    "WaterCauldronMixin"
+    "WaterCauldronMixin",
+    "ItemModelShaperMixin",
+    "ItemModelMesherForgeMixin"
   ],
   "injectors": {
-    "defaultRequire": 1
+    "defaultRequire": -1
   }
 }

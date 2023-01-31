@@ -30,7 +30,7 @@ public abstract class WaterCauldronMixin extends Block {
      * By default, 'tick' is called only when dripstone is filling the cauldron -
      * We set LayeredCauldronBlock#isRandomlyTicking to true, so it is called also on random tick.
      */
-    @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "tick", at = @At("HEAD"), cancellable = true, require = 1)
     private void tick(BlockState state, ServerLevel level, BlockPos pos, Random random, CallbackInfo ci) {
 
         boolean hasHeatSourceBelow = Heater.isHeatSource(level.getBlockState(pos.below()));
