@@ -1,4 +1,4 @@
-package io.github.mortuusars.salt;
+package io.github.mortuusars.salt.client.rendering;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;

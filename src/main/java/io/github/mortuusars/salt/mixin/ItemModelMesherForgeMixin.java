@@ -1,6 +1,6 @@
 package io.github.mortuusars.salt.mixin;
 
-import io.github.mortuusars.salt.LayeredBakedModel;
+import io.github.mortuusars.salt.client.rendering.LayeredBakedModel;
 import net.minecraftforge.client.ItemModelMesherForge;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

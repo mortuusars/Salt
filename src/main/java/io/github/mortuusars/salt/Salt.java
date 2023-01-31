@@ -1,6 +1,5 @@
 package io.github.mortuusars.salt;
 
-import com.mojang.logging.LogUtils;
 import io.github.mortuusars.salt.event.ClientEvents;
 import io.github.mortuusars.salt.event.CommonEvents;
 import net.minecraft.resources.ResourceLocation;
@@ -10,10 +9,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Mod(Salt.ID)
 public class Salt
@@ -36,19 +31,5 @@ public class Salt
 
     public static ResourceLocation resource(String path) {
         return new ResourceLocation(ID, path);
-    }
-
-    public static boolean isForHoldingInArms() {
-        try {
-            return StackWalker.getInstance()
-                    .walk(frames -> frames
-                            .map(StackWalker.StackFrame::getMethodName)
-                            .skip(7)
-                            .findFirst()).orElse("").equals("renderHandsWithItems");
-        }
-        catch (Exception e) {
-            LogUtils.getLogger().error(e.toString());
-            return false;
-        }
     }
 }

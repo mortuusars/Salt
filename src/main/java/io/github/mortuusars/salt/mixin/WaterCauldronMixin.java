@@ -1,6 +1,7 @@
 package io.github.mortuusars.salt.mixin;
 
 import io.github.mortuusars.salt.Registry;
+import io.github.mortuusars.salt.helper.CallStackHelper;
 import io.github.mortuusars.salt.helper.Heater;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -29,6 +30,8 @@ public abstract class WaterCauldronMixin extends Block {
      * Handles converting water cauldron into a salt cauldron.
      * By default, 'tick' is called only when dripstone is filling the cauldron -
      * We set LayeredCauldronBlock#isRandomlyTicking to true, so it is called also on random tick.
+     *
+     * Another way to do this can probably be injecting in 'LayeredCauldronBlock#randomTick' and stopping it from proceeding to 'tick'.
      */
     @Inject(method = "tick", at = @At("HEAD"), cancellable = true, require = 1)
     private void tick(BlockState state, ServerLevel level, BlockPos pos, Random random, CallbackInfo ci) {
@@ -49,27 +52,15 @@ public abstract class WaterCauldronMixin extends Block {
             }
         }
 
-        if (!state.is(Blocks.WATER_CAULDRON) || state.getValue(LayeredCauldronBlock.LEVEL) == 0 || !hasHeatSourceBelow)
-            return;
+        //TODO: Config chance of conversion
+
+        boolean hasWater = state.getValue(LayeredCauldronBlock.LEVEL) != 0;
 
         // Because of the 'isRandomlyTicking', this method gets called more often -
         // and this causes cauldron to fill up quicker than intended.
         // But - callers of this method are different. Dripstone is calling from the 'tick' method.
         // We are interested only in calls from 'randomTick'.
-        Optional<String> callerMethodName = StackWalker.getInstance()
-                .walk(frames -> frames
-                        .map(StackWalker.StackFrame::getMethodName)
-                        .skip(2)
-                        .findFirst());
-
-        //TODO: Config chance of conversion
-
-        if (callerMethodName.isPresent() && callerMethodName.get().equals("randomTick")) {
-            BlockPos blockpos = PointedDripstoneBlock.findStalactiteTipAboveCauldron(level, pos);
-            if (blockpos == null) {
-                //TODO: reduce chance if water dripping
-            }
-
+        if (state.is(Blocks.WATER_CAULDRON) && hasWater && hasHeatSourceBelow && CallStackHelper.isCalledFrom(CallStackHelper.RANDOM_TICK)) {
             level.setBlockAndUpdate(pos, Registry.Blocks.SALT_CAULDRON.get().withPropertiesOf(state));
             level.levelEvent(null, LevelEvent.SOUND_EXTINGUISH_FIRE, pos, 0);
             ci.cancel();
