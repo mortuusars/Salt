@@ -1,3 +1,8 @@
 {
-  "type": "salt:salting"
+  "type": "salt:salting",
+  "ingredients": [
+    {
+      "tag": "forge:salts"
+    }
+  ]
 }

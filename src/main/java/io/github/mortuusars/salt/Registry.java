@@ -52,7 +52,7 @@ public class Registry {
     public static class RecipeSerializers {
         private static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Salt.ID);
 
-        public static final RegistryObject<RecipeSerializer<?>> SALTING = RECIPE_SERIALIZERS.register("salting", () -> new SimpleRecipeSerializer<>(SaltingRecipe::new));
+        public static final RegistryObject<RecipeSerializer<?>> SALTING = RECIPE_SERIALIZERS.register("salting", () -> new SaltingRecipe.Serializer());
 
     }
 
