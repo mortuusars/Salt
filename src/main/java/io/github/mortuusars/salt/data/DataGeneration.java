@@ -1,6 +1,8 @@
 package io.github.mortuusars.salt.data;
 
 import io.github.mortuusars.salt.Salt;
+import io.github.mortuusars.salt.data.provider.BlockTags;
+import io.github.mortuusars.salt.data.provider.ItemTags;
 import io.github.mortuusars.salt.data.provider.LootTables;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -18,7 +20,9 @@ public class DataGeneration
         if (event.includeServer()) {
 //            generator.addProvider(new Advancements(generator, helper));
             generator.addProvider(new LootTables(generator));
-//            generator.addProvider(new Recipes(generator));
+            BlockTags blockTags = new BlockTags(generator, helper);
+            generator.addProvider(blockTags);
+            generator.addProvider(new ItemTags(generator, blockTags, helper));
         }
         if (event.includeClient()) {
 //            BlockStates blockStates = new BlockStates(generator, helper);
