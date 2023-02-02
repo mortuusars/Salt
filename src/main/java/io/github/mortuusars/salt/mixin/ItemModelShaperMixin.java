@@ -3,6 +3,7 @@ package io.github.mortuusars.salt.mixin;
 import io.github.mortuusars.salt.client.rendering.LayeredBakedModel;
 import io.github.mortuusars.salt.Salt;
 import io.github.mortuusars.salt.Salting;
+import io.github.mortuusars.salt.configuration.Configuration;
 import io.github.mortuusars.salt.helper.CallStackHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemModelShaper;
@@ -31,8 +32,8 @@ public abstract class ItemModelShaperMixin {
     @Inject(method = "getItemModel(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/client/resources/model/BakedModel;",
             at = @At("RETURN"), cancellable = true)
     private void onGetItemModel(ItemStack stack, CallbackInfoReturnable<BakedModel> cir) {
-
-        //TODO: Disable in config
+        if (!Configuration.SALTED_OVERLAY.get())
+            return;
 
         if (!Salting.isSalted(stack) || CallStackHelper.isCalledFrom(CallStackHelper.ITEM_IN_HAND))
             return;

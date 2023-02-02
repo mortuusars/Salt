@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "salt:rock_salt",
     "salt:salt_cauldron"
   ]
 }

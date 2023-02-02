@@ -14,7 +14,8 @@ public class BlockTags extends BlockTagsProvider {
 
     @Override
     protected void addTags() {
-        tag(net.minecraft.tags.BlockTags.MINEABLE_WITH_AXE)
+        tag(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE)
+                .add(Registry.Blocks.ROCK_SALT.get())
                 .add(Registry.Blocks.SALT_CAULDRON.get());
     }
 }

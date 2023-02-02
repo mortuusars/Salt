@@ -1,6 +1,7 @@
 package io.github.mortuusars.salt.mixin;
 
 import io.github.mortuusars.salt.Registry;
+import io.github.mortuusars.salt.configuration.Configuration;
 import io.github.mortuusars.salt.helper.CallStackHelper;
 import io.github.mortuusars.salt.helper.Heater;
 import net.minecraft.core.BlockPos;
@@ -16,7 +17,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Optional;
 import java.util.Random;
 
 @Mixin(AbstractCauldronBlock.class)
@@ -35,6 +35,8 @@ public abstract class WaterCauldronMixin extends Block {
      */
     @Inject(method = "tick", at = @At("HEAD"), cancellable = true, require = 1)
     private void tick(BlockState state, ServerLevel level, BlockPos pos, Random random, CallbackInfo ci) {
+        if (!Configuration.EVAPORATION_ENABLED.get())
+            return;
 
         boolean hasHeatSourceBelow = Heater.isHeatSource(level.getBlockState(pos.below()));
 
@@ -52,15 +54,14 @@ public abstract class WaterCauldronMixin extends Block {
             }
         }
 
-        //TODO: Config chance of conversion
-
         boolean hasWater = state.getValue(LayeredCauldronBlock.LEVEL) != 0;
 
         // Because of the 'isRandomlyTicking', this method gets called more often -
         // and this causes cauldron to fill up quicker than intended.
         // But - callers of this method are different. Dripstone is calling from the 'tick' method.
         // We are interested only in calls from 'randomTick'.
-        if (state.is(Blocks.WATER_CAULDRON) && hasWater && hasHeatSourceBelow && CallStackHelper.isCalledFrom(CallStackHelper.RANDOM_TICK)) {
+        if (state.is(Blocks.WATER_CAULDRON) && hasWater && hasHeatSourceBelow && CallStackHelper.isCalledFrom(CallStackHelper.RANDOM_TICK)
+            && level.getRandom().nextDouble() < Configuration.EVAPORATION_CHANCE.get()) {
             level.setBlockAndUpdate(pos, Registry.Blocks.SALT_CAULDRON.get().withPropertiesOf(state));
             level.levelEvent(null, LevelEvent.SOUND_EXTINGUISH_FIRE, pos, 0);
             ci.cancel();

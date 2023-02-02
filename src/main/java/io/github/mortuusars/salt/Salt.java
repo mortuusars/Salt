@@ -51,10 +51,13 @@ public class Salt
             return;
 
         if (event.getItemStack().is(Items.DEBUG_STICK)) {
-            ForgeRegistries.ITEMS.getValues()
-                    .stream()
-                    .filter(i -> i.isEdible())
-                    .forEach(i -> player.drop(new ItemStack(i), false));
+//            Registry.Blocks.SALT_CAULDRON.get().defaultBlockState().getDestroySpeed()
+
+
+//            ForgeRegistries.ITEMS.getValues()
+//                    .stream()
+//                    .filter(i -> i.isEdible())
+//                    .forEach(i -> player.drop(new ItemStack(i), false));
         }
     }
 

@@ -2,8 +2,6 @@ package io.github.mortuusars.salt.block;
 
 import io.github.mortuusars.salt.Salt;
 import io.github.mortuusars.salt.helper.Heater;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.resources.ResourceLocation;
@@ -23,6 +21,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CauldronBlock;
@@ -50,7 +49,7 @@ public class SaltCauldronBlock extends LayeredCauldronBlock {
     private Predicate<Biome.Precipitation> fillPredicate;
 
     public SaltCauldronBlock(Predicate<Biome.Precipitation> fillPredicate, Map<Item, CauldronInteraction> interactions) {
-        super(BlockBehaviour.Properties.copy(Blocks.CAULDRON), fillPredicate, interactions);
+        super(BlockBehaviour.Properties.copy(Blocks.WATER_CAULDRON), fillPredicate, interactions);
         this.fillPredicate = fillPredicate;
     }
 
@@ -60,12 +59,19 @@ public class SaltCauldronBlock extends LayeredCauldronBlock {
     }
 
     @Override
+    public void destroy(LevelAccessor level, BlockPos pos, BlockState state) {
+        super.destroy(level, pos, state);
+        if (level instanceof ServerLevel serverLevel)
+            dropContents(serverLevel, state, pos);
+    }
+
+    @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult blockHitResult) {
         if (player.getItemInHand(hand).isEmpty()) {
-            if (!level.isClientSide) {
-                dropContents(state, (ServerLevel)level, pos, player, hand, blockHitResult);
-                level.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
-                level.playSound(null, pos, SoundEvents.DRIPSTONE_BLOCK_HIT, SoundSource.BLOCKS, 0.8F, level.getRandom().nextFloat() * 0.2f + 0.9f);
+            if (level instanceof ServerLevel serverLevel) {
+                dropContents(serverLevel, state, pos);
+                serverLevel.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
+                serverLevel.playSound(null, pos, SoundEvents.DRIPSTONE_BLOCK_HIT, SoundSource.BLOCKS, 0.8F, serverLevel.getRandom().nextFloat() * 0.2f + 0.9f);
             }
 
             return InteractionResult.sidedSuccess(level.isClientSide);
@@ -74,7 +80,7 @@ public class SaltCauldronBlock extends LayeredCauldronBlock {
         return super.use(state, level, pos, player, hand, blockHitResult);
     }
 
-    protected void dropContents(BlockState state, ServerLevel level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult blockHitResult) {
+    protected void dropContents(ServerLevel level, BlockState state, BlockPos pos) {
         ResourceLocation lootTablePath = Salt.resource("cauldron/salt_" + getFullnessString(state));
         LootTable lootTable = level.getServer().getLootTables().get(lootTablePath);
 
