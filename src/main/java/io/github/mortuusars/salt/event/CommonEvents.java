@@ -6,9 +6,9 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 public class CommonEvents {
-
     public static void onCommonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
+            // 'randomTick' is used in mixin to convert Water Cauldron to Salt Cauldron:
             Blocks.WATER_CAULDRON.isRandomlyTicking = true;
         });
     }
@@ -16,10 +16,4 @@ public class CommonEvents {
     public static void onItemUseFinish(LivingEntityUseItemEvent.Finish event) {
         Salting.onFoodEaten(event);
     }
-
-//    public static void onEntityJoinWorld(EntityJoinWorldEvent event) {
-//        if (event.getEntity() instanceof Animal animal) {
-//
-//        }
-//    }
 }

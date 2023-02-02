@@ -1,5 +1,6 @@
 package io.github.mortuusars.salt;
 
+import io.github.mortuusars.salt.configuration.Configuration;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -22,13 +23,11 @@ public class Salting {
     }
 
     public static int getAdditionalNutrition(ItemStack stack) {
-        //TODO: Config nutrition value
-        return 2;
+        return Configuration.SALTING_ADDITIONAL_NUTRITION.get();
     }
 
     public static float getAdditionalSaturationModifier(ItemStack stack) {
-        //TODO: Config saturation value
-        return 0.3f;
+        return (float)Configuration.SALTING_ADDITIONAL_SATURATION_MODIFIER.get().doubleValue();
     }
 
     public static void onFoodEaten(LivingEntityUseItemEvent.Finish event) {

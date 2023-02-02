@@ -1,5 +1,6 @@
 package io.github.mortuusars.salt;
 
+import io.github.mortuusars.salt.configuration.Configuration;
 import io.github.mortuusars.salt.event.ClientEvents;
 import io.github.mortuusars.salt.event.CommonEvents;
 import net.minecraft.SharedConstants;
@@ -25,6 +26,8 @@ public class Salt
     public static final String ID = "salt";
 
     public Salt() {
+        Configuration.init();
+
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         Registry.register(modEventBus);
 
