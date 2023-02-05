@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "salt:block/raw_rock_salt"
+    }
+  }
+}

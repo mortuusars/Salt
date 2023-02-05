@@ -5,5 +5,5 @@
   "block.salt.salt_cauldron": "Salt Cauldron",
 
   "salt.gui.tooltip.salted": "Salted",
-  "salt.gui.tooltip.salted_expanded_part": ": +%s nutrition"
+  "salt.gui.tooltip.salted_expanded_part": ": %s nutrition"
 }

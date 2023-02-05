@@ -14,16 +14,16 @@ import net.minecraft.world.level.material.Material;
 import java.util.Random;
 
 public class SaltBlock extends Block {
-    public SaltBlock() {
-        super(Properties.of(Material.STONE));
+    public SaltBlock(Properties properties) {
+        super(properties);
     }
 
     @Override
     public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
 
-        boolean isClientSide = pLevel.isClientSide;
-
-        LogUtils.getLogger().info("Changed. Client = " + isClientSide);
+//        boolean isClientSide = pLevel.isClientSide;
+//
+//        LogUtils.getLogger().info("Changed. Client = " + isClientSide);
 
         super.neighborChanged(pState, pLevel, pPos, pBlock, pFromPos, pIsMoving);
     }
@@ -31,7 +31,7 @@ public class SaltBlock extends Block {
     @Override
     public void onBlockStateChange(LevelReader level, BlockPos pos, BlockState oldState, BlockState newState) {
 
-        LogUtils.getLogger().info("State Changed");
+//        LogUtils.getLogger().info("State Changed");
 
         super.onBlockStateChange(level, pos, oldState, newState);
     }

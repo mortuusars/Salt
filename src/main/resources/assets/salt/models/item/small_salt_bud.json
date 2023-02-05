@@ -1,0 +1,11 @@
+  {
+  "parent": "salt:item/base_salt_bud",
+  "textures": {
+    "layer0": "salt:block/small_salt_bud"
+  },
+  "display": {
+    "fixed": {
+      "translation": [ 0, 4, 0 ]
+    }
+  }
+}
