@@ -1,6 +1,6 @@
 package io.github.mortuusars.salt.mixin;
 
-import io.github.mortuusars.salt.Registry;
+import io.github.mortuusars.salt.Salt;
 import io.github.mortuusars.salt.configuration.Configuration;
 import io.github.mortuusars.salt.helper.CallStackHelper;
 import io.github.mortuusars.salt.helper.Heater;
@@ -62,7 +62,7 @@ public abstract class WaterCauldronMixin extends Block {
         // We are interested only in calls from 'randomTick'.
         if (state.is(Blocks.WATER_CAULDRON) && hasWater && hasHeatSourceBelow && CallStackHelper.isCalledFrom(CallStackHelper.RANDOM_TICK)
             && level.getRandom().nextDouble() < Configuration.EVAPORATION_CHANCE.get()) {
-            level.setBlockAndUpdate(pos, Registry.Blocks.SALT_CAULDRON.get().withPropertiesOf(state));
+            level.setBlockAndUpdate(pos, Salt.Blocks.SALT_CAULDRON.get().withPropertiesOf(state));
             level.levelEvent(null, LevelEvent.SOUND_EXTINGUISH_FIRE, pos, 0);
             ci.cancel();
         }

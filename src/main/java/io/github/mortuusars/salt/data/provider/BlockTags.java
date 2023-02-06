@@ -1,9 +1,9 @@
 package io.github.mortuusars.salt.data.provider;
 
-import io.github.mortuusars.salt.Registry;
 import io.github.mortuusars.salt.Salt;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,7 +15,24 @@ public class BlockTags extends BlockTagsProvider {
     @Override
     protected void addTags() {
         tag(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE)
-                .add(Registry.Blocks.ROCK_SALT.get())
-                .add(Registry.Blocks.SALT_CAULDRON.get());
+                .add(Salt.Blocks.ROCK_SALT.get())
+                .add(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get())
+                .add(Salt.Blocks.SALT_CLUSTER.get())
+                .add(Salt.Blocks.LARGE_SALT_BUD.get())
+                .add(Salt.Blocks.MEDIUM_SALT_BUD.get())
+                .add(Salt.Blocks.SMALL_SALT_BUD.get())
+                .add(Salt.Blocks.SALT_CAULDRON.get());
+
+        tag(Salt.BlockTags.HEATERS)
+                .add(Blocks.CAMPFIRE)
+                .add(Blocks.SOUL_CAMPFIRE)
+                .add(Blocks.FIRE)
+                .add(Blocks.SOUL_FIRE)
+                .add(Blocks.MAGMA_BLOCK);
+
+        tag(Salt.BlockTags.SALT_CLUSTER_REPLACEABLES)
+                .add(Blocks.AIR)
+                .add(Blocks.CAVE_AIR)
+                .add(Blocks.VOID_AIR);
     }
 }

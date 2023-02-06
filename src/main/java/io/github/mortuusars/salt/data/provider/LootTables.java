@@ -2,7 +2,6 @@ package io.github.mortuusars.salt.data.provider;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import io.github.mortuusars.salt.Registry;
 import io.github.mortuusars.salt.Salt;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
@@ -37,7 +36,7 @@ public class LootTables extends LootTableProvider {
 
         // Blocks:
 
-        writeTable(cache, Registry.Blocks.SALT_CAULDRON.getId(),
+        writeTable(cache, Salt.Blocks.SALT_CAULDRON.getId(),
                 LootTable.lootTable().withPool(
                         LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1))
@@ -47,31 +46,31 @@ public class LootTables extends LootTableProvider {
 
         // Evaporated salt:
 
-        writeTable(cache, Salt.resource("cauldron/salt_level_1"),
+        writeTable(cache, Salt.resource("cauldron_evaporation/salt_level_1"),
                 LootTable.lootTable().withPool(
                         LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1))
-                                .add(LootItem.lootTableItem(Registry.Items.SALT.get())
+                                .add(LootItem.lootTableItem(Salt.Items.SALT.get())
                                         .when(LootItemRandomChanceCondition.randomChance(0.75f))))
                         .build());
 
-        writeTable(cache, Salt.resource("cauldron/salt_level_2"),
+        writeTable(cache, Salt.resource("cauldron_evaporation/salt_level_2"),
                 LootTable.lootTable().withPool(
                         LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1))
-                                .add(LootItem.lootTableItem(Registry.Items.SALT.get())
+                                .add(LootItem.lootTableItem(Salt.Items.SALT.get())
                                         .when(LootItemRandomChanceCondition.randomChance(0.9f))))
                         .build());
 
-        writeTable(cache, Salt.resource("cauldron/salt_full"),
+        writeTable(cache, Salt.resource("cauldron_evaporation/salt_full"),
                 LootTable.lootTable().withPool(
                         LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1))
-                                .add(LootItem.lootTableItem(Registry.Items.SALT.get())))
+                                .add(LootItem.lootTableItem(Salt.Items.SALT.get())))
                         .withPool(
                                 LootPool.lootPool()
                                         .setRolls(ConstantValue.exactly(1))
-                                        .add(LootItem.lootTableItem(Registry.Items.SALT.get())
+                                        .add(LootItem.lootTableItem(Salt.Items.SALT.get())
                                                 .when(LootItemRandomChanceCondition.randomChance(0.25f))))
                         .build());
     }

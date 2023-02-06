@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/large_amethyst_bud",
+  "textures": {
+    "layer0": "salt:block/large_salt_bud"
+  }
+}

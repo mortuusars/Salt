@@ -1,8 +1,15 @@
 {
   "item.salt.salt": "Salt",
+  "item.salt.raw_rock_salt": "Raw Rock Salt",
 
   "block.salt.rock_salt": "Rock Salt",
+  "block.salt.raw_rock_salt_block": "Raw Rock Salt Block",
+  "block.salt.salt_block": "Salt Block",
   "block.salt.salt_cauldron": "Salt Cauldron",
+  "block.salt.salt_cluster": "Salt Cluster",
+  "block.salt.large_salt_bud": "Large Salt Bud",
+  "block.salt.medium_salt_bud": "Medium Salt Bud",
+  "block.salt.small_salt_bud": "Small Salt Bud",
 
   "salt.gui.tooltip.salted": "Salted",
   "salt.gui.tooltip.salted_expanded_part": ": %s nutrition"

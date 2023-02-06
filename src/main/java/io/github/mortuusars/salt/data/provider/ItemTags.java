@@ -1,13 +1,10 @@
 package io.github.mortuusars.salt.data.provider;
 
-import io.github.mortuusars.salt.Registry;
 import io.github.mortuusars.salt.Salt;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
@@ -19,7 +16,7 @@ public class ItemTags extends ItemTagsProvider {
 
     @Override
     protected void addTags() {
-        tag(Registry.ItemTags.CAN_BE_SALTED)
+        tag(Salt.ItemTags.CAN_BE_SALTED)
                 // Vanilla
                 .add(Items.COOKED_BEEF)
                 .add(Items.COOKED_CHICKEN)
@@ -99,6 +96,8 @@ public class ItemTags extends ItemTagsProvider {
                 .addOptional(fd("shepherds_pie"))
         ;
 
+        tag(Salt.ItemTags.SALT)
+                .add(Salt.Items.SALT.get());
     }
 
     private ResourceLocation forge(String path) {

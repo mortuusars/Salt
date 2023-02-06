@@ -3,7 +3,6 @@ package io.github.mortuusars.salt.crafting.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import io.github.mortuusars.salt.Registry;
 import io.github.mortuusars.salt.Salt;
 import io.github.mortuusars.salt.Salting;
 import net.minecraft.core.NonNullList;
@@ -15,11 +14,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class SaltingRecipe extends CustomRecipe {
-    private static final Ingredient CAN_BE_SALTED = Ingredient.of(Registry.ItemTags.CAN_BE_SALTED);
+    private static final Ingredient CAN_BE_SALTED = Ingredient.of(Salt.ItemTags.CAN_BE_SALTED);
 
     private final String group;
     private NonNullList<Ingredient> ingredients;
@@ -103,7 +99,7 @@ public class SaltingRecipe extends CustomRecipe {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return Registry.RecipeSerializers.SALTING.get();
+        return Salt.RecipeSerializers.SALTING.get();
     }
 
     @Override

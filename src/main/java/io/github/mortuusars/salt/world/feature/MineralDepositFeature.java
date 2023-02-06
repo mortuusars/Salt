@@ -2,18 +2,13 @@ package io.github.mortuusars.salt.world.feature;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
-import io.github.mortuusars.salt.Registry;
+import io.github.mortuusars.salt.Salt;
 import io.github.mortuusars.salt.world.feature.configurations.MineralDepositConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
 import net.minecraft.core.SectionPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.block.AmethystClusterBlock;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.chunk.BulkSectionAccess;
@@ -25,7 +20,6 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class MineralDepositFeature extends Feature<MineralDepositConfiguration> {
@@ -44,17 +38,17 @@ public class MineralDepositFeature extends Feature<MineralDepositConfiguration> 
         BlockPos origin = context.origin();
         WorldGenLevel worldgenlevel = context.level();
 
-        if (!worldgenlevel.getBiome(origin).is(Registry.BiomeTags.HAS_SALT_DEPOSITS))
+        if (!worldgenlevel.getBiome(origin).is(Salt.BiomeTags.HAS_SALT_DEPOSITS))
             return false;
 
         MineralDepositConfiguration configuration = context.config();
         float f = random.nextFloat() * (float)Math.PI;
         float f1 = (float)configuration.size / 8.0F;
         int i = Mth.ceil(((float)configuration.size / 16.0F * 2.0F + 1.0F) / 2.0F);
-        double minX = (double)origin.getX() + Math.sin((double)f) * (double)f1;
-        double maxX = (double)origin.getX() - Math.sin((double)f) * (double)f1;
-        double minZ = (double)origin.getZ() + Math.cos((double)f) * (double)f1;
-        double maxZ = (double)origin.getZ() - Math.cos((double)f) * (double)f1;
+        double minX = (double)origin.getX() + Math.sin(f) * (double)f1;
+        double maxX = (double)origin.getX() - Math.sin(f) * (double)f1;
+        double minZ = (double)origin.getZ() + Math.cos(f) * (double)f1;
+        double maxZ = (double)origin.getZ() - Math.cos(f) * (double)f1;
         int j = 2;
         double mixY = (origin.getY() + random.nextInt(3) - 2);
         double maxY = (origin.getY() + random.nextInt(3) - 2);

@@ -1,6 +1,5 @@
 package io.github.mortuusars.salt.event;
 
-import io.github.mortuusars.salt.Registry;
 import io.github.mortuusars.salt.Salt;
 import io.github.mortuusars.salt.Salting;
 import net.minecraft.client.gui.screens.Screen;
@@ -18,10 +17,10 @@ import java.util.List;
 public class ClientEvents {
 
     public static void onClientSetup(FMLClientSetupEvent event) {
-        ItemBlockRenderTypes.setRenderLayer(Registry.Blocks.SALT_CLUSTER.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(Registry.Blocks.LARGE_SALT_BUD.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(Registry.Blocks.MEDIUM_SALT_BUD.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(Registry.Blocks.SMALL_SALT_BUD.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(Salt.Blocks.SALT_CLUSTER.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(Salt.Blocks.LARGE_SALT_BUD.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(Salt.Blocks.MEDIUM_SALT_BUD.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(Salt.Blocks.SMALL_SALT_BUD.get(), RenderType.cutout());
     }
 
     public static void onRegisterModels(ModelRegistryEvent ignoredEvent) {

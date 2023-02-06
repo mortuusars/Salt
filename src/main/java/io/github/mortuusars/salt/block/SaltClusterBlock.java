@@ -1,11 +1,9 @@
 package io.github.mortuusars.salt.block;
 
-import io.github.mortuusars.salt.Registry;
+import io.github.mortuusars.salt.Salt;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.NbtUtils;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -14,13 +12,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -51,11 +50,21 @@ public class SaltClusterBlock extends Block {
     @Override
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
         if (!level.isClientSide && !newState.getFluidState().is(Fluids.EMPTY)) {
-            level.playSound(null, pos, Registry.Sounds.SALT_DISSOLVE.get(), SoundSource.BLOCKS, 0.8f,
+            level.playSound(null, pos, Salt.Sounds.SALT_DISSOLVE.get(), SoundSource.BLOCKS, 0.8f,
                     level.getRandom().nextFloat() * 0.2f + 0.9f);
         }
 
         super.onRemove(state, level, pos, newState, isMoving);
+    }
+
+    @Override
+    public OffsetType getOffsetType() {
+        return BlockBehaviour.OffsetType.XZ;
+    }
+
+    @Override
+    public float getMaxHorizontalOffset() {
+        return 0.1f;
     }
 
     @Override
@@ -68,23 +77,18 @@ public class SaltClusterBlock extends Block {
         super.randomTick(pState, pLevel, pPos, pRandom);
     }
 
-    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        Direction direction = pState.getValue(FACING);
-        switch(direction) {
-            case NORTH:
-                return this.northAabb;
-            case SOUTH:
-                return this.southAabb;
-            case EAST:
-                return this.eastAabb;
-            case WEST:
-                return this.westAabb;
-            case DOWN:
-                return this.downAabb;
-            case UP:
-            default:
-                return this.upAabb;
-        }
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        Direction direction = state.getValue(FACING);
+        VoxelShape shape = switch (direction) {
+            case DOWN -> this.downAabb;
+            case UP -> this.upAabb;
+            case NORTH -> this.northAabb;
+            case SOUTH -> this.southAabb;
+            case WEST -> this.westAabb;
+            case EAST -> this.eastAabb;
+        };
+        Vec3 vec3 = state.getOffset(level, pos);
+        return shape.move(vec3.x, 0, vec3.z);
     }
 
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
