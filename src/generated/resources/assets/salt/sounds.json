@@ -28,6 +28,40 @@
       }
     ]
   },
+  "block.salt.cauldron.evaporate": {
+    "subtitle": "subtitles.block.salt.salt_dissolve",
+    "sounds": [
+      {
+        "name": "random/fizz",
+        "volume": 0.9,
+        "pitch": 0.85
+      }
+    ]
+  },
+  "block.salt.salt_cauldron.remove_salt": {
+    "sounds": [
+      {
+        "name": "step/sand1",
+        "pitch": 1.1
+      },
+      {
+        "name": "step/sand2",
+        "pitch": 1.1
+      },
+      {
+        "name": "step/sand3",
+        "pitch": 1.1
+      },
+      {
+        "name": "step/sand4",
+        "pitch": 1.1
+      },
+      {
+        "name": "step/sand5",
+        "pitch": 1.1
+      }
+    ]
+  },
   "block.salt.salt.break": {
     "subtitle": "subtitles.block.generic.break",
     "sounds": [

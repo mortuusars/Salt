@@ -17,6 +17,11 @@ public class Sounds extends SoundDefinitionsProvider {
         add(Salt.Sounds.SALT_DISSOLVE.get(), definition()
                 .subtitle(LangKeys.SUBTITLES_SALT_DISSOLVE)
                 .with(multiple(6, "block/azalea/break", 1.0f, 1.3f)));
+        add(Salt.Sounds.CAULDRON_EVAPORATE.get(), definition()
+                .subtitle(LangKeys.SUBTITLES_SALT_DISSOLVE)
+                .with(sound("random/fizz").volume(0.9f).pitch(0.85f)));
+        add(Salt.Sounds.SALT_CAULDRON_REMOVE_SALT.get(), definition()
+                .with(multiple(5, "step/sand", 1.0f, 1.1f)));
 
         add(Salt.Sounds.SALT_BREAK.get(), definition()
                 .subtitle("subtitles.block.generic.break")

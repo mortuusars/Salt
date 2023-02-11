@@ -171,39 +171,41 @@ public class Salt
     public static class Sounds {
         private static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Salt.ID);
 
-        public static final RegistryObject<SoundEvent> SALT_BREAK = registerSoundBlock("salt.break");
-        public static final RegistryObject<SoundEvent> SALT_STEP = registerSoundBlock("salt.step");
-        public static final RegistryObject<SoundEvent> SALT_PLACE = registerSoundBlock("salt.place");
-        public static final RegistryObject<SoundEvent> SALT_HIT = registerSoundBlock("salt.hit");
-        public static final RegistryObject<SoundEvent> SALT_FALL = registerSoundBlock("salt.fall");
+        public static final RegistryObject<SoundEvent> SALT_DISSOLVE = registerBlockSound("salt.dissolve");
+        public static final RegistryObject<SoundEvent> CAULDRON_EVAPORATE = registerBlockSound("cauldron.evaporate");
+        public static final RegistryObject<SoundEvent> SALT_CAULDRON_REMOVE_SALT = registerBlockSound("salt_cauldron.remove_salt");
 
-        public static final RegistryObject<SoundEvent> SALT_DISSOLVE = registerSoundBlock("salt.dissolve");
+        public static final RegistryObject<SoundEvent> SALT_BREAK = registerBlockSound("salt.break");
+        public static final RegistryObject<SoundEvent> SALT_STEP = registerBlockSound("salt.step");
+        public static final RegistryObject<SoundEvent> SALT_PLACE = registerBlockSound("salt.place");
+        public static final RegistryObject<SoundEvent> SALT_HIT = registerBlockSound("salt.hit");
+        public static final RegistryObject<SoundEvent> SALT_FALL = registerBlockSound("salt.fall");
 
-        public static final RegistryObject<SoundEvent> SALT_CLUSTER_BREAK = registerSoundBlock("salt_cluster.break");
-        public static final RegistryObject<SoundEvent> SALT_CLUSTER_STEP = registerSoundBlock("salt_cluster.step");
-        public static final RegistryObject<SoundEvent> SALT_CLUSTER_PLACE = registerSoundBlock("salt_cluster.place");
-        public static final RegistryObject<SoundEvent> SALT_CLUSTER_HIT = registerSoundBlock("salt_cluster.hit");
-        public static final RegistryObject<SoundEvent> SALT_CLUSTER_FALL = registerSoundBlock("salt_cluster.fall");
+        public static final RegistryObject<SoundEvent> SALT_CLUSTER_BREAK = registerBlockSound("salt_cluster.break");
+        public static final RegistryObject<SoundEvent> SALT_CLUSTER_STEP = registerBlockSound("salt_cluster.step");
+        public static final RegistryObject<SoundEvent> SALT_CLUSTER_PLACE = registerBlockSound("salt_cluster.place");
+        public static final RegistryObject<SoundEvent> SALT_CLUSTER_HIT = registerBlockSound("salt_cluster.hit");
+        public static final RegistryObject<SoundEvent> SALT_CLUSTER_FALL = registerBlockSound("salt_cluster.fall");
 
-        public static final RegistryObject<SoundEvent> LARGE_SALT_BUD_BREAK = registerSoundBlock("large_salt_bud.break");
-        public static final RegistryObject<SoundEvent> LARGE_SALT_BUD_STEP = registerSoundBlock("large_salt_bud.step");
-        public static final RegistryObject<SoundEvent> LARGE_SALT_BUD_PLACE = registerSoundBlock("large_salt_bud.place");
-        public static final RegistryObject<SoundEvent> LARGE_SALT_BUD_HIT = registerSoundBlock("large_salt_bud.hit");
-        public static final RegistryObject<SoundEvent> LARGE_SALT_BUD_FALL = registerSoundBlock("large_salt_bud.fall");
+        public static final RegistryObject<SoundEvent> LARGE_SALT_BUD_BREAK = registerBlockSound("large_salt_bud.break");
+        public static final RegistryObject<SoundEvent> LARGE_SALT_BUD_STEP = registerBlockSound("large_salt_bud.step");
+        public static final RegistryObject<SoundEvent> LARGE_SALT_BUD_PLACE = registerBlockSound("large_salt_bud.place");
+        public static final RegistryObject<SoundEvent> LARGE_SALT_BUD_HIT = registerBlockSound("large_salt_bud.hit");
+        public static final RegistryObject<SoundEvent> LARGE_SALT_BUD_FALL = registerBlockSound("large_salt_bud.fall");
 
-        public static final RegistryObject<SoundEvent> MEDIUM_SALT_BUD_BREAK = registerSoundBlock("medium_salt_bud.break");
-        public static final RegistryObject<SoundEvent> MEDIUM_SALT_BUD_STEP = registerSoundBlock("medium_salt_bud.step");
-        public static final RegistryObject<SoundEvent> MEDIUM_SALT_BUD_PLACE = registerSoundBlock("medium_salt_bud.place");
-        public static final RegistryObject<SoundEvent> MEDIUM_SALT_BUD_HIT = registerSoundBlock("medium_salt_bud.hit");
-        public static final RegistryObject<SoundEvent> MEDIUM_SALT_BUD_FALL = registerSoundBlock("medium_salt_bud.fall");
+        public static final RegistryObject<SoundEvent> MEDIUM_SALT_BUD_BREAK = registerBlockSound("medium_salt_bud.break");
+        public static final RegistryObject<SoundEvent> MEDIUM_SALT_BUD_STEP = registerBlockSound("medium_salt_bud.step");
+        public static final RegistryObject<SoundEvent> MEDIUM_SALT_BUD_PLACE = registerBlockSound("medium_salt_bud.place");
+        public static final RegistryObject<SoundEvent> MEDIUM_SALT_BUD_HIT = registerBlockSound("medium_salt_bud.hit");
+        public static final RegistryObject<SoundEvent> MEDIUM_SALT_BUD_FALL = registerBlockSound("medium_salt_bud.fall");
 
-        public static final RegistryObject<SoundEvent> SMALL_SALT_BUD_BREAK = registerSoundBlock("small_salt_bud.break");
-        public static final RegistryObject<SoundEvent> SMALL_SALT_BUD_STEP = registerSoundBlock("small_salt_bud.step");
-        public static final RegistryObject<SoundEvent> SMALL_SALT_BUD_PLACE = registerSoundBlock("small_salt_bud.place");
-        public static final RegistryObject<SoundEvent> SMALL_SALT_BUD_HIT = registerSoundBlock("small_salt_bud.hit");
-        public static final RegistryObject<SoundEvent> SMALL_SALT_BUD_FALL = registerSoundBlock("small_salt_bud.fall");
+        public static final RegistryObject<SoundEvent> SMALL_SALT_BUD_BREAK = registerBlockSound("small_salt_bud.break");
+        public static final RegistryObject<SoundEvent> SMALL_SALT_BUD_STEP = registerBlockSound("small_salt_bud.step");
+        public static final RegistryObject<SoundEvent> SMALL_SALT_BUD_PLACE = registerBlockSound("small_salt_bud.place");
+        public static final RegistryObject<SoundEvent> SMALL_SALT_BUD_HIT = registerBlockSound("small_salt_bud.hit");
+        public static final RegistryObject<SoundEvent> SMALL_SALT_BUD_FALL = registerBlockSound("small_salt_bud.fall");
 
-        private static RegistryObject<SoundEvent> registerSoundBlock(String name) {
+        private static RegistryObject<SoundEvent> registerBlockSound(String name) {
             return SOUNDS.register("block.salt." + name, () -> new SoundEvent(Salt.resource("block.salt." + name)));
         }
 

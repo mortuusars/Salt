@@ -5,6 +5,7 @@ import io.github.mortuusars.salt.configuration.Configuration;
 import io.github.mortuusars.salt.helper.CallStackHelper;
 import io.github.mortuusars.salt.helper.Heater;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -12,6 +13,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -46,9 +48,10 @@ public abstract class WaterCauldronMixin extends Block {
                 Fluid fluid = PointedDripstoneBlock.getCauldronFillFluidType(level, stalactitePos);
                 if (fluid != Fluids.LAVA) {
                     // Fluid drop evaporates
-                    //TODO: sound
-                    level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH,
-                            SoundSource.BLOCKS, 0.5f, level.getRandom().nextFloat() * 0.2f + 0.9f);
+                    Vec3 center = Vec3.atCenterOf(pos);
+                    level.playSound(null, center.x, center.y, center.z, Salt.Sounds.CAULDRON_EVAPORATE.get(),
+                            SoundSource.BLOCKS, 0.6f, level.getRandom().nextFloat() * 0.2f + 1f);
+                    level.addParticle(ParticleTypes.CLOUD, center.x, center.y + 0.2f, center.z, 0f, 0.02f, 0f);
                     ci.cancel();
                     return;
                 }
@@ -56,14 +59,22 @@ public abstract class WaterCauldronMixin extends Block {
         }
 
         // Because of the 'isRandomlyTicking', this method gets called more often -
-        // and this causes cauldron to fill up quicker than intended.
-        // But - callers of this method are different. Dripstone is calling from the 'tick' method.
+        // which causes cauldron to fill up quicker than intended.
+        // But: callers of this method are different. Dripstone is calling from the 'tick' method.
         // We are interested only in calls from 'randomTick'.
         if (state.is(Blocks.WATER_CAULDRON) && state.getValue(LayeredCauldronBlock.LEVEL) != 0 && hasHeatSourceBelow && CallStackHelper.isCalledFrom(CallStackHelper.RANDOM_TICK)
             && level.getRandom().nextDouble() < Configuration.EVAPORATION_CHANCE.get()) {
             level.setBlockAndUpdate(pos, Salt.Blocks.SALT_CAULDRON.get().withPropertiesOf(state));
-            //TODO: sound
-            level.levelEvent(null, LevelEvent.SOUND_EXTINGUISH_FIRE, pos, 0);
+            level.playSound(null, pos, Salt.Sounds.CAULDRON_EVAPORATE.get(),
+                    SoundSource.BLOCKS, 1f, level.getRandom().nextFloat() * 0.2f + 0.9f);
+
+            Vec3 center = Vec3.atCenterOf(pos);
+            for (int i = 0; i < 8; i++) {
+                level.addParticle(ParticleTypes.CLOUD,
+                        center.x + random.nextFloat() * 0.1f, center.y + 0.2f, center.z + random.nextFloat() * 0.1f,
+                        random.nextFloat() * 0.02f, 0.015f, random.nextFloat() * 0.02f);
+            }
+
             ci.cancel();
         }
     }

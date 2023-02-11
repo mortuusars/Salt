@@ -7,7 +7,7 @@ e69d8b43f3c5bd4747efb738c20dad0428f97dfe assets/salt/blockstates/salt_block.json
 15728f859af9dc92d1d81c7b4f659d1a67cbdbec assets/salt/blockstates/salt_cauldron.json
 9a55665cc9ff2daa2fa8de077da9843eb8281d20 assets/salt/blockstates/salt_cluster.json
 bef44f46a670e96ce0a6b17d13a9b497aabb568b assets/salt/blockstates/small_salt_bud.json
-5b0f56ac1a36223eb8cbd015bfef169f36db62e4 assets/salt/lang/en_us.json
+f01e1294d9bcff3983d1aee610e0e39530937e37 assets/salt/lang/en_us.json
 8213505eeaed4ba5fde6b213846d3d376657d9da assets/salt/models/block/deepslate_rock_salt_ore_1.json
 51383e7474dfdd251bb5448fc608cedcc0c3a41d assets/salt/models/block/deepslate_rock_salt_ore_1_mirrored.json
 561c39909ef712abe94b6e0cf17ed38efcf9a8c6 assets/salt/models/block/deepslate_rock_salt_ore_2.json
@@ -33,7 +33,7 @@ d09aa203cfcb86400883998c06ba24d79d3dd29f assets/salt/models/item/raw_rock_salt_b
 ce0f0105b4fb48bbefd20972fb0a7934a40c9edb assets/salt/models/item/salt_cluster.json
 3abdea4af35251eceeee0fb79d348b61d68e5f3a assets/salt/models/item/salted_overlay.json
 c7294ba07aba9f9e16bc57c9b75961b43e6c5037 assets/salt/models/item/small_salt_bud.json
-d20c18aa2c5f621f0e74a905bee68e564d64da80 assets/salt/sounds.json
+a4866a48c698abe9f61ecc89c7b643cbcb84484f assets/salt/sounds.json
 3b285883d1df2e856c90381aadfe05247b5b3608 data/forge/tags/items/salts.json
 b25827082fbdcaeafc4a64b9e658490696040104 data/minecraft/tags/blocks/mineable/pickaxe.json
 1658a1f828e9cca9883ee27e9924bbc7056288e2 data/salt/loot_tables/cauldron_evaporation/salt_full.json

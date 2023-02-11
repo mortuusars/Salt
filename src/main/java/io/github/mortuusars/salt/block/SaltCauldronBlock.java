@@ -71,8 +71,7 @@ public class SaltCauldronBlock extends LayeredCauldronBlock {
             if (level instanceof ServerLevel serverLevel) {
                 dropContents(serverLevel, state, pos);
                 serverLevel.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
-                //TODO: sound
-                serverLevel.playSound(null, pos, SoundEvents.DRIPSTONE_BLOCK_HIT, SoundSource.BLOCKS, 0.8F, serverLevel.getRandom().nextFloat() * 0.2f + 0.9f);
+                serverLevel.playSound(null, pos, Salt.Sounds.SALT_CAULDRON_REMOVE_SALT.get(), SoundSource.BLOCKS, 0.8F, serverLevel.getRandom().nextFloat() * 0.2f + 0.9f);
             }
 
             return InteractionResult.sidedSuccess(level.isClientSide);
@@ -82,7 +81,7 @@ public class SaltCauldronBlock extends LayeredCauldronBlock {
     }
 
     protected void dropContents(ServerLevel level, BlockState state, BlockPos pos) {
-        ResourceLocation lootTablePath = Salt.resource("cauldron/salt_" + getFullnessString(state));
+        ResourceLocation lootTablePath = Salt.resource("cauldron_evaporation/salt_" + getFullnessString(state));
         LootTable lootTable = level.getServer().getLootTables().get(lootTablePath);
 
         LootContext.Builder lootContextBuilder = (new LootContext.Builder(level))
@@ -91,11 +90,9 @@ public class SaltCauldronBlock extends LayeredCauldronBlock {
         List<ItemStack> randomItems = lootTable.getRandomItems(lootContextBuilder.create(LootContextParamSets.EMPTY));
 
         Vec3 center = Vec3.atCenterOf(pos);
-        Random random = level.getRandom();
 
         for (ItemStack itemStack : randomItems) {
-            Containers.dropItemStack(level, (random.nextGaussian() * 0.2d) + center.x,
-                    (random.nextGaussian() * 0.2d) + center.y + 0.2d, (random.nextGaussian() * 0.2d) + center.z, itemStack);
+            Containers.dropItemStack(level, center.x, center.y + 0.45f, center.z, itemStack);
         }
     }
 

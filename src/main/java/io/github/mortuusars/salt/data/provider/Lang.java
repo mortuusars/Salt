@@ -37,5 +37,6 @@ public class Lang extends LanguageProvider {
         add(LangKeys.GUI_TOOLTIP_SALTED_EXPANDED_PART, ": %s nutrition");
 
         add(LangKeys.SUBTITLES_SALT_DISSOLVE, "Salt dissolving");
+        add(LangKeys.SUBTITLES_CAULDRON_EVAPORATE, "Water evaporating");
     }
 }
