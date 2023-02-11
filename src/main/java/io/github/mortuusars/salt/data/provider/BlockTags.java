@@ -16,6 +16,7 @@ public class BlockTags extends BlockTagsProvider {
     protected void addTags() {
         tag(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(Salt.Blocks.ROCK_SALT.get())
+                .add(Salt.Blocks.DEEPSLATE_ROCK_SALT.get())
                 .add(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get())
                 .add(Salt.Blocks.SALT_CLUSTER.get())
                 .add(Salt.Blocks.LARGE_SALT_BUD.get())

@@ -30,6 +30,18 @@ public class BlockStatesAndModels extends BlockStateProvider {
         BlockModelBuilder rockSaltMirroredModel2 = models().withExistingParent(rockSaltPath + "_2_mirrored", mcLoc("block/cube_mirrored_all"))
                 .texture("all", Salt.resource("block/" + rockSaltPath + "_2"));
 
+        String deepslateRockSaltPath = Salt.Blocks.DEEPSLATE_ROCK_SALT.get().getRegistryName().getPath();
+
+        BlockModelBuilder deepslateRockSaltDefaultModel1 = models().cubeAll(deepslateRockSaltPath + "_1",
+                Salt.resource("block/" + deepslateRockSaltPath + "_1"));
+        BlockModelBuilder deepslateRockSaltMirroredModel1 = models().withExistingParent(deepslateRockSaltPath + "_1_mirrored", mcLoc("block/cube_mirrored_all"))
+                .texture("all", Salt.resource("block/" + deepslateRockSaltPath + "_1"));
+
+        BlockModelBuilder deepslateRockSaltDefaultModel2 = models().cubeAll(deepslateRockSaltPath + "_2",
+                Salt.resource("block/" + deepslateRockSaltPath + "_2"));
+        BlockModelBuilder deepslateRockSaltMirroredModel2 = models().withExistingParent(deepslateRockSaltPath + "_2_mirrored", mcLoc("block/cube_mirrored_all"))
+                .texture("all", Salt.resource("block/" + deepslateRockSaltPath + "_2"));
+
 
         simpleBlock(Salt.Blocks.SALT_BLOCK.get(),
                 models()

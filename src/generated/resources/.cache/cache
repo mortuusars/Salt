@@ -4,6 +4,10 @@
 e69d8b43f3c5bd4747efb738c20dad0428f97dfe assets/salt/blockstates/salt_block.json
 9a55665cc9ff2daa2fa8de077da9843eb8281d20 assets/salt/blockstates/salt_cluster.json
 bef44f46a670e96ce0a6b17d13a9b497aabb568b assets/salt/blockstates/small_salt_bud.json
+c320cb9211010d431a35d0e5bc04bfa6ef9effe8 assets/salt/models/block/deepslate_rock_salt_1.json
+f830f9855ce6cda82151b4dd189afe225151615b assets/salt/models/block/deepslate_rock_salt_1_mirrored.json
+51e290286ea2cc7348648967b76c3b4447c35bdb assets/salt/models/block/deepslate_rock_salt_2.json
+51d5422948b10cf527e3e82fb741993e17edc28c assets/salt/models/block/deepslate_rock_salt_2_mirrored.json
 b9c7b6a37953e604f77a93c7fb302c512bf56ed6 assets/salt/models/block/large_salt_bud.json
 b1c458b38cc0076b7d34b143b61469eed02bb549 assets/salt/models/block/medium_salt_bud.json
 510011f5662516f0957d6901f5f76686dcd59aea assets/salt/models/block/raw_rock_salt_block.json
@@ -14,6 +18,7 @@ d36750a1358857a52326c1289fffbfa82f56b07d assets/salt/models/block/rock_salt_2_mi
 10c1c8a1dc1a26fda2c99223847e0bf5c966dd22 assets/salt/models/block/salt_block.json
 852b22d5c249cc6c1371f8783a802c784cf61b0e assets/salt/models/block/salt_cluster.json
 30abc497e75314e6c48330a41e611e71f68bdc5e assets/salt/models/block/small_salt_bud.json
+063dbd22f3839af9787d4e45709259da25c2f11f assets/salt/models/item/deepslate_rock_salt.json
 94922d2bfaaf0c4afeddc93525c04a54e732fbb2 assets/salt/models/item/large_salt_bud.json
 b8dff9afbf25e3167f97b7fbbbf68d59f441d03a assets/salt/models/item/medium_salt_bud.json
 7a33d0932a50c7270f3bd461b065295b05adfce0 assets/salt/models/item/raw_rock_salt.json
@@ -25,7 +30,7 @@ ce0f0105b4fb48bbefd20972fb0a7934a40c9edb assets/salt/models/item/salt_cluster.js
 3abdea4af35251eceeee0fb79d348b61d68e5f3a assets/salt/models/item/salt_overlay.json
 c7294ba07aba9f9e16bc57c9b75961b43e6c5037 assets/salt/models/item/small_salt_bud.json
 3b285883d1df2e856c90381aadfe05247b5b3608 data/forge/tags/items/salts.json
-d1578412183d266e55a089e557f6525b98403e71 data/minecraft/tags/blocks/mineable/pickaxe.json
+81fbeea338f141af12b4da6d81bcaeb8f3389a0e data/minecraft/tags/blocks/mineable/pickaxe.json
 1658a1f828e9cca9883ee27e9924bbc7056288e2 data/salt/loot_tables/cauldron_evaporation/salt_full.json
 1022bc5255e90b52967402daab8215e81ea3c279 data/salt/loot_tables/cauldron_evaporation/salt_level_1.json
 bfe4530b0bea021df5f15b05bac9100e7af9fe7a data/salt/loot_tables/cauldron_evaporation/salt_level_2.json

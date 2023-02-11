@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "salt:rock_salt",
+    "salt:deepslate_rock_salt",
     "salt:raw_rock_salt_block",
     "salt:salt_cluster",
     "salt:large_salt_bud",

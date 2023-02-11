@@ -17,10 +17,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
-import javax.annotation.Nullable;
 import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class MineralDepositFeature extends Feature<MineralDepositConfiguration> {
     public MineralDepositFeature(Codec<MineralDepositConfiguration> codec) {
@@ -38,7 +35,7 @@ public class MineralDepositFeature extends Feature<MineralDepositConfiguration> 
         BlockPos origin = context.origin();
         WorldGenLevel worldgenlevel = context.level();
 
-        if (!worldgenlevel.getBiome(origin).is(Salt.BiomeTags.HAS_SALT_DEPOSITS))
+        if (!worldgenlevel.getBiome(origin).is(Salt.BiomeTags.HAS_ROCK_SALT_DEPOSITS))
             return false;
 
         MineralDepositConfiguration configuration = context.config();
@@ -167,78 +164,78 @@ public class MineralDepositFeature extends Feature<MineralDepositConfiguration> 
     }
 
     private boolean placeBlock(WorldGenLevel level, Random random, MineralDepositConfiguration configuration, BlockPos.MutableBlockPos mutableBlockPos, BulkSectionAccess bulksectionaccess, int absoluteX, int absoluteY, int absoluteZ) {
-        float clusterChance = 1.0f;
 
         LevelChunkSection levelchunksection = bulksectionaccess.getSection(mutableBlockPos);
-        if (levelchunksection != null) {
-            int relativeX = SectionPos.sectionRelative(absoluteX);
-            int relativeY = SectionPos.sectionRelative(absoluteY);
-            int relativeZ = SectionPos.sectionRelative(absoluteZ);
-            BlockState blockstate = levelchunksection.getBlockState(relativeX, relativeY, relativeZ);
+        if (levelchunksection == null)
+            return false;
 
-            for(MineralDepositConfiguration.TargetBlockState targetBlockState : configuration.targetStates) {
+        int relativeX = SectionPos.sectionRelative(absoluteX);
+        int relativeY = SectionPos.sectionRelative(absoluteY);
+        int relativeZ = SectionPos.sectionRelative(absoluteZ);
 
-                if (canPlaceOre(blockstate, bulksectionaccess::getBlockState, random, configuration, targetBlockState, mutableBlockPos)) {
-                    // Place ore:
-                    levelchunksection.setBlockState(relativeX, relativeY, relativeZ, targetBlockState.state, false);
+        BlockState oldBlockstate = levelchunksection.getBlockState(relativeX, relativeY, relativeZ);
 
-                    // Place cluster:
-                    if (random.nextFloat() >= clusterChance)
-                        continue;
+        boolean mainBlockPlaced = false;
 
-                    Direction direction = Direction.getRandom(random);
-
-                    int cX = relativeX + direction.getStepX();
-                    int cY = relativeY + direction.getStepY();
-                    int cZ = relativeZ + direction.getStepZ();
-
-                    // After stepping to the air block - pos can be outside the chunk and will cause problems:
-                    if ((cX < 0 || cX > 15) || (cY < 0 || cY > 15) || (cZ < 0 || cZ > 15))
-                        continue;
-
-                    try {
-                        BlockState state = configuration.outerStateProvider.getState(random, mutableBlockPos);
-                        if (state.hasProperty(BlockStateProperties.FACING))
-                            state = state.setValue(BlockStateProperties.FACING, direction);
-
-                        if (configuration.outerTest.test(levelchunksection.getBlockState(cX, cY, cZ), random))
-                            levelchunksection.setBlockState(cX, cY, cZ, state, false);
-                    }
-                    catch (Exception e) {
-                        LogUtils.getLogger().error(e.toString());
-                    }
-
-                    return true;
-                }
+        for (MineralDepositConfiguration.DepositBlockStateInfo mainStateInfo : configuration.mainStateInfos) {
+            if (mainStateInfo.ruleTest.test(oldBlockstate, random)) {
+                BlockState newBlockState = mainStateInfo.blockStateProvider.getState(random, mutableBlockPos);
+                // Place ore:
+                levelchunksection.setBlockState(relativeX, relativeY, relativeZ, newBlockState, false);
+                mainBlockPlaced = true;
             }
         }
-        return false;
-    }
 
-    public static boolean canPlaceOre(BlockState state, Function<BlockPos, BlockState> adjacentStateAccessor, Random random,
-                                      MineralDepositConfiguration config, MineralDepositConfiguration.TargetBlockState targetState,
-                                      BlockPos.MutableBlockPos mutablePos) {
-        return targetState.target.test(state, random);
-    }
-
-    public static @Nullable Direction getAirDirection(BlockPos pos, WorldGenLevel level) {
-        ArrayList<Direction> directions = Arrays.stream(Direction.values())
-                .collect(Collectors.toCollection(() -> new ArrayList<>()));
-        Collections.shuffle(directions);
-        for (Direction direction : directions) {
-            if (level.getBlockState(pos.relative(direction)).isAir())
-                return direction;
-        }
-        return null;
-    }
-
-    protected static boolean shouldSkipAirCheck(Random pRandom, float pChance) {
-        if (pChance <= 0.0F) {
-            return true;
-        } else if (pChance >= 1.0F) {
+        if (!mainBlockPlaced)
             return false;
-        } else {
-            return pRandom.nextFloat() >= pChance;
+
+        // Place cluster:
+
+        List<Direction> clusterDirections = getValidSidesForCluster(random, configuration, levelchunksection, relativeX, relativeY, relativeZ);
+
+        try {
+            for (int i = 0; i < clusterDirections.size(); i++) {
+                Direction randomDirection = clusterDirections.get(random.nextInt(clusterDirections.size()));
+                clusterDirections.remove(randomDirection);
+
+                if (random.nextFloat() >= configuration.clusterChance)
+                    continue;
+
+                int cX = relativeX + randomDirection.getStepX();
+                int cY = relativeY + randomDirection.getStepY();
+                int cZ = relativeZ + randomDirection.getStepZ();
+
+                BlockState state = configuration.clusterStateInfo.blockStateProvider.getState(random, mutableBlockPos);
+                if (state.hasProperty(BlockStateProperties.FACING))
+                    state = state.setValue(BlockStateProperties.FACING, randomDirection);
+
+                levelchunksection.setBlockState(cX, cY, cZ, state, false);
+            }
         }
+        catch (Exception e) {
+            LogUtils.getLogger().error(e.toString());
+        }
+
+        return true;
+    }
+
+    protected List<Direction> getValidSidesForCluster(Random random, MineralDepositConfiguration configuration, LevelChunkSection levelchunksection, int relativeX, int relativeY, int relativeZ) {
+        List<Direction> airDirections = new ArrayList<>();
+
+        for (Direction dir : Direction.values()) {
+            int cX = relativeX + dir.getStepX();
+            int cY = relativeY + dir.getStepY();
+            int cZ = relativeZ + dir.getStepZ();
+
+            // After stepping to the air block - pos can be outside the chunk and will cause errors:
+            if ((cX < 0 || cX > 15) || (cY < 0 || cY > 15) || (cZ < 0 || cZ > 15))
+                continue;
+
+            BlockState blockStateAtPos = levelchunksection.getBlockState(cX, cY, cZ);
+            if (configuration.clusterStateInfo.ruleTest.test(blockStateAtPos, random))
+                airDirections.add(dir);
+        }
+
+        return airDirections;
     }
 }

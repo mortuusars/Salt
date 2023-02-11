@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_mirrored_all",
+  "textures": {
+    "all": "salt:block/deepslate_rock_salt_2"
+  }
+}
