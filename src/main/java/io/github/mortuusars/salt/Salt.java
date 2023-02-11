@@ -99,18 +99,18 @@ public class Salt
         public static final RegistryObject<SandBlock> SALT_BLOCK = BLOCKS.register("salt_block",
                 () -> new SandBlock(0xe7d5cf, BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.SAND)));
 
-        public static final RegistryObject<SaltBlock> ROCK_SALT = BLOCKS.register("rock_salt",
+        public static final RegistryObject<SaltBlock> ROCK_SALT_ORE = BLOCKS.register("rock_salt_ore",
                 () -> new SaltBlock(BlockBehaviour.Properties.of(Material.STONE)
                         .color(MaterialColor.COLOR_LIGHT_GRAY)
                         .randomTicks()
                         .strength(2.5F)
                         .requiresCorrectToolForDrops()
                         .sound(Salt.Sounds.Types.SALT)));
-        public static final RegistryObject<SaltBlock> DEEPSLATE_ROCK_SALT = BLOCKS.register("deepslate_rock_salt",
-                () -> new SaltBlock(BlockBehaviour.Properties.copy(ROCK_SALT.get())
+        public static final RegistryObject<SaltBlock> DEEPSLATE_ROCK_SALT_ORE = BLOCKS.register("deepslate_rock_salt_ore",
+                () -> new SaltBlock(BlockBehaviour.Properties.copy(ROCK_SALT_ORE.get())
                         .color(MaterialColor.COLOR_GRAY)));
         public static final RegistryObject<SaltBlock> RAW_ROCK_SALT_BLOCK = BLOCKS.register("raw_rock_salt_block",
-                () -> new SaltBlock(BlockBehaviour.Properties.copy(ROCK_SALT.get())));
+                () -> new SaltBlock(BlockBehaviour.Properties.copy(ROCK_SALT_ORE.get())));
 
         public static final RegistryObject<SaltClusterBlock> SALT_CLUSTER = BLOCKS.register("salt_cluster",
                 () -> new SaltClusterBlock(7, 3, BlockBehaviour.Properties.of(Material.DECORATION)
@@ -135,28 +135,29 @@ public class Salt
     }
 
     public static class Items {
-        //TODO: tabs
         private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Salt.ID);
         public static final RegistryObject<Item> SALT = ITEMS.register("salt",
                 () -> new SaltItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
         public static final RegistryObject<Item> RAW_ROCK_SALT = ITEMS.register("raw_rock_salt",
                 () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
-        public static final RegistryObject<BlockItem> ROCK_SALT = ITEMS.register("rock_salt",
-                () -> new BlockItem(Salt.Blocks.ROCK_SALT.get(), new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
-        public static final RegistryObject<BlockItem> DEEPSLATE_ROCK_SALT = ITEMS.register("deepslate_rock_salt",
-                () -> new BlockItem(Blocks.DEEPSLATE_ROCK_SALT.get(), new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
-        public static final RegistryObject<BlockItem> RAW_ROCK_SALT_BLOCK = ITEMS.register("raw_rock_salt_block",
-                () -> new BlockItem(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get(), new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
+
         public static final RegistryObject<BlockItem> SALT_BLOCK = ITEMS.register("salt_block",
-                () -> new BlockItem(Salt.Blocks.SALT_BLOCK.get(), new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
+                () -> new BlockItem(Salt.Blocks.SALT_BLOCK.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
+        public static final RegistryObject<BlockItem> ROCK_SALT_ORE = ITEMS.register("rock_salt_ore",
+                () -> new BlockItem(Salt.Blocks.ROCK_SALT_ORE.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
+        public static final RegistryObject<BlockItem> DEEPSLATE_ROCK_SALT_ORE = ITEMS.register("deepslate_rock_salt_ore",
+                () -> new BlockItem(Blocks.DEEPSLATE_ROCK_SALT_ORE.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
+        public static final RegistryObject<BlockItem> RAW_ROCK_SALT_BLOCK = ITEMS.register("raw_rock_salt_block",
+                () -> new BlockItem(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
+
         public static final RegistryObject<BlockItem> SALT_CLUSTER = ITEMS.register("salt_cluster",
-                () -> new BlockItem(Salt.Blocks.SALT_CLUSTER.get(), new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
+                () -> new BlockItem(Salt.Blocks.SALT_CLUSTER.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
         public static final RegistryObject<BlockItem> LARGE_SALT_BUD = ITEMS.register("large_salt_bud",
-                () -> new BlockItem(Salt.Blocks.LARGE_SALT_BUD.get(), new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
+                () -> new BlockItem(Salt.Blocks.LARGE_SALT_BUD.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
         public static final RegistryObject<BlockItem> MEDIUM_SALT_BUD = ITEMS.register("medium_salt_bud",
-                () -> new BlockItem(Salt.Blocks.MEDIUM_SALT_BUD.get(), new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
+                () -> new BlockItem(Salt.Blocks.MEDIUM_SALT_BUD.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
         public static final RegistryObject<BlockItem> SMALL_SALT_BUD = ITEMS.register("small_salt_bud",
-                () -> new BlockItem(Salt.Blocks.SMALL_SALT_BUD.get(), new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
+                () -> new BlockItem(Salt.Blocks.SMALL_SALT_BUD.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
     }
 
     public static class Sounds {
@@ -269,14 +270,14 @@ public class Salt
         static {
             MineralDepositConfiguration.DepositBlockStateInfo stoneBlockStateInfo = MineralDepositConfiguration.blockStateInfo(
                     new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                            .add(Blocks.ROCK_SALT.get().defaultBlockState(), 8)
+                            .add(Blocks.ROCK_SALT_ORE.get().defaultBlockState(), 8)
                             .add(Blocks.RAW_ROCK_SALT_BLOCK.get().defaultBlockState(), 1)
                             .build()),
                     OreFeatures.STONE_ORE_REPLACEABLES);
 
             MineralDepositConfiguration.DepositBlockStateInfo deepslateBlockStateInfo = MineralDepositConfiguration.blockStateInfo(
                     new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                            .add(Blocks.DEEPSLATE_ROCK_SALT.get().defaultBlockState(), 8)
+                            .add(Blocks.DEEPSLATE_ROCK_SALT_ORE.get().defaultBlockState(), 8)
                             .add(Blocks.RAW_ROCK_SALT_BLOCK.get().defaultBlockState(), 1)
                             .build()),
                     OreFeatures.DEEPSLATE_ORE_REPLACEABLES);

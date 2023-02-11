@@ -2,11 +2,9 @@ package io.github.mortuusars.salt.data.provider;
 
 
 import io.github.mortuusars.salt.Salt;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -32,8 +30,8 @@ public class ItemModels extends ItemModelProvider {
         singleTextureItem(Salt.Items.SALT.get());
         singleTextureItem(Salt.Items.RAW_ROCK_SALT.get());
         blockItem(Salt.Items.SALT_BLOCK.get());
-        withExistingParent(Salt.Blocks.ROCK_SALT.get().getRegistryName().getPath(), modLoc("block/rock_salt_1"));
-        withExistingParent(Salt.Blocks.DEEPSLATE_ROCK_SALT.get().getRegistryName().getPath(), modLoc("block/deepslate_rock_salt_1"));
+        withExistingParent(Salt.Blocks.ROCK_SALT_ORE.get().getRegistryName().getPath(), modLoc("block/rock_salt_1"));
+        withExistingParent(Salt.Blocks.DEEPSLATE_ROCK_SALT_ORE.get().getRegistryName().getPath(), modLoc("block/deepslate_rock_salt_1"));
         blockItem(Salt.Items.RAW_ROCK_SALT_BLOCK.get());
     }
 
