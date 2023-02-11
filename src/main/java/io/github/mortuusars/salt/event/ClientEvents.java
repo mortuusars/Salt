@@ -31,8 +31,9 @@ public class ClientEvents {
         ItemStack itemStack = event.getItemStack();
         if (Salting.isSalted(itemStack)) {
             List<Component> toolTip = event.getToolTip();
-            toolTip.add(toolTip.size() >= 1 ? 1 : 0, SaltedTooltip.get(Salting.getAdditionalNutrition(itemStack),
-                    Salting.getAdditionalSaturationModifier(itemStack), Screen.hasShiftDown()));
+            Salting.FoodValue additionalFoodValue = Salting.getAdditionalFoodValue(itemStack);
+            toolTip.add(toolTip.size() >= 1 ? 1 : 0, SaltedTooltip.get(additionalFoodValue.nutrition(),
+                    additionalFoodValue.saturationModifier(), Screen.hasShiftDown()));
         }
     }
 

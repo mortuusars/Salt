@@ -1,8 +1,18 @@
 package io.github.mortuusars.salt.configuration;
 
+import com.mojang.logging.LogUtils;
+import io.github.mortuusars.salt.Salting;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
+
+import javax.annotation.Nullable;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Configuration {
     public static final ForgeConfigSpec COMMON;
@@ -11,6 +21,8 @@ public class Configuration {
     // Salting:
     public static final ForgeConfigSpec.IntValue SALTING_ADDITIONAL_NUTRITION;
     public static final ForgeConfigSpec.DoubleValue SALTING_ADDITIONAL_SATURATION_MODIFIER;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> SALTING_INDIVIDUAL_VALUES;
+    public static Map<String, Salting.FoodValue> FOOD_VALUES = new HashMap<>();
 
     // Evaporation
     public static final ForgeConfigSpec.BooleanValue EVAPORATION_ENABLED;
@@ -43,9 +55,13 @@ public class Configuration {
                 .comment("Amount of additional saturation that salted food provides.")
                 .defineInRange("SaltingSaturation", 0.5f, -10.0, 10.0f);
 
+        SALTING_INDIVIDUAL_VALUES = builder
+                .comment("Additional nutrition and saturation values per food. Overrides default values (defined above).",
+                        "Format: itemRegistryName,nutrition,[saturationModifier].",
+                        "Separated by commas. Saturation is optional (will use default value if not specified)")
+                .defineList("SaltingFoodValues", List.of("minecraft:rotten_flesh,1,0.25"), o -> true);
+
         builder.pop();
-
-
 
         builder.push("Evaporation");
 
@@ -112,5 +128,46 @@ public class Configuration {
     public static void init() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON);
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT);
+    }
+
+    public static void onConfigReload(final ModConfigEvent.Reloading event) {
+        updateIndividualFoodValues();
+    }
+
+    public static void onConfigLoad(final ModConfigEvent.Loading event) {
+        updateIndividualFoodValues();
+    }
+
+    private static void updateIndividualFoodValues() {
+        FOOD_VALUES.clear();
+
+        for (String entry : SALTING_INDIVIDUAL_VALUES.get()) {
+            try {
+                String[] parts = entry.split(",");
+
+                @Nullable String itemPath = null;
+
+                if (parts.length >= 1)
+                    itemPath = parts[0];
+
+                @Nullable Integer nutrition = null;
+                @Nullable Float saturationMod = null;
+
+                if (parts.length >= 2)
+                    nutrition = Integer.parseInt(parts[1].trim());
+
+                if (parts.length >= 3)
+                    saturationMod = Float.parseFloat(parts[2].trim());
+
+                if (itemPath != null && nutrition != null) {
+                    FOOD_VALUES.put(itemPath, new Salting.FoodValue(nutrition, saturationMod != null ?
+                            saturationMod
+                            : SALTING_ADDITIONAL_SATURATION_MODIFIER.get().floatValue()));
+                }
+            }
+            catch (Throwable e) {
+                LogUtils.getLogger().error("Failed to parse food value '" + entry + "': " + e);
+            }
+        }
     }
 }

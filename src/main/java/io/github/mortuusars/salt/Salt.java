@@ -56,9 +56,11 @@ public class Salt
     public static final String ID = "salt";
 
     public Salt() {
-        Configuration.init();
-
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        Configuration.init();
+        modEventBus.addListener(Configuration::onConfigLoad);
+        modEventBus.addListener(Configuration::onConfigReload);
 
         Blocks.BLOCKS.register(modEventBus);
         Items.ITEMS.register(modEventBus);

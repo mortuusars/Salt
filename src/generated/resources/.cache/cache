@@ -27,7 +27,7 @@ d09aa203cfcb86400883998c06ba24d79d3dd29f assets/salt/models/item/raw_rock_salt_b
 36d0ff08aadba22300a010cf0a22edff462a4981 assets/salt/models/item/salt.json
 3807b0c3bdcc969f0625b13b174cb213fce55692 assets/salt/models/item/salt_block.json
 ce0f0105b4fb48bbefd20972fb0a7934a40c9edb assets/salt/models/item/salt_cluster.json
-3abdea4af35251eceeee0fb79d348b61d68e5f3a assets/salt/models/item/salt_overlay.json
+3abdea4af35251eceeee0fb79d348b61d68e5f3a assets/salt/models/item/salted_overlay.json
 c7294ba07aba9f9e16bc57c9b75961b43e6c5037 assets/salt/models/item/small_salt_bud.json
 3b285883d1df2e856c90381aadfe05247b5b3608 data/forge/tags/items/salts.json
 81fbeea338f141af12b4da6d81bcaeb8f3389a0e data/minecraft/tags/blocks/mineable/pickaxe.json

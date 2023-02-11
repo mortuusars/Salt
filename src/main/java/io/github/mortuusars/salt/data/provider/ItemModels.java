@@ -18,7 +18,7 @@ public class ItemModels extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        singleTexture("salt_overlay", mcLoc("item/generated"), "layer0", modLoc("item/salted_overlay"));
+        singleTexture("salted_overlay", mcLoc("item/generated"), "layer0", modLoc("item/salted_overlay"));
 
         withExistingParent(Salt.Blocks.SALT_CLUSTER.get().getRegistryName().getPath(), mcLoc("item/amethyst_cluster"))
                 .texture("layer0", modLoc("block/" + Salt.Blocks.SALT_CLUSTER.get().getRegistryName().getPath()));
