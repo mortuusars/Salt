@@ -55,13 +55,11 @@ public abstract class WaterCauldronMixin extends Block {
             }
         }
 
-        boolean hasWater = state.getValue(LayeredCauldronBlock.LEVEL) != 0;
-
         // Because of the 'isRandomlyTicking', this method gets called more often -
         // and this causes cauldron to fill up quicker than intended.
         // But - callers of this method are different. Dripstone is calling from the 'tick' method.
         // We are interested only in calls from 'randomTick'.
-        if (state.is(Blocks.WATER_CAULDRON) && hasWater && hasHeatSourceBelow && CallStackHelper.isCalledFrom(CallStackHelper.RANDOM_TICK)
+        if (state.is(Blocks.WATER_CAULDRON) && state.getValue(LayeredCauldronBlock.LEVEL) != 0 && hasHeatSourceBelow && CallStackHelper.isCalledFrom(CallStackHelper.RANDOM_TICK)
             && level.getRandom().nextDouble() < Configuration.EVAPORATION_CHANCE.get()) {
             level.setBlockAndUpdate(pos, Salt.Blocks.SALT_CAULDRON.get().withPropertiesOf(state));
             //TODO: sound
