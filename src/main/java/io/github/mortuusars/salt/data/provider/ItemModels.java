@@ -30,8 +30,10 @@ public class ItemModels extends ItemModelProvider {
         singleTextureItem(Salt.Items.SALT.get());
         singleTextureItem(Salt.Items.RAW_ROCK_SALT.get());
         blockItem(Salt.Items.SALT_BLOCK.get());
-        withExistingParent(Salt.Blocks.ROCK_SALT_ORE.get().getRegistryName().getPath(), modLoc("block/rock_salt_1"));
-        withExistingParent(Salt.Blocks.DEEPSLATE_ROCK_SALT_ORE.get().getRegistryName().getPath(), modLoc("block/deepslate_rock_salt_1"));
+        withExistingParent(Salt.Blocks.ROCK_SALT_ORE.get().getRegistryName().getPath(),
+                modLoc("block/" + Salt.Blocks.ROCK_SALT_ORE.get().getRegistryName().getPath() + "_1"));
+        withExistingParent(Salt.Blocks.DEEPSLATE_ROCK_SALT_ORE.get().getRegistryName().getPath(),
+                modLoc("block/" + Salt.Blocks.DEEPSLATE_ROCK_SALT_ORE.get().getRegistryName().getPath() + "_1"));
         blockItem(Salt.Items.RAW_ROCK_SALT_BLOCK.get());
     }
 

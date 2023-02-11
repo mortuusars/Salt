@@ -1,0 +1,1221 @@
+{
+  "block.salt.salt.dissolve": {
+    "subtitle": "subtitles.block.salt.salt_dissolve",
+    "sounds": [
+      {
+        "name": "block/azalea/break1",
+        "pitch": 1.3
+      },
+      {
+        "name": "block/azalea/break2",
+        "pitch": 1.3
+      },
+      {
+        "name": "block/azalea/break3",
+        "pitch": 1.3
+      },
+      {
+        "name": "block/azalea/break4",
+        "pitch": 1.3
+      },
+      {
+        "name": "block/azalea/break5",
+        "pitch": 1.3
+      },
+      {
+        "name": "block/azalea/break6",
+        "pitch": 1.3
+      }
+    ]
+  },
+  "block.salt.salt.break": {
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      {
+        "name": "block/dripstone/break1",
+        "pitch": 1.25
+      },
+      {
+        "name": "block/dripstone/break2",
+        "pitch": 1.25
+      },
+      {
+        "name": "block/dripstone/break3",
+        "pitch": 1.25
+      },
+      {
+        "name": "block/dripstone/break4",
+        "pitch": 1.25
+      },
+      {
+        "name": "block/dripstone/break5",
+        "pitch": 1.25
+      }
+    ]
+  },
+  "block.salt.salt.place": {
+    "subtitle": "subtitles.block.generic.place",
+    "sounds": [
+      {
+        "name": "block/dripstone/break1",
+        "pitch": 1.25
+      },
+      {
+        "name": "block/dripstone/break2",
+        "pitch": 1.25
+      },
+      {
+        "name": "block/dripstone/break3",
+        "pitch": 1.25
+      },
+      {
+        "name": "block/dripstone/break4",
+        "pitch": 1.25
+      },
+      {
+        "name": "block/dripstone/break5",
+        "pitch": 1.25
+      }
+    ]
+  },
+  "block.salt.salt.step": {
+    "subtitle": "subtitles.block.generic.footsteps",
+    "sounds": [
+      {
+        "name": "block/dripstone/step1",
+        "pitch": 1.25
+      },
+      {
+        "name": "block/dripstone/step2",
+        "pitch": 1.25
+      },
+      {
+        "name": "block/dripstone/step3",
+        "pitch": 1.25
+      },
+      {
+        "name": "block/dripstone/step4",
+        "pitch": 1.25
+      },
+      {
+        "name": "block/dripstone/step5",
+        "pitch": 1.25
+      },
+      {
+        "name": "block/dripstone/step6",
+        "pitch": 1.25
+      }
+    ]
+  },
+  "block.salt.salt.hit": {
+    "subtitle": "subtitles.block.generic.hit",
+    "sounds": [
+      {
+        "name": "block/dripstone/step1",
+        "pitch": 1.25
+      },
+      {
+        "name": "block/dripstone/step2",
+        "pitch": 1.25
+      },
+      {
+        "name": "block/dripstone/step3",
+        "pitch": 1.25
+      },
+      {
+        "name": "block/dripstone/step4",
+        "pitch": 1.25
+      },
+      {
+        "name": "block/dripstone/step5",
+        "pitch": 1.25
+      },
+      {
+        "name": "block/dripstone/step6",
+        "pitch": 1.25
+      }
+    ]
+  },
+  "block.salt.salt.fall": {
+    "sounds": [
+      {
+        "name": "block/dripstone/step1",
+        "pitch": 1.25
+      },
+      {
+        "name": "block/dripstone/step2",
+        "pitch": 1.25
+      },
+      {
+        "name": "block/dripstone/step3",
+        "pitch": 1.25
+      },
+      {
+        "name": "block/dripstone/step4",
+        "pitch": 1.25
+      },
+      {
+        "name": "block/dripstone/step5",
+        "pitch": 1.25
+      },
+      {
+        "name": "block/dripstone/step6",
+        "pitch": 1.25
+      }
+    ]
+  },
+  "block.salt.salt_cluster.break": {
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      {
+        "name": "block/amethyst_cluster/break1",
+        "volume": 0.8,
+        "pitch": 0.6
+      },
+      {
+        "name": "block/amethyst_cluster/break2",
+        "volume": 0.8,
+        "pitch": 0.6
+      },
+      {
+        "name": "block/amethyst_cluster/break3",
+        "volume": 0.8,
+        "pitch": 0.6
+      },
+      {
+        "name": "block/amethyst_cluster/break4",
+        "volume": 0.8,
+        "pitch": 0.6
+      }
+    ]
+  },
+  "block.salt.salt_cluster.place": {
+    "subtitle": "subtitles.block.generic.place",
+    "sounds": [
+      {
+        "name": "block/amethyst_cluster/break1",
+        "volume": 0.8,
+        "pitch": 0.8
+      },
+      {
+        "name": "block/amethyst_cluster/break2",
+        "volume": 0.8,
+        "pitch": 0.8
+      },
+      {
+        "name": "block/amethyst_cluster/break3",
+        "volume": 0.8,
+        "pitch": 0.8
+      },
+      {
+        "name": "block/amethyst_cluster/break4",
+        "volume": 0.8,
+        "pitch": 0.8
+      }
+    ]
+  },
+  "block.salt.salt_cluster.step": {
+    "subtitle": "subtitles.block.generic.footsteps",
+    "sounds": [
+      {
+        "name": "block/amethyst/step1",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step2",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step3",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step4",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step5",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step6",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step7",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step8",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step9",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step10",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step11",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step12",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step13",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step14",
+        "volume": 0.75,
+        "pitch": 0.7
+      }
+    ]
+  },
+  "block.salt.salt_cluster.hit": {
+    "subtitle": "subtitles.block.generic.hit",
+    "sounds": [
+      {
+        "name": "block/amethyst/step1",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step2",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step3",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step4",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step5",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step6",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step7",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step8",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step9",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step10",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step11",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step12",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step13",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step14",
+        "volume": 0.75,
+        "pitch": 0.7
+      }
+    ]
+  },
+  "block.salt.salt_cluster.fall": {
+    "sounds": [
+      {
+        "name": "block/amethyst/step1",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step2",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step3",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step4",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step5",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step6",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step7",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step8",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step9",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step10",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step11",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step12",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step13",
+        "volume": 0.75,
+        "pitch": 0.7
+      },
+      {
+        "name": "block/amethyst/step14",
+        "volume": 0.75,
+        "pitch": 0.7
+      }
+    ]
+  },
+  "block.salt.large_salt_bud.break": {
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      {
+        "name": "block/amethyst_cluster/break1",
+        "volume": 0.75,
+        "pitch": 0.8
+      },
+      {
+        "name": "block/amethyst_cluster/break2",
+        "volume": 0.75,
+        "pitch": 0.8
+      },
+      {
+        "name": "block/amethyst_cluster/break3",
+        "volume": 0.75,
+        "pitch": 0.8
+      },
+      {
+        "name": "block/amethyst_cluster/break4",
+        "volume": 0.75,
+        "pitch": 0.8
+      }
+    ]
+  },
+  "block.salt.large_salt_bud.place": {
+    "subtitle": "subtitles.block.generic.place",
+    "sounds": [
+      {
+        "name": "block/amethyst_cluster/break1",
+        "volume": 0.75,
+        "pitch": 0.9
+      },
+      {
+        "name": "block/amethyst_cluster/break2",
+        "volume": 0.75,
+        "pitch": 0.9
+      },
+      {
+        "name": "block/amethyst_cluster/break3",
+        "volume": 0.75,
+        "pitch": 0.9
+      },
+      {
+        "name": "block/amethyst_cluster/break4",
+        "volume": 0.75,
+        "pitch": 0.9
+      }
+    ]
+  },
+  "block.salt.large_salt_bud.step": {
+    "subtitle": "subtitles.block.generic.footsteps",
+    "sounds": [
+      {
+        "name": "block/amethyst/step1",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step2",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step3",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step4",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step5",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step6",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step7",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step8",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step9",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step10",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step11",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step12",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step13",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step14",
+        "volume": 0.7,
+        "pitch": 0.85
+      }
+    ]
+  },
+  "block.salt.large_salt_bud.hit": {
+    "subtitle": "subtitles.block.generic.hit",
+    "sounds": [
+      {
+        "name": "block/amethyst/step1",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step2",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step3",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step4",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step5",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step6",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step7",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step8",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step9",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step10",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step11",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step12",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step13",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step14",
+        "volume": 0.7,
+        "pitch": 0.85
+      }
+    ]
+  },
+  "block.salt.large_salt_bud.fall": {
+    "sounds": [
+      {
+        "name": "block/amethyst/step1",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step2",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step3",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step4",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step5",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step6",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step7",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step8",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step9",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step10",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step11",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step12",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step13",
+        "volume": 0.7,
+        "pitch": 0.85
+      },
+      {
+        "name": "block/amethyst/step14",
+        "volume": 0.7,
+        "pitch": 0.85
+      }
+    ]
+  },
+  "block.salt.medium_salt_bud.break": {
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      {
+        "name": "block/amethyst_cluster/break1",
+        "volume": 0.7,
+        "pitch": 0.9
+      },
+      {
+        "name": "block/amethyst_cluster/break2",
+        "volume": 0.7,
+        "pitch": 0.9
+      },
+      {
+        "name": "block/amethyst_cluster/break3",
+        "volume": 0.7,
+        "pitch": 0.9
+      },
+      {
+        "name": "block/amethyst_cluster/break4",
+        "volume": 0.7,
+        "pitch": 0.9
+      }
+    ]
+  },
+  "block.salt.medium_salt_bud.place": {
+    "subtitle": "subtitles.block.generic.place",
+    "sounds": [
+      {
+        "name": "block/amethyst_cluster/break1",
+        "volume": 0.7,
+        "pitch": 0.95
+      },
+      {
+        "name": "block/amethyst_cluster/break2",
+        "volume": 0.7,
+        "pitch": 0.95
+      },
+      {
+        "name": "block/amethyst_cluster/break3",
+        "volume": 0.7,
+        "pitch": 0.95
+      },
+      {
+        "name": "block/amethyst_cluster/break4",
+        "volume": 0.7,
+        "pitch": 0.95
+      }
+    ]
+  },
+  "block.salt.medium_salt_bud.step": {
+    "subtitle": "subtitles.block.generic.footsteps",
+    "sounds": [
+      {
+        "name": "block/amethyst/step1",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step2",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step3",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step4",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step5",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step6",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step7",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step8",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step9",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step10",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step11",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step12",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step13",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step14",
+        "volume": 0.65
+      }
+    ]
+  },
+  "block.salt.medium_salt_bud.hit": {
+    "subtitle": "subtitles.block.generic.hit",
+    "sounds": [
+      {
+        "name": "block/amethyst/step1",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step2",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step3",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step4",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step5",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step6",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step7",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step8",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step9",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step10",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step11",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step12",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step13",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step14",
+        "volume": 0.65
+      }
+    ]
+  },
+  "block.salt.medium_salt_bud.fall": {
+    "sounds": [
+      {
+        "name": "block/amethyst/step1",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step2",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step3",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step4",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step5",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step6",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step7",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step8",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step9",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step10",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step11",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step12",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step13",
+        "volume": 0.65
+      },
+      {
+        "name": "block/amethyst/step14",
+        "volume": 0.65
+      }
+    ]
+  },
+  "block.salt.small_salt_bud.break": {
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      {
+        "name": "block/amethyst_cluster/break1",
+        "volume": 0.65,
+        "pitch": 0.9
+      },
+      {
+        "name": "block/amethyst_cluster/break2",
+        "volume": 0.65,
+        "pitch": 0.9
+      },
+      {
+        "name": "block/amethyst_cluster/break3",
+        "volume": 0.65,
+        "pitch": 0.9
+      },
+      {
+        "name": "block/amethyst_cluster/break4",
+        "volume": 0.65,
+        "pitch": 0.9
+      }
+    ]
+  },
+  "block.salt.small_salt_bud.place": {
+    "subtitle": "subtitles.block.generic.place",
+    "sounds": [
+      {
+        "name": "block/amethyst_cluster/break1",
+        "volume": 0.65,
+        "pitch": 1.05
+      },
+      {
+        "name": "block/amethyst_cluster/break2",
+        "volume": 0.65,
+        "pitch": 1.05
+      },
+      {
+        "name": "block/amethyst_cluster/break3",
+        "volume": 0.65,
+        "pitch": 1.05
+      },
+      {
+        "name": "block/amethyst_cluster/break4",
+        "volume": 0.65,
+        "pitch": 1.05
+      }
+    ]
+  },
+  "block.salt.small_salt_bud.step": {
+    "subtitle": "subtitles.block.generic.footsteps",
+    "sounds": [
+      {
+        "name": "block/amethyst/step1",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step2",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step3",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step4",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step5",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step6",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step7",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step8",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step9",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step10",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step11",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step12",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step13",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step14",
+        "volume": 0.6,
+        "pitch": 1.1
+      }
+    ]
+  },
+  "block.salt.small_salt_bud.hit": {
+    "subtitle": "subtitles.block.generic.hit",
+    "sounds": [
+      {
+        "name": "block/amethyst/step1",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step2",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step3",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step4",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step5",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step6",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step7",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step8",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step9",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step10",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step11",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step12",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step13",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step14",
+        "volume": 0.6,
+        "pitch": 1.1
+      }
+    ]
+  },
+  "block.salt.small_salt_bud.fall": {
+    "sounds": [
+      {
+        "name": "block/amethyst/step1",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step2",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step3",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step4",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step5",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step6",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step7",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step8",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step9",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step10",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step11",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step12",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step13",
+        "volume": 0.6,
+        "pitch": 1.1
+      },
+      {
+        "name": "block/amethyst/step14",
+        "volume": 0.6,
+        "pitch": 1.1
+      }
+    ]
+  }
+}

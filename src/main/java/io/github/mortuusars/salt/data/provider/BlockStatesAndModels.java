@@ -1,9 +1,11 @@
 package io.github.mortuusars.salt.data.provider;
 
 import io.github.mortuusars.salt.Salt;
+import io.github.mortuusars.salt.block.SaltCauldronBlock;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class BlockStatesAndModels extends BlockStateProvider {
@@ -16,28 +18,63 @@ public class BlockStatesAndModels extends BlockStateProvider {
     protected void registerStatesAndModels() {
         String rockSaltPath = Salt.Blocks.ROCK_SALT_ORE.get().getRegistryName().getPath();
 
-        BlockModelBuilder rockSaltDefaultModel1 = models().cubeAll(rockSaltPath + "_1",
+        BlockModelBuilder rockSalt1 = models().cubeAll(rockSaltPath + "_1",
                 Salt.resource("block/" + rockSaltPath + "_1"));
-        BlockModelBuilder rockSaltMirroredModel1 = models().withExistingParent(rockSaltPath + "_1_mirrored", mcLoc("block/cube_mirrored_all"))
+        BlockModelBuilder rockSaltMirrored1 = models().withExistingParent(rockSaltPath + "_1_mirrored", mcLoc("block/cube_mirrored_all"))
                 .texture("all", Salt.resource("block/" + rockSaltPath + "_1"));
 
-        BlockModelBuilder rockSaltDefaultModel2 = models().cubeAll(rockSaltPath + "_2",
+        BlockModelBuilder rockSalt2 = models().cubeAll(rockSaltPath + "_2",
                 Salt.resource("block/" + rockSaltPath + "_2"));
-        BlockModelBuilder rockSaltMirroredModel2 = models().withExistingParent(rockSaltPath + "_2_mirrored", mcLoc("block/cube_mirrored_all"))
+        BlockModelBuilder rockSaltMirrored2 = models().withExistingParent(rockSaltPath + "_2_mirrored", mcLoc("block/cube_mirrored_all"))
                 .texture("all", Salt.resource("block/" + rockSaltPath + "_2"));
+
+        simpleBlock(Salt.Blocks.ROCK_SALT_ORE.get(), ConfiguredModel.builder()
+                .modelFile(rockSalt1)
+                .nextModel()
+                .modelFile(rockSalt1).rotationY(180)
+                .nextModel()
+                .modelFile(rockSaltMirrored1)
+                .nextModel()
+                .modelFile(rockSaltMirrored1).rotationY(180)
+                .nextModel()
+                .modelFile(rockSalt2)
+                .nextModel()
+                .modelFile(rockSalt2).rotationY(180)
+                .nextModel()
+                .modelFile(rockSaltMirrored2)
+                .nextModel()
+                .modelFile(rockSaltMirrored2).rotationY(180)
+                .build());
 
         String deepslateRockSaltPath = Salt.Blocks.DEEPSLATE_ROCK_SALT_ORE.get().getRegistryName().getPath();
 
-        BlockModelBuilder deepslateRockSaltDefaultModel1 = models().cubeAll(deepslateRockSaltPath + "_1",
+        BlockModelBuilder deepslateRockSalt1 = models().cubeAll(deepslateRockSaltPath + "_1",
                 Salt.resource("block/" + deepslateRockSaltPath + "_1"));
-        BlockModelBuilder deepslateRockSaltMirroredModel1 = models().withExistingParent(deepslateRockSaltPath + "_1_mirrored", mcLoc("block/cube_mirrored_all"))
+        BlockModelBuilder deepslateRockSaltMirrored1 = models().withExistingParent(deepslateRockSaltPath + "_1_mirrored", mcLoc("block/cube_mirrored_all"))
                 .texture("all", Salt.resource("block/" + deepslateRockSaltPath + "_1"));
 
-        BlockModelBuilder deepslateRockSaltDefaultModel2 = models().cubeAll(deepslateRockSaltPath + "_2",
+        BlockModelBuilder deepslateRockSalt2 = models().cubeAll(deepslateRockSaltPath + "_2",
                 Salt.resource("block/" + deepslateRockSaltPath + "_2"));
-        BlockModelBuilder deepslateRockSaltMirroredModel2 = models().withExistingParent(deepslateRockSaltPath + "_2_mirrored", mcLoc("block/cube_mirrored_all"))
+        BlockModelBuilder deepslateRockSaltMirrored2 = models().withExistingParent(deepslateRockSaltPath + "_2_mirrored", mcLoc("block/cube_mirrored_all"))
                 .texture("all", Salt.resource("block/" + deepslateRockSaltPath + "_2"));
 
+        simpleBlock(Salt.Blocks.DEEPSLATE_ROCK_SALT_ORE.get(), ConfiguredModel.builder()
+                .modelFile(deepslateRockSalt1)
+                .nextModel()
+                .modelFile(deepslateRockSalt1).rotationY(180)
+                .nextModel()
+                .modelFile(deepslateRockSaltMirrored1)
+                .nextModel()
+                .modelFile(deepslateRockSaltMirrored1).rotationY(180)
+                .nextModel()
+                .modelFile(deepslateRockSalt2)
+                .nextModel()
+                .modelFile(deepslateRockSalt2).rotationY(180)
+                .nextModel()
+                .modelFile(deepslateRockSaltMirrored2)
+                .nextModel()
+                .modelFile(deepslateRockSaltMirrored2).rotationY(180)
+                .build());
 
         simpleBlock(Salt.Blocks.SALT_BLOCK.get(),
                 models()
@@ -56,20 +93,15 @@ public class BlockStatesAndModels extends BlockStateProvider {
         directionalBlock(Salt.Blocks.SMALL_SALT_BUD.get(), models().cross(Salt.Blocks.SMALL_SALT_BUD.get().getRegistryName().getPath(),
                 blockTexture(Salt.Blocks.SMALL_SALT_BUD.get())));
 
-//        MultiVariantGenerator rockSaltVariants = MultiVariantGenerator.multiVariant(Salt.Blocks.ROCK_SALT.get(),
-//                Variant.variant().with(VariantProperties.MODEL, rockSaltDefaultModel1.getLocation()),
-//                Variant.variant().with(VariantProperties.MODEL, rockSaltMirroredModel1.getLocation()),
-//                Variant.variant().with(VariantProperties.MODEL, rockSaltDefaultModel1.getLocation())
-//                        .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180),
-//                Variant.variant().with(VariantProperties.MODEL, rockSaltMirroredModel1.getLocation())
-//                        .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180));
-
-//        getVariantBuilder(Salt.Blocks.ROCK_SALT.get())
-//                .addModels(ConfiguredModel.builder()
-//                        .modelFile(rockSaltDefaultModel1)
-//                        .modelFile(models()
-//                                .withExistingParent(rockSaltPath + "_2", mcLoc("block/cube_mirrored_all"))
-//                                .texture("all", Salt.resource("block/" + rockSaltPath + "_2")))
-//                        .build()).;
+        getVariantBuilder(Salt.Blocks.SALT_CAULDRON.get())
+                .partialState().with(SaltCauldronBlock.LEVEL, 1)
+                .modelForState().modelFile(
+                        models().getExistingFile(modLoc("block/salt_cauldron_level_1"))).addModel()
+                .partialState().with(SaltCauldronBlock.LEVEL, 2)
+                .modelForState().modelFile(
+                        models().getExistingFile(modLoc("block/salt_cauldron_level_2"))).addModel()
+                .partialState().with(SaltCauldronBlock.LEVEL, 3)
+                .modelForState().modelFile(
+                        models().getExistingFile(modLoc("block/salt_cauldron_full"))).addModel();
     }
 }

@@ -109,8 +109,10 @@ public class Salt
         public static final RegistryObject<SaltBlock> DEEPSLATE_ROCK_SALT_ORE = BLOCKS.register("deepslate_rock_salt_ore",
                 () -> new SaltBlock(BlockBehaviour.Properties.copy(ROCK_SALT_ORE.get())
                         .color(MaterialColor.COLOR_GRAY)));
+
         public static final RegistryObject<SaltBlock> RAW_ROCK_SALT_BLOCK = BLOCKS.register("raw_rock_salt_block",
-                () -> new SaltBlock(BlockBehaviour.Properties.copy(ROCK_SALT_ORE.get())));
+                () -> new SaltBlock(BlockBehaviour.Properties.copy(ROCK_SALT_ORE.get())
+                        .sound(Sounds.Types.SALT_CLUSTER)));
 
         public static final RegistryObject<SaltClusterBlock> SALT_CLUSTER = BLOCKS.register("salt_cluster",
                 () -> new SaltClusterBlock(7, 3, BlockBehaviour.Properties.of(Material.DECORATION)
@@ -122,13 +124,19 @@ public class Salt
                         .dynamicShape()));
 
         public static final RegistryObject<SaltClusterBlock> LARGE_SALT_BUD = BLOCKS.register("large_salt_bud",
-                () -> new SaltClusterBlock(5, 3, BlockBehaviour.Properties.copy(SALT_CLUSTER.get()).lightLevel(state -> 2)));
+                () -> new SaltClusterBlock(5, 3, BlockBehaviour.Properties.copy(SALT_CLUSTER.get())
+                        .lightLevel(state -> 2)
+                        .sound(Sounds.Types.LARGE_SALT_BUD)));
 
         public static final RegistryObject<SaltClusterBlock> MEDIUM_SALT_BUD = BLOCKS.register("medium_salt_bud",
-                () -> new SaltClusterBlock(4, 3, BlockBehaviour.Properties.copy(SALT_CLUSTER.get()).lightLevel(state -> 2)));
+                () -> new SaltClusterBlock(4, 3, BlockBehaviour.Properties.copy(SALT_CLUSTER.get())
+                        .lightLevel(state -> 2)
+                        .sound(Sounds.Types.MEDIUM_SALT_BUD)));
 
         public static final RegistryObject<SaltClusterBlock> SMALL_SALT_BUD = BLOCKS.register("small_salt_bud",
-                () -> new SaltClusterBlock(3, 4, BlockBehaviour.Properties.copy(SALT_CLUSTER.get()).lightLevel(state -> 1)));
+                () -> new SaltClusterBlock(3, 4, BlockBehaviour.Properties.copy(SALT_CLUSTER.get())
+                        .lightLevel(state -> 1)
+                        .sound(Sounds.Types.SMALL_SALT_BUD)));
 
         public static final RegistryObject<SaltCauldronBlock> SALT_CAULDRON = BLOCKS.register("salt_cauldron",
                 () -> new SaltCauldronBlock(LayeredCauldronBlock.RAIN, CauldronInteraction.EMPTY));
@@ -163,39 +171,39 @@ public class Salt
     public static class Sounds {
         private static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Salt.ID);
 
-        public static final RegistryObject<SoundEvent> SALT_BREAK = registerSound("salt.break");
-        public static final RegistryObject<SoundEvent> SALT_STEP = registerSound("salt.step");
-        public static final RegistryObject<SoundEvent> SALT_PLACE = registerSound("salt.place");
-        public static final RegistryObject<SoundEvent> SALT_HIT = registerSound("salt.hit");
-        public static final RegistryObject<SoundEvent> SALT_FALL = registerSound("salt.fall");
+        public static final RegistryObject<SoundEvent> SALT_BREAK = registerSoundBlock("salt.break");
+        public static final RegistryObject<SoundEvent> SALT_STEP = registerSoundBlock("salt.step");
+        public static final RegistryObject<SoundEvent> SALT_PLACE = registerSoundBlock("salt.place");
+        public static final RegistryObject<SoundEvent> SALT_HIT = registerSoundBlock("salt.hit");
+        public static final RegistryObject<SoundEvent> SALT_FALL = registerSoundBlock("salt.fall");
 
-        public static final RegistryObject<SoundEvent> SALT_DISSOLVE = registerSound("salt.dissolve");
+        public static final RegistryObject<SoundEvent> SALT_DISSOLVE = registerSoundBlock("salt.dissolve");
 
-        public static final RegistryObject<SoundEvent> SALT_CLUSTER_BREAK = registerSound("salt_cluster.break");
-        public static final RegistryObject<SoundEvent> SALT_CLUSTER_STEP = registerSound("salt_cluster.step");
-        public static final RegistryObject<SoundEvent> SALT_CLUSTER_PLACE = registerSound("salt_cluster.place");
-        public static final RegistryObject<SoundEvent> SALT_CLUSTER_HIT = registerSound("salt_cluster.hit");
-        public static final RegistryObject<SoundEvent> SALT_CLUSTER_FALL = registerSound("salt_cluster.fall");
+        public static final RegistryObject<SoundEvent> SALT_CLUSTER_BREAK = registerSoundBlock("salt_cluster.break");
+        public static final RegistryObject<SoundEvent> SALT_CLUSTER_STEP = registerSoundBlock("salt_cluster.step");
+        public static final RegistryObject<SoundEvent> SALT_CLUSTER_PLACE = registerSoundBlock("salt_cluster.place");
+        public static final RegistryObject<SoundEvent> SALT_CLUSTER_HIT = registerSoundBlock("salt_cluster.hit");
+        public static final RegistryObject<SoundEvent> SALT_CLUSTER_FALL = registerSoundBlock("salt_cluster.fall");
 
-        public static final RegistryObject<SoundEvent> LARGE_SALT_BUD_BREAK = registerSound("large_salt_bud.break");
-        public static final RegistryObject<SoundEvent> LARGE_SALT_BUD_STEP = registerSound("large_salt_bud.step");
-        public static final RegistryObject<SoundEvent> LARGE_SALT_BUD_PLACE = registerSound("large_salt_bud.place");
-        public static final RegistryObject<SoundEvent> LARGE_SALT_BUD_HIT = registerSound("large_salt_bud.hit");
-        public static final RegistryObject<SoundEvent> LARGE_SALT_BUD_FALL = registerSound("large_salt_bud.fall");
+        public static final RegistryObject<SoundEvent> LARGE_SALT_BUD_BREAK = registerSoundBlock("large_salt_bud.break");
+        public static final RegistryObject<SoundEvent> LARGE_SALT_BUD_STEP = registerSoundBlock("large_salt_bud.step");
+        public static final RegistryObject<SoundEvent> LARGE_SALT_BUD_PLACE = registerSoundBlock("large_salt_bud.place");
+        public static final RegistryObject<SoundEvent> LARGE_SALT_BUD_HIT = registerSoundBlock("large_salt_bud.hit");
+        public static final RegistryObject<SoundEvent> LARGE_SALT_BUD_FALL = registerSoundBlock("large_salt_bud.fall");
 
-        public static final RegistryObject<SoundEvent> MEDIUM_SALT_BUD_BREAK = registerSound("medium_salt_bud.break");
-        public static final RegistryObject<SoundEvent> MEDIUM_SALT_BUD_STEP = registerSound("medium_salt_bud.step");
-        public static final RegistryObject<SoundEvent> MEDIUM_SALT_BUD_PLACE = registerSound("medium_salt_bud.place");
-        public static final RegistryObject<SoundEvent> MEDIUM_SALT_BUD_HIT = registerSound("medium_salt_bud.hit");
-        public static final RegistryObject<SoundEvent> MEDIUM_SALT_BUD_FALL = registerSound("medium_salt_bud.fall");
+        public static final RegistryObject<SoundEvent> MEDIUM_SALT_BUD_BREAK = registerSoundBlock("medium_salt_bud.break");
+        public static final RegistryObject<SoundEvent> MEDIUM_SALT_BUD_STEP = registerSoundBlock("medium_salt_bud.step");
+        public static final RegistryObject<SoundEvent> MEDIUM_SALT_BUD_PLACE = registerSoundBlock("medium_salt_bud.place");
+        public static final RegistryObject<SoundEvent> MEDIUM_SALT_BUD_HIT = registerSoundBlock("medium_salt_bud.hit");
+        public static final RegistryObject<SoundEvent> MEDIUM_SALT_BUD_FALL = registerSoundBlock("medium_salt_bud.fall");
 
-        public static final RegistryObject<SoundEvent> SMALL_SALT_BUD_BREAK = registerSound("small_salt_bud.break");
-        public static final RegistryObject<SoundEvent> SMALL_SALT_BUD_STEP = registerSound("small_salt_bud.step");
-        public static final RegistryObject<SoundEvent> SMALL_SALT_BUD_PLACE = registerSound("small_salt_bud.place");
-        public static final RegistryObject<SoundEvent> SMALL_SALT_BUD_HIT = registerSound("small_salt_bud.hit");
-        public static final RegistryObject<SoundEvent> SMALL_SALT_BUD_FALL = registerSound("small_salt_bud.fall");
+        public static final RegistryObject<SoundEvent> SMALL_SALT_BUD_BREAK = registerSoundBlock("small_salt_bud.break");
+        public static final RegistryObject<SoundEvent> SMALL_SALT_BUD_STEP = registerSoundBlock("small_salt_bud.step");
+        public static final RegistryObject<SoundEvent> SMALL_SALT_BUD_PLACE = registerSoundBlock("small_salt_bud.place");
+        public static final RegistryObject<SoundEvent> SMALL_SALT_BUD_HIT = registerSoundBlock("small_salt_bud.hit");
+        public static final RegistryObject<SoundEvent> SMALL_SALT_BUD_FALL = registerSoundBlock("small_salt_bud.fall");
 
-        private static RegistryObject<SoundEvent> registerSound(String name) {
+        private static RegistryObject<SoundEvent> registerSoundBlock(String name) {
             return SOUNDS.register("block.salt." + name, () -> new SoundEvent(Salt.resource("block.salt." + name)));
         }
 
@@ -237,17 +245,22 @@ public class Salt
     }
 
     public static class ItemTags {
-        public static final TagKey<Item> SALT = net.minecraft.tags.ItemTags.create(new ResourceLocation("forge", "salts"));
-        public static final TagKey<Item> CAN_BE_SALTED = net.minecraft.tags.ItemTags.create(Salt.resource("can_be_salted"));
+        public static final TagKey<Item> SALT = net.minecraft.tags.ItemTags.create(
+                new ResourceLocation("forge", "salts"));
+        public static final TagKey<Item> CAN_BE_SALTED = net.minecraft.tags.ItemTags.create(
+                Salt.resource("can_be_salted"));
     }
 
     public static class BlockTags {
-        public static final TagKey<Block> HEATERS = net.minecraft.tags.BlockTags.create(Salt.resource("heaters"));
-        public static final TagKey<Block> SALT_CLUSTER_REPLACEABLES = net.minecraft.tags.BlockTags.create(Salt.resource("salt_cluster_replaceables"));
+        public static final TagKey<Block> HEATERS = net.minecraft.tags.BlockTags.create(
+                Salt.resource("heaters"));
+        public static final TagKey<Block> SALT_CLUSTER_REPLACEABLES = net.minecraft.tags.BlockTags.create(
+                Salt.resource("salt_cluster_replaceables"));
     }
 
     public static class BiomeTags {
-        public static final TagKey<Biome> HAS_ROCK_SALT_DEPOSITS = TagKey.create(net.minecraft.core.Registry.BIOME_REGISTRY, Salt.resource("has_rock_salt_deposits"));
+        public static final TagKey<Biome> HAS_ROCK_SALT_DEPOSITS = TagKey.create(net.minecraft.core.Registry.BIOME_REGISTRY,
+                Salt.resource("has_rock_salt_deposits"));
     }
 
     public static class RecipeSerializers {

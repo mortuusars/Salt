@@ -2,6 +2,7 @@ package io.github.mortuusars.salt.event;
 
 import io.github.mortuusars.salt.Salt;
 import io.github.mortuusars.salt.Salting;
+import io.github.mortuusars.salt.client.LangKeys;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class ClientEvents {
 
-    public static void onClientSetup(FMLClientSetupEvent event) {
+    public static void onClientSetup(FMLClientSetupEvent ignoredEvent) {
         ItemBlockRenderTypes.setRenderLayer(Salt.Blocks.SALT_CLUSTER.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(Salt.Blocks.LARGE_SALT_BUD.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(Salt.Blocks.MEDIUM_SALT_BUD.get(), RenderType.cutout());
@@ -43,8 +44,8 @@ public class ClientEvents {
 
         @SuppressWarnings("SuperfluousFormat")
         public static MutableComponent get(int nutrition, float saturationModifier, boolean isExpanded) {
-            MutableComponent base = new TranslatableComponent("salt.gui.tooltip.salted").withStyle(SALTED_STYLE);
-            return isExpanded ? base.append(new TranslatableComponent("salt.gui.tooltip.salted_expanded_part",
+            MutableComponent base = new TranslatableComponent(LangKeys.GUI_TOOLTIP_SALTED).withStyle(SALTED_STYLE);
+            return isExpanded ? base.append(new TranslatableComponent(LangKeys.GUI_TOOLTIP_SALTED_EXPANDED_PART,
                     nutrition > 0 ? "+" + nutrition : "-" + nutrition,
                     saturationModifier > 0 ? "+" + saturationModifier : "-" + saturationModifier)
                     .withStyle(SALTED_EXPANDED_PART_STYLE))

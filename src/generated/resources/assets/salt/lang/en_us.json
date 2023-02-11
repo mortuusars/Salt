@@ -1,0 +1,16 @@
+{
+  "block.salt.deepslate_rock_salt_ore": "Deepslate Rock Salt",
+  "block.salt.large_salt_bud": "Large Salt Bud",
+  "block.salt.medium_salt_bud": "Medium Salt Bud",
+  "block.salt.raw_rock_salt_block": "Block of Raw Rock Salt",
+  "block.salt.rock_salt_ore": "Rock Salt",
+  "block.salt.salt_block": "Salt Block",
+  "block.salt.salt_cauldron": "Salt Cauldron",
+  "block.salt.salt_cluster": "Salt Cluster",
+  "block.salt.small_salt_bud": "Small Salt Bud",
+  "gui.salt.tooltip.salted": "Salted",
+  "gui.salt.tooltip.salted_expanded_part": ": %s nutrition",
+  "item.salt.raw_rock_salt": "Raw Rock Salt",
+  "item.salt.salt": "Salt",
+  "subtitles.block.salt.salt_dissolve": "Salt dissolving"
+}

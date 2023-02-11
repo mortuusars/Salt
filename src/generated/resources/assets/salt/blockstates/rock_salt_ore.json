@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "salt:block/rock_salt_ore_1"
+      },
+      {
+        "model": "salt:block/rock_salt_ore_1",
+        "y": 180
+      },
+      {
+        "model": "salt:block/rock_salt_ore_1_mirrored"
+      },
+      {
+        "model": "salt:block/rock_salt_ore_1_mirrored",
+        "y": 180
+      },
+      {
+        "model": "salt:block/rock_salt_ore_2"
+      },
+      {
+        "model": "salt:block/rock_salt_ore_2",
+        "y": 180
+      },
+      {
+        "model": "salt:block/rock_salt_ore_2_mirrored"
+      },
+      {
+        "model": "salt:block/rock_salt_ore_2_mirrored",
+        "y": 180
+      }
+    ]
+  }
+}

@@ -46,6 +46,7 @@ public abstract class WaterCauldronMixin extends Block {
                 Fluid fluid = PointedDripstoneBlock.getCauldronFillFluidType(level, stalactitePos);
                 if (fluid != Fluids.LAVA) {
                     // Fluid drop evaporates
+                    //TODO: sound
                     level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH,
                             SoundSource.BLOCKS, 0.5f, level.getRandom().nextFloat() * 0.2f + 0.9f);
                     ci.cancel();
@@ -63,6 +64,7 @@ public abstract class WaterCauldronMixin extends Block {
         if (state.is(Blocks.WATER_CAULDRON) && hasWater && hasHeatSourceBelow && CallStackHelper.isCalledFrom(CallStackHelper.RANDOM_TICK)
             && level.getRandom().nextDouble() < Configuration.EVAPORATION_CHANCE.get()) {
             level.setBlockAndUpdate(pos, Salt.Blocks.SALT_CAULDRON.get().withPropertiesOf(state));
+            //TODO: sound
             level.levelEvent(null, LevelEvent.SOUND_EXTINGUISH_FIRE, pos, 0);
             ci.cancel();
         }

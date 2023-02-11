@@ -21,11 +21,14 @@ public class DataGeneration
             BlockTags blockTags = new BlockTags(generator, helper);
             generator.addProvider(blockTags);
             generator.addProvider(new ItemTags(generator, blockTags, helper));
+            generator.addProvider(new BiomeTags(generator, helper));
         }
         if (event.includeClient()) {
             BlockStatesAndModels blockStates = new BlockStatesAndModels(generator, helper);
             generator.addProvider(blockStates);
             generator.addProvider(new ItemModels(generator, blockStates.models().existingFileHelper));
+            generator.addProvider(new Sounds(generator, helper));
+            generator.addProvider(new Lang(generator, "en_us"));
         }
     }
 }

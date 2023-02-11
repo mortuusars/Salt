@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "salt:block/rock_salt_1"
+    "all": "salt:block/rock_salt_ore_1"
   }
 }

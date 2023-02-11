@@ -49,7 +49,7 @@ public class SaltCauldronBlock extends LayeredCauldronBlock {
     private Predicate<Biome.Precipitation> fillPredicate;
 
     public SaltCauldronBlock(Predicate<Biome.Precipitation> fillPredicate, Map<Item, CauldronInteraction> interactions) {
-        super(BlockBehaviour.Properties.copy(Blocks.WATER_CAULDRON), fillPredicate, interactions);
+        super(BlockBehaviour.Properties.copy(Blocks.CAULDRON), fillPredicate, interactions);
         this.fillPredicate = fillPredicate;
     }
 
@@ -71,6 +71,7 @@ public class SaltCauldronBlock extends LayeredCauldronBlock {
             if (level instanceof ServerLevel serverLevel) {
                 dropContents(serverLevel, state, pos);
                 serverLevel.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
+                //TODO: sound
                 serverLevel.playSound(null, pos, SoundEvents.DRIPSTONE_BLOCK_HIT, SoundSource.BLOCKS, 0.8F, serverLevel.getRandom().nextFloat() * 0.2f + 0.9f);
             }
 
