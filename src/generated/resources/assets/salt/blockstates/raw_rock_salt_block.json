@@ -1,7 +1,20 @@
 {
   "variants": {
-    "": {
-      "model": "salt:block/raw_rock_salt_block"
-    }
+    "": [
+      {
+        "model": "salt:block/raw_rock_salt_block"
+      },
+      {
+        "model": "salt:block/raw_rock_salt_block",
+        "y": 180
+      },
+      {
+        "model": "salt:block/raw_rock_salt_block_mirrored"
+      },
+      {
+        "model": "salt:block/raw_rock_salt_block_mirrored",
+        "y": 180
+      }
+    ]
   }
 }

@@ -76,13 +76,32 @@ public class BlockStatesAndModels extends BlockStateProvider {
                 .modelFile(deepslateRockSaltMirrored2).rotationY(180)
                 .build());
 
-        simpleBlock(Salt.Blocks.SALT_BLOCK.get(),
-                models()
-                    .cubeAll(Salt.Blocks.SALT_BLOCK.get().getRegistryName().getPath(), blockTexture(Salt.Blocks.SALT_BLOCK.get())));
+        simpleBlock(Salt.Blocks.SALT_BLOCK.get());
 
-        simpleBlock(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get(),
-                models()
-                    .cubeAll(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get().getRegistryName().getPath(), blockTexture(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get())));
+//        simpleBlock(Salt.Blocks.SALT_BLOCK.get(),
+//                models()
+//                    .cubeAll(Salt.Blocks.SALT_BLOCK.get().getRegistryName().getPath(), blockTexture(Salt.Blocks.SALT_BLOCK.get())));
+
+        BlockModelBuilder rawRockSaltBlock = models().cubeAll(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get().getRegistryName()
+                .getPath(), blockTexture(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get()));
+
+        BlockModelBuilder rawRockSaltBlockMirrored = models()
+                .withExistingParent(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get().getRegistryName().getPath() + "_mirrored", mcLoc("block/cube_mirrored_all"))
+                .texture("all", modLoc("block/" + Salt.Blocks.RAW_ROCK_SALT_BLOCK.get().getRegistryName().getPath()));
+
+        simpleBlock(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get(), ConfiguredModel.builder()
+                .modelFile(rawRockSaltBlock)
+                .nextModel()
+                .modelFile(rawRockSaltBlock).rotationY(180)
+                .nextModel()
+                .modelFile(rawRockSaltBlockMirrored)
+                .nextModel()
+                .modelFile(rawRockSaltBlockMirrored).rotationY(180)
+                .build());
+
+//        simpleBlock(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get(),
+//                models()
+//                    .cubeAll(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get().getRegistryName().getPath(), blockTexture(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get())));
 
         directionalBlock(Salt.Blocks.SALT_CLUSTER.get(), models().cross(Salt.Blocks.SALT_CLUSTER.get().getRegistryName().getPath(),
                 blockTexture(Salt.Blocks.SALT_CLUSTER.get())));
