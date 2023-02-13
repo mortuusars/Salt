@@ -31,6 +31,15 @@ public class BlockTags extends BlockTagsProvider {
                 .add(Blocks.SOUL_FIRE)
                 .add(Blocks.MAGMA_BLOCK);
 
+        tag(Salt.BlockTags.DISSOLVES_SALT)
+                .add(Blocks.WATER);
+
+        tag(Salt.BlockTags.MELTED_BY_SALT)
+                .addTag(net.minecraft.tags.BlockTags.ICE)
+                .addTag(net.minecraft.tags.BlockTags.SNOW)
+                .remove(Blocks.FROSTED_ICE)
+                .remove(Blocks.PACKED_ICE);
+
         tag(Salt.BlockTags.SALT_CLUSTER_REPLACEABLES)
                 .add(Blocks.AIR)
                 .add(Blocks.CAVE_AIR)

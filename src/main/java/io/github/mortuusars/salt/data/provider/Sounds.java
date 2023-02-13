@@ -16,9 +16,12 @@ public class Sounds extends SoundDefinitionsProvider {
     public void registerSounds() {
         add(Salt.Sounds.SALT_DISSOLVE.get(), definition()
                 .subtitle(LangKeys.SUBTITLES_SALT_DISSOLVE)
-                .with(multiple(6, "block/azalea/break", 1.0f, 1.3f)));
+                .with(multiple(6, "block/beehive/drip", 0.6f, 0.6f)));
+        add(Salt.Sounds.MELT.get(), definition()
+                .subtitle(LangKeys.SUBTITLES_MELT)
+                .with(multiple(8, "entity/boat/paddle_water", 1f, 1.25f)));
         add(Salt.Sounds.CAULDRON_EVAPORATE.get(), definition()
-                .subtitle(LangKeys.SUBTITLES_SALT_DISSOLVE)
+                .subtitle(LangKeys.SUBTITLES_CAULDRON_EVAPORATE)
                 .with(sound("random/fizz").volume(0.9f).pitch(0.85f)));
         add(Salt.Sounds.SALT_CAULDRON_REMOVE_SALT.get(), definition()
                 .with(multiple(5, "step/sand", 1.0f, 1.1f)));

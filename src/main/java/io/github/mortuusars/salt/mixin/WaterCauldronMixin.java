@@ -70,6 +70,7 @@ public abstract class WaterCauldronMixin extends Block {
 
             Vec3 center = Vec3.atCenterOf(pos);
             for (int i = 0; i < 8; i++) {
+                //TODO: use sendParticles
                 level.addParticle(ParticleTypes.CLOUD,
                         center.x + random.nextFloat() * 0.1f, center.y + 0.2f, center.z + random.nextFloat() * 0.1f,
                         random.nextFloat() * 0.02f, 0.015f, random.nextFloat() * 0.02f);

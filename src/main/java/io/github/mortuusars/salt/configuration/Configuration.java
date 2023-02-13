@@ -3,13 +3,11 @@ package io.github.mortuusars.salt.configuration;
 import com.mojang.logging.LogUtils;
 import io.github.mortuusars.salt.Salting;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +21,17 @@ public class Configuration {
     public static final ForgeConfigSpec.DoubleValue SALTING_ADDITIONAL_SATURATION_MODIFIER;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> SALTING_INDIVIDUAL_VALUES;
     public static Map<String, Salting.FoodValue> FOOD_VALUES = new HashMap<>();
+
+    // Dissolving
+    public static final ForgeConfigSpec.BooleanValue DISSOLVING_ENABLED;
+    public static final ForgeConfigSpec.DoubleValue DISSOLVING_CHANCE;
+    public static final ForgeConfigSpec.BooleanValue DISSOLVING_FLUID_SOURCE_CONVERSION;
+    public static final ForgeConfigSpec.BooleanValue DISSOLVING_IN_RAIN;
+    public static final ForgeConfigSpec.DoubleValue DISSOLVING_IN_RAIN_CHANCE;
+
+    // Melting
+    public static final ForgeConfigSpec.BooleanValue MELTING_ENABLED;
+    public static final ForgeConfigSpec.DoubleValue MELTING_CHANCE;
 
     // Evaporation
     public static final ForgeConfigSpec.BooleanValue EVAPORATION_ENABLED;
@@ -63,10 +72,52 @@ public class Configuration {
 
         builder.pop();
 
+
+
+        builder.push("Dissolving");
+
+        DISSOLVING_ENABLED = builder
+                .comment("Salt blocks will dissolve if adjacent to blocks defined in the tag 'salt/tags/blocks/salt_dissolvables'")
+                .define("SaltDissolving", true);
+
+        DISSOLVING_CHANCE = builder
+                .comment("Chance of water dissolving in fluid on random tick. 1.0 = first random tick. 0.0 = never.")
+                .defineInRange("SaltDissolvingChance", 1.0d, 0.0d, 1.0d);
+
+        DISSOLVING_FLUID_SOURCE_CONVERSION = builder
+                .comment("If dissolved by a fluid source block - salt will convert to a fluid source block instead of air.")
+                .define("SaltDissolvesIntoSourceBlocks", true);
+
+        DISSOLVING_IN_RAIN = builder
+                .comment("Salt blocks will dissolve when exposed to rain")
+                .define("SaltDissolvingInRain", true);
+
+        DISSOLVING_IN_RAIN_CHANCE = builder
+                .comment("Chance of salt blocks dissolving in rain on random tick. 1.0 = first random tick. 0.0 = never.")
+                .defineInRange("SaltDissolvingInRainChance", 0.5d, 0.0d, 1.0d);
+
+        builder.pop();
+
+
+
+        builder.push("Melting");
+
+        MELTING_ENABLED = builder
+                .comment("Salt blocks will melt adjacent blocks defined in tag 'salt/tags/blocks/melted_by_salt' on random tick.")
+                .define("SaltMelting", true);
+
+        MELTING_CHANCE = builder
+                .comment("Chance of block melting on random tick. 1.0 = first random tick. 0.0 = never.")
+                .defineInRange("SaltMeltingChance", 0.5d, 0.0d, 1.0d);
+
+        builder.pop();
+
+
+
         builder.push("Evaporation");
 
         EVAPORATION_ENABLED = builder
-                .comment("Water in a cauldron with a heat source beneath will evaporate and salt will be formed in the cauldron")
+                .comment("Water in a cauldron with a heat source beneath (defined in tag 'salt/blocks/heaters') will evaporate and salt will be formed in the cauldron")
                 .define("EvaporationEnabled", true);
         EVAPORATION_CHANCE = builder
                 .comment("Chance of water evaporating on random tick. 1.0 = first random tick. 0.0 = never.")

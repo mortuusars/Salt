@@ -12,6 +12,6 @@
   "gui.salt.tooltip.salted_expanded_part": ": %s nutrition",
   "item.salt.raw_rock_salt": "Raw Rock Salt",
   "item.salt.salt": "Salt",
-  "subtitles.block.salt.cauldron_evaporate": "Water evaporating",
-  "subtitles.block.salt.salt_dissolve": "Salt dissolving"
+  "subtitles.block.salt.cauldron_evaporate": "Water evaporates",
+  "subtitles.block.salt.salt_dissolve": "Salt dissolves"
 }

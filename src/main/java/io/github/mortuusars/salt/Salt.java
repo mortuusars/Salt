@@ -3,6 +3,7 @@ package io.github.mortuusars.salt;
 import io.github.mortuusars.salt.block.SaltBlock;
 import io.github.mortuusars.salt.block.SaltCauldronBlock;
 import io.github.mortuusars.salt.block.SaltClusterBlock;
+import io.github.mortuusars.salt.block.SaltSandBlock;
 import io.github.mortuusars.salt.configuration.Configuration;
 import io.github.mortuusars.salt.crafting.recipe.SaltingRecipe;
 import io.github.mortuusars.salt.event.ClientEvents;
@@ -24,10 +25,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.LayeredCauldronBlock;
-import net.minecraft.world.level.block.SandBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -97,17 +95,17 @@ public class Salt
         private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Salt.ID);
 
         public static final RegistryObject<SandBlock> SALT_BLOCK = BLOCKS.register("salt_block",
-                () -> new SandBlock(0xe7d5cf, BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.SAND)));
+                () -> new SaltSandBlock(0xe7d5cf, BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.SAND)));
 
         public static final RegistryObject<SaltBlock> ROCK_SALT_ORE = BLOCKS.register("rock_salt_ore",
-                () -> new SaltBlock(BlockBehaviour.Properties.of(Material.STONE)
+                () -> new SaltBlock(net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(), BlockBehaviour.Properties.of(Material.STONE)
                         .color(MaterialColor.COLOR_LIGHT_GRAY)
                         .randomTicks()
                         .strength(2.5F)
                         .requiresCorrectToolForDrops()
                         .sound(Salt.Sounds.Types.SALT)));
         public static final RegistryObject<SaltBlock> DEEPSLATE_ROCK_SALT_ORE = BLOCKS.register("deepslate_rock_salt_ore",
-                () -> new SaltBlock(BlockBehaviour.Properties.copy(ROCK_SALT_ORE.get())
+                () -> new SaltBlock(net.minecraft.world.level.block.Blocks.DEEPSLATE.defaultBlockState(), BlockBehaviour.Properties.copy(ROCK_SALT_ORE.get())
                         .color(MaterialColor.COLOR_GRAY)));
 
         public static final RegistryObject<SaltBlock> RAW_ROCK_SALT_BLOCK = BLOCKS.register("raw_rock_salt_block",
@@ -172,6 +170,7 @@ public class Salt
         private static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Salt.ID);
 
         public static final RegistryObject<SoundEvent> SALT_DISSOLVE = registerBlockSound("salt.dissolve");
+        public static final RegistryObject<SoundEvent> MELT = registerBlockSound("melt");
         public static final RegistryObject<SoundEvent> CAULDRON_EVAPORATE = registerBlockSound("cauldron.evaporate");
         public static final RegistryObject<SoundEvent> SALT_CAULDRON_REMOVE_SALT = registerBlockSound("salt_cauldron.remove_salt");
 
@@ -256,6 +255,10 @@ public class Salt
     public static class BlockTags {
         public static final TagKey<Block> HEATERS = net.minecraft.tags.BlockTags.create(
                 Salt.resource("heaters"));
+        public static final TagKey<Block> DISSOLVES_SALT = net.minecraft.tags.BlockTags.create(
+                Salt.resource("dissolves_salt"));
+        public static final TagKey<Block> MELTED_BY_SALT = net.minecraft.tags.BlockTags.create(
+                Salt.resource("melted_by_salt"));
         public static final TagKey<Block> SALT_CLUSTER_REPLACEABLES = net.minecraft.tags.BlockTags.create(
                 Salt.resource("salt_cluster_replaceables"));
     }

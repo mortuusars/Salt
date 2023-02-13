@@ -3,28 +3,71 @@
     "subtitle": "subtitles.block.salt.salt_dissolve",
     "sounds": [
       {
-        "name": "block/azalea/break1",
-        "pitch": 1.3
+        "name": "block/beehive/drip1",
+        "volume": 0.6,
+        "pitch": 0.6
       },
       {
-        "name": "block/azalea/break2",
-        "pitch": 1.3
+        "name": "block/beehive/drip2",
+        "volume": 0.6,
+        "pitch": 0.6
       },
       {
-        "name": "block/azalea/break3",
-        "pitch": 1.3
+        "name": "block/beehive/drip3",
+        "volume": 0.6,
+        "pitch": 0.6
       },
       {
-        "name": "block/azalea/break4",
-        "pitch": 1.3
+        "name": "block/beehive/drip4",
+        "volume": 0.6,
+        "pitch": 0.6
       },
       {
-        "name": "block/azalea/break5",
-        "pitch": 1.3
+        "name": "block/beehive/drip5",
+        "volume": 0.6,
+        "pitch": 0.6
       },
       {
-        "name": "block/azalea/break6",
-        "pitch": 1.3
+        "name": "block/beehive/drip6",
+        "volume": 0.6,
+        "pitch": 0.6
+      }
+    ]
+  },
+  "block.salt.melt": {
+    "subtitle": "subtitles.block.salt.melt",
+    "sounds": [
+      {
+        "name": "entity/boat/paddle_water1",
+        "pitch": 1.25
+      },
+      {
+        "name": "entity/boat/paddle_water2",
+        "pitch": 1.25
+      },
+      {
+        "name": "entity/boat/paddle_water3",
+        "pitch": 1.25
+      },
+      {
+        "name": "entity/boat/paddle_water4",
+        "pitch": 1.25
+      },
+      {
+        "name": "entity/boat/paddle_water5",
+        "pitch": 1.25
+      },
+      {
+        "name": "entity/boat/paddle_water6",
+        "pitch": 1.25
+      },
+      {
+        "name": "entity/boat/paddle_water7",
+        "pitch": 1.25
+      },
+      {
+        "name": "entity/boat/paddle_water8",
+        "pitch": 1.25
       }
     ]
   },
