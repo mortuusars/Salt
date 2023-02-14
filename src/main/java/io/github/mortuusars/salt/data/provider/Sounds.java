@@ -58,48 +58,48 @@ public class Sounds extends SoundDefinitionsProvider {
 
         add(Salt.Sounds.LARGE_SALT_BUD_BREAK.get(), definition()
                 .subtitle("subtitles.block.generic.break")
-                .with(multiple(4, "block/amethyst_cluster/break", 0.75f, 0.8f)));
+                .with(multiple(4, "block/amethyst_cluster/break", 0.7f, 0.8f)));
         add(Salt.Sounds.LARGE_SALT_BUD_PLACE.get(), definition()
                 .subtitle("subtitles.block.generic.place")
-                .with(multiple(4, "block/amethyst_cluster/break", 0.75f, 0.9f)));
+                .with(multiple(4, "block/amethyst_cluster/break", 0.7f, 0.9f)));
         add(Salt.Sounds.LARGE_SALT_BUD_STEP.get(), definition()
                 .subtitle("subtitles.block.generic.footsteps")
-                .with(multiple(14, "block/amethyst/step", 0.7f, 0.85f)));
+                .with(multiple(14, "block/amethyst/step", 0.65f, 0.85f)));
         add(Salt.Sounds.LARGE_SALT_BUD_HIT.get(), definition()
                 .subtitle("subtitles.block.generic.hit")
-                .with(multiple(14, "block/amethyst/step", 0.7f, 0.85f)));
+                .with(multiple(14, "block/amethyst/step", 0.65f, 0.85f)));
         add(Salt.Sounds.LARGE_SALT_BUD_FALL.get(), definition()
-                .with(multiple(14, "block/amethyst/step", 0.7f, 0.85f)));
+                .with(multiple(14, "block/amethyst/step", 0.65f, 0.85f)));
 
         add(Salt.Sounds.MEDIUM_SALT_BUD_BREAK.get(), definition()
                 .subtitle("subtitles.block.generic.break")
-                .with(multiple(4, "block/amethyst_cluster/break", 0.7f, 0.9f)));
+                .with(multiple(4, "block/amethyst_cluster/break", 0.55f, 0.9f)));
         add(Salt.Sounds.MEDIUM_SALT_BUD_PLACE.get(), definition()
                 .subtitle("subtitles.block.generic.place")
-                .with(multiple(4, "block/amethyst_cluster/break", 0.7f, 0.95f)));
+                .with(multiple(4, "block/amethyst_cluster/break", 0.55f, 0.95f)));
         add(Salt.Sounds.MEDIUM_SALT_BUD_STEP.get(), definition()
                 .subtitle("subtitles.block.generic.footsteps")
-                .with(multiple(14, "block/amethyst/step", 0.65f, 1f)));
+                .with(multiple(14, "block/amethyst/step", 0.5f, 1f)));
         add(Salt.Sounds.MEDIUM_SALT_BUD_HIT.get(), definition()
                 .subtitle("subtitles.block.generic.hit")
-                .with(multiple(14, "block/amethyst/step", 0.65f, 1f)));
+                .with(multiple(14, "block/amethyst/step", 0.5f, 1f)));
         add(Salt.Sounds.MEDIUM_SALT_BUD_FALL.get(), definition()
-                .with(multiple(14, "block/amethyst/step", 0.65f, 1f)));
+                .with(multiple(14, "block/amethyst/step", 0.5f, 1f)));
 
         add(Salt.Sounds.SMALL_SALT_BUD_BREAK.get(), definition()
                 .subtitle("subtitles.block.generic.break")
-                .with(multiple(4, "block/amethyst_cluster/break", 0.65f, 0.9f)));
+                .with(multiple(4, "block/amethyst_cluster/break", 0.4f, 0.9f)));
         add(Salt.Sounds.SMALL_SALT_BUD_PLACE.get(), definition()
                 .subtitle("subtitles.block.generic.place")
-                .with(multiple(4, "block/amethyst_cluster/break", 0.65f, 1.05f)));
+                .with(multiple(4, "block/amethyst_cluster/break", 0.4f, 1.05f)));
         add(Salt.Sounds.SMALL_SALT_BUD_STEP.get(), definition()
                 .subtitle("subtitles.block.generic.footsteps")
-                .with(multiple(14, "block/amethyst/step", 0.6f, 1.1f)));
+                .with(multiple(14, "block/amethyst/step", 0.35f, 1.1f)));
         add(Salt.Sounds.SMALL_SALT_BUD_HIT.get(), definition()
                 .subtitle("subtitles.block.generic.hit")
-                .with(multiple(14, "block/amethyst/step", 0.6f, 1.1f)));
+                .with(multiple(14, "block/amethyst/step", 0.353f, 1.1f)));
         add(Salt.Sounds.SMALL_SALT_BUD_FALL.get(), definition()
-                .with(multiple(14, "block/amethyst/step", 0.6f, 1.1f)));
+                .with(multiple(14, "block/amethyst/step", 0.35f, 1.1f)));
     }
 
     private SoundDefinition.Sound[] multiple(int count, String name, float volume, float pitch) {

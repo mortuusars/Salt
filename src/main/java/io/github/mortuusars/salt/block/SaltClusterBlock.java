@@ -1,11 +1,14 @@
 package io.github.mortuusars.salt.block;
 
 import io.github.mortuusars.salt.Salt;
+import io.github.mortuusars.salt.configuration.Configuration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -17,16 +20,19 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class SaltClusterBlock extends Block {
+public class SaltClusterBlock extends Block implements ISaltBlock{
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
     protected final VoxelShape northAabb;
@@ -48,6 +54,15 @@ public class SaltClusterBlock extends Block {
     }
 
     @Override
+    public void onProjectileHit(Level level, BlockState blockState, BlockHitResult blockHitResult, Projectile projectile) {
+        BlockPos blockpos = blockHitResult.getBlockPos();
+        if (!level.isClientSide && projectile.mayInteract(level, blockpos) && projectile instanceof ThrownTrident
+                && projectile.getDeltaMovement().length() > 0.6D) {
+            level.destroyBlock(blockpos, true);
+        }
+    }
+
+    @Override
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
         if (!level.isClientSide && !newState.getFluidState().is(Fluids.EMPTY)) {
             level.playSound(null, pos, Salt.Sounds.SALT_DISSOLVE.get(), SoundSource.BLOCKS, 0.8f,
@@ -64,17 +79,20 @@ public class SaltClusterBlock extends Block {
 
     @Override
     public float getMaxHorizontalOffset() {
-        return 0.1f;
+        return 0.05f;
     }
 
     @Override
-    public SoundType getSoundType(BlockState state, LevelReader level, BlockPos pos, @org.jetbrains.annotations.Nullable Entity entity) {
-        return super.getSoundType(state, level, pos, entity);
-    }
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+        if (Configuration.DISSOLVING_ENABLED.get() && Configuration.DISSOLVING_IN_RAIN.get() && level.isRainingAt(pos.above())
+                && level.random.nextDouble() < Configuration.DISSOLVING_IN_RAIN_CHANCE.get()) {
+            dissolve(state, level, pos, Fluids.EMPTY, false);
+            return;
+        }
 
-    @Override
-    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom) {
-        super.randomTick(pState, pLevel, pPos, pRandom);
+        BlockPos basePos = pos.below();
+        if (state.getValue(FACING) == Direction.UP)
+            SaltBlock.maybeGrowCluster(level.getBlockState(basePos), basePos, level);
     }
 
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
@@ -123,5 +141,10 @@ public class SaltClusterBlock extends Block {
 
     public PushReaction getPistonPushReaction(BlockState state) {
         return PushReaction.DESTROY;
+    }
+
+    @Override
+    public @NotNull BlockState getDissolvedState(BlockState originalState, ServerLevel level, BlockPos pos, Fluid fluid) {
+        return Blocks.AIR.defaultBlockState();
     }
 }

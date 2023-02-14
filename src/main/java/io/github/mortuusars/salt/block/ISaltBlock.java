@@ -3,7 +3,6 @@ package io.github.mortuusars.salt.block;
 import io.github.mortuusars.salt.Salt;
 import io.github.mortuusars.salt.configuration.Configuration;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -11,16 +10,13 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 public interface ISaltBlock {
 
-    BlockState getDissolvedState(BlockState originalState, ServerLevel level, BlockPos pos, Fluid fluid);
+    @NotNull BlockState getDissolvedState(BlockState originalState, ServerLevel level, BlockPos pos, Fluid fluid);
 
     default void dissolve(BlockState state, ServerLevel level, BlockPos pos, Fluid fluid, boolean isSource) {
         BlockState dissolvedState = getDissolvedState(state, level, pos, fluid);

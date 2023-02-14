@@ -37,6 +37,10 @@ public class Configuration {
     public static final ForgeConfigSpec.BooleanValue EVAPORATION_ENABLED;
     public static final ForgeConfigSpec.DoubleValue EVAPORATION_CHANCE;
 
+    // Cluster Growing
+    public static final ForgeConfigSpec.BooleanValue SALT_CLUSTER_GROWING_ENABLED;
+    public static final ForgeConfigSpec.DoubleValue SALT_CLUSTER_GROWING_CHANCE;
+
     // Rock Salt:
     public static final ForgeConfigSpec.BooleanValue GENERATE_ROCK_SALT;
 
@@ -54,7 +58,7 @@ public class Configuration {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
 
         builder.comment("Salting foods to add extra nutrition. Can be disabled by removing 'salt:salting' recipe " +
-                "or removing all items from 'salt:can_be_salted' tag.").push("Salting");
+                "or removing all items from 'salt/tags/items/can_be_salted' tag.").push("Salting");
 
         SALTING_ADDITIONAL_NUTRITION = builder
                 .comment("Amount of additional nutrition that salted food provides. 1 nutrition = half of hunger shank.",
@@ -78,11 +82,11 @@ public class Configuration {
 
         DISSOLVING_ENABLED = builder
                 .comment("Salt blocks will dissolve if adjacent to blocks defined in the tag 'salt/tags/blocks/salt_dissolvables'")
-                .define("SaltDissolving", true);
+                .define("SaltDissolvingEnabled", true);
 
         DISSOLVING_CHANCE = builder
                 .comment("Chance of water dissolving in fluid on random tick. 1.0 = first random tick. 0.0 = never.")
-                .defineInRange("SaltDissolvingChance", 1.0d, 0.0d, 1.0d);
+                .defineInRange("SaltDissolvingChance", 0.4d, 0.0d, 1.0d);
 
         DISSOLVING_FLUID_SOURCE_CONVERSION = builder
                 .comment("If dissolved by a fluid source block - salt will convert to a fluid source block instead of air.")
@@ -94,7 +98,7 @@ public class Configuration {
 
         DISSOLVING_IN_RAIN_CHANCE = builder
                 .comment("Chance of salt blocks dissolving in rain on random tick. 1.0 = first random tick. 0.0 = never.")
-                .defineInRange("SaltDissolvingInRainChance", 0.5d, 0.0d, 1.0d);
+                .defineInRange("SaltDissolvingInRainChance", 0.2d, 0.0d, 1.0d);
 
         builder.pop();
 
@@ -104,7 +108,7 @@ public class Configuration {
 
         MELTING_ENABLED = builder
                 .comment("Salt blocks will melt adjacent blocks defined in tag 'salt/tags/blocks/melted_by_salt' on random tick.")
-                .define("SaltMelting", true);
+                .define("SaltMeltingEnabled", true);
 
         MELTING_CHANCE = builder
                 .comment("Chance of block melting on random tick. 1.0 = first random tick. 0.0 = never.")
@@ -124,6 +128,20 @@ public class Configuration {
                 .defineInRange("EvaporationChance", 0.5d, 0.0d, 1.0d);
 
         builder.pop();
+
+
+
+        builder.push("GrowingSaltClusters");
+
+        SALT_CLUSTER_GROWING_ENABLED = builder
+                .comment("Water dripping from a Pointed Dripstone on a blocks tagged as 'salt/blocks/salt_cluster_growable' will grow Salt Clusters")
+                .define("SaltClusterGrowingEnabled", true);
+        SALT_CLUSTER_GROWING_CHANCE = builder
+                .comment("Chance cluster growing on random tick. 1.0 = first random tick. 0.0 = never.")
+                .defineInRange("SaltClusterGrowingChance", 0.2d, 0.0d, 1.0d);
+
+        builder.pop();
+
 
 
 
@@ -155,9 +173,8 @@ public class Configuration {
                 .comment("Chance of the Salt Clusters generating on the deposits (per side)")
                 .defineInRange("RockSaltClusterChance", 0.15f, 0.0, 1.0);
 
-        builder.pop();
+        builder.pop(2);
 
-        builder.pop();
 
         COMMON = builder.build();
 

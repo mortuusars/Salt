@@ -13,5 +13,6 @@
   "item.salt.raw_rock_salt": "Raw Rock Salt",
   "item.salt.salt": "Salt",
   "subtitles.block.salt.cauldron_evaporate": "Water evaporates",
+  "subtitles.block.salt.melt": "Block melts",
   "subtitles.block.salt.salt_dissolve": "Salt dissolves"
 }

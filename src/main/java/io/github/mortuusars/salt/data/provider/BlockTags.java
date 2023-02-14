@@ -31,6 +31,9 @@ public class BlockTags extends BlockTagsProvider {
                 .add(Blocks.SOUL_FIRE)
                 .add(Blocks.MAGMA_BLOCK);
 
+        tag(Salt.BlockTags.SALT_CLUSTER_GROWABLE)
+                .add(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get());
+
         tag(Salt.BlockTags.DISSOLVES_SALT)
                 .add(Blocks.WATER);
 

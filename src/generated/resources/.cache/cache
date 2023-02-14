@@ -7,7 +7,7 @@ e69d8b43f3c5bd4747efb738c20dad0428f97dfe assets/salt/blockstates/salt_block.json
 15728f859af9dc92d1d81c7b4f659d1a67cbdbec assets/salt/blockstates/salt_cauldron.json
 9a55665cc9ff2daa2fa8de077da9843eb8281d20 assets/salt/blockstates/salt_cluster.json
 bef44f46a670e96ce0a6b17d13a9b497aabb568b assets/salt/blockstates/small_salt_bud.json
-e017b211ddb2c1dda37a5e49bc3d6d25a0be20d4 assets/salt/lang/en_us.json
+bd014fca590a6a0c3e30ac05055cdd3cddd74e1d assets/salt/lang/en_us.json
 8213505eeaed4ba5fde6b213846d3d376657d9da assets/salt/models/block/deepslate_rock_salt_ore_1.json
 51383e7474dfdd251bb5448fc608cedcc0c3a41d assets/salt/models/block/deepslate_rock_salt_ore_1_mirrored.json
 561c39909ef712abe94b6e0cf17ed38efcf9a8c6 assets/salt/models/block/deepslate_rock_salt_ore_2.json
@@ -34,7 +34,7 @@ d09aa203cfcb86400883998c06ba24d79d3dd29f assets/salt/models/item/raw_rock_salt_b
 ce0f0105b4fb48bbefd20972fb0a7934a40c9edb assets/salt/models/item/salt_cluster.json
 3abdea4af35251eceeee0fb79d348b61d68e5f3a assets/salt/models/item/salted_overlay.json
 c7294ba07aba9f9e16bc57c9b75961b43e6c5037 assets/salt/models/item/small_salt_bud.json
-5e8666a8a9b2f533e9033585d19d2b3a1297cb9a assets/salt/sounds.json
+a83a7002e63e696801be483923d1eb5c054926a7 assets/salt/sounds.json
 3b285883d1df2e856c90381aadfe05247b5b3608 data/forge/tags/items/salts.json
 b25827082fbdcaeafc4a64b9e658490696040104 data/minecraft/tags/blocks/mineable/pickaxe.json
 1658a1f828e9cca9883ee27e9924bbc7056288e2 data/salt/loot_tables/cauldron_evaporation/salt_full.json
@@ -44,6 +44,7 @@ bfe4530b0bea021df5f15b05bac9100e7af9fe7a data/salt/loot_tables/cauldron_evaporat
 d524c74fcc0e83081919a087a2b9dcd7a246e48b data/salt/tags/blocks/dissolves_salt.json
 4170fe279f8a03f388fb7f9e12bd9eafe0d5d323 data/salt/tags/blocks/heaters.json
 ef6d009e53f76237d278e2c212a4b08e4b759ecd data/salt/tags/blocks/melted_by_salt.json
+0be40b4d3fb4c69dec6f67d5b89b6d0d7c706553 data/salt/tags/blocks/salt_cluster_growable.json
 80e9a4ce4fe41ad2c8f9f1e3c392a0ff129ac1c7 data/salt/tags/blocks/salt_cluster_replaceables.json
 1af1d58a30b36df22aa6cde8686b469cf570fbb9 data/salt/tags/items/can_be_salted.json
 df321d0b24412eea91fa4e2ab74eaf0708ee396a data/salt/tags/worldgen/biome/has_rock_salt_deposits.json
