@@ -86,7 +86,7 @@ public class Configuration {
 
         DISSOLVING_CHANCE = builder
                 .comment("Chance of water dissolving in fluid on random tick. 1.0 = first random tick. 0.0 = never.")
-                .defineInRange("SaltDissolvingChance", 0.4d, 0.0d, 1.0d);
+                .defineInRange("SaltDissolvingChance", 0.35d, 0.0d, 1.0d);
 
         DISSOLVING_FLUID_SOURCE_CONVERSION = builder
                 .comment("If dissolved by a fluid source block - salt will convert to a fluid source block instead of air.")
@@ -98,7 +98,7 @@ public class Configuration {
 
         DISSOLVING_IN_RAIN_CHANCE = builder
                 .comment("Chance of salt blocks dissolving in rain on random tick. 1.0 = first random tick. 0.0 = never.")
-                .defineInRange("SaltDissolvingInRainChance", 0.2d, 0.0d, 1.0d);
+                .defineInRange("SaltDissolvingInRainChance", 0.15d, 0.0d, 1.0d);
 
         builder.pop();
 
@@ -112,7 +112,7 @@ public class Configuration {
 
         MELTING_CHANCE = builder
                 .comment("Chance of block melting on random tick. 1.0 = first random tick. 0.0 = never.")
-                .defineInRange("SaltMeltingChance", 0.5d, 0.0d, 1.0d);
+                .defineInRange("SaltMeltingChance", 0.4d, 0.0d, 1.0d);
 
         builder.pop();
 
@@ -121,11 +121,11 @@ public class Configuration {
         builder.push("Evaporation");
 
         EVAPORATION_ENABLED = builder
-                .comment("Water in a cauldron with a heat source beneath (defined in tag 'salt/blocks/heaters') will evaporate and salt will be formed in the cauldron")
+                .comment("Water in a cauldron with a heat source beneath (defined in tag 'salt/tags/blocks/heaters') will evaporate and salt will be formed in the cauldron")
                 .define("EvaporationEnabled", true);
         EVAPORATION_CHANCE = builder
                 .comment("Chance of water evaporating on random tick. 1.0 = first random tick. 0.0 = never.")
-                .defineInRange("EvaporationChance", 0.5d, 0.0d, 1.0d);
+                .defineInRange("EvaporationChance", 0.35d, 0.0d, 1.0d);
 
         builder.pop();
 
@@ -134,11 +134,11 @@ public class Configuration {
         builder.push("GrowingSaltClusters");
 
         SALT_CLUSTER_GROWING_ENABLED = builder
-                .comment("Water dripping from a Pointed Dripstone on a blocks tagged as 'salt/blocks/salt_cluster_growable' will grow Salt Clusters")
+                .comment("Water dripping from a Pointed Dripstone on a blocks tagged as 'salt/tags/blocks/salt_cluster_growable' will grow Salt Clusters")
                 .define("SaltClusterGrowingEnabled", true);
         SALT_CLUSTER_GROWING_CHANCE = builder
-                .comment("Chance cluster growing on random tick. 1.0 = first random tick. 0.0 = never.")
-                .defineInRange("SaltClusterGrowingChance", 0.2d, 0.0d, 1.0d);
+                .comment("Chance of cluster growing by one stage on random tick. 1.0 = first random tick. 0.0 = never.")
+                .defineInRange("SaltClusterGrowingChance", 0.1d, 0.0d, 1.0d);
 
         builder.pop();
 
