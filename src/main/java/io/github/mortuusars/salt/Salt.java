@@ -99,6 +99,10 @@ public class Salt
             return;
     }
 
+    public static void registerDispenserBehaviors() {
+        DispenserBlock.registerBehavior(Items.SALT.get(), Melting.SALT_DISPENSER_BEHAVIOR);
+    }
+
     public static class Blocks {
         private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Salt.ID);
 

@@ -118,7 +118,7 @@ public class Configuration {
 
         MELTING_BLOCK_CHANCE = builder
                 .comment("Chance of block melting on random tick. 1.0 = first random tick. 0.0 = never.")
-                .defineInRange("SaltMeltingChance", 0.4d, 0.0d, 1.0d);
+                .defineInRange("SaltBlockMeltingChance", 0.4d, 0.0d, 1.0d);
 
         MELTING_PLACES_WATER = builder
                 .comment("Melted block will be replaced with Water source block.")

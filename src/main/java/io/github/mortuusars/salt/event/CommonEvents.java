@@ -1,5 +1,6 @@
 package io.github.mortuusars.salt.event;
 
+import io.github.mortuusars.salt.Salt;
 import io.github.mortuusars.salt.Salting;
 import io.github.mortuusars.salt.world.feature.SaltPlacedFeatures;
 import io.github.mortuusars.salt.world.gen.RockSaltGeneration;
@@ -18,6 +19,8 @@ public class CommonEvents {
         event.enqueueWork(() -> {
             // 'randomTick' is used in mixin to convert Water Cauldron to Salt Cauldron:
             Blocks.WATER_CAULDRON.isRandomlyTicking = true;
+
+            Salt.registerDispenserBehaviors();
         });
     }
 
