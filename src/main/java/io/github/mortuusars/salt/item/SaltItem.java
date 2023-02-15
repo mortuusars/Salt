@@ -1,6 +1,8 @@
 package io.github.mortuusars.salt.item;
 
+import io.github.mortuusars.salt.Melting;
 import io.github.mortuusars.salt.Salt;
+import io.github.mortuusars.salt.configuration.Configuration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -27,9 +29,21 @@ public class SaltItem extends Item {
         BlockPos clickedPos = context.getClickedPos();
         BlockState clickedBlockState = level.getBlockState(clickedPos);
 
-        if (clickedBlockState.is(Salt.BlockTags.MELTED_BY_SALT)) {
-            if (level instanceof ServerLevel serverLevel)
-                meltBlock(clickedPos, serverLevel);
+        if (Configuration.MELTING_ITEM_ENABLED.get() && clickedBlockState.is(Salt.BlockTags.MELTABLES)) {
+            if (level instanceof ServerLevel serverLevel) {
+                Melting.meltBlock(clickedPos, serverLevel);
+            }
+            else {
+                Vec3 center = Vec3.atCenterOf(clickedPos);
+                Random random = level.getRandom();
+                for (int i = 0; i < 6; i++) {
+                    level.addParticle(ParticleTypes.SPIT,
+                            center.x + random.nextGaussian() * 0.35f,
+                            center.y + 0.35f + random.nextGaussian() * 0.35f,
+                            center.z + random.nextGaussian() * 0.35f,
+                            0f, 0f, 0f);
+                }
+            }
 
             Player player = context.getPlayer();
             if (!player.isCreative())
@@ -38,23 +52,5 @@ public class SaltItem extends Item {
         }
 
         return super.useOn(context);
-    }
-
-    protected void meltBlock(BlockPos pos, ServerLevel serverLevel) {
-        serverLevel.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-
-        Vec3 center = Vec3.atCenterOf(pos);
-        Random random = serverLevel.getRandom();
-
-        serverLevel.playSound(null, center.x, center.y, center.z, Salt.Sounds.MELT.get(), SoundSource.BLOCKS, 0.9f,
-                random.nextFloat() * 0.2f + 0.9f);
-        serverLevel.playSound(null, center.x, center.y, center.z, Salt.Sounds.SALT_DISSOLVE.get(), SoundSource.BLOCKS, 0.9f,
-                random.nextFloat() * 0.2f + 0.9f);
-
-        for (int i = 0; i < 6; i++) {
-            serverLevel.sendParticles(ParticleTypes.CLOUD, center.x + random.nextGaussian() * 0.35f,
-                    center.y + 0.35f + random.nextGaussian() * 0.35f, center.z + random.nextGaussian() * 0.35f,
-                    1, 0f, 0f, 0f, 0f);
-        }
     }
 }

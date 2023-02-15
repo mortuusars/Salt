@@ -1,5 +1,7 @@
 package io.github.mortuusars.salt.block;
 
+import io.github.mortuusars.salt.Dissolving;
+import io.github.mortuusars.salt.Melting;
 import io.github.mortuusars.salt.Salt;
 import io.github.mortuusars.salt.configuration.Configuration;
 import net.minecraft.core.BlockPos;
@@ -32,7 +34,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class SaltClusterBlock extends Block implements ISaltBlock{
+public class SaltClusterBlock extends Block implements ISaltBlock {
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
     protected final VoxelShape northAabb;
@@ -73,26 +75,29 @@ public class SaltClusterBlock extends Block implements ISaltBlock{
     }
 
     @Override
-    public OffsetType getOffsetType() {
-        return BlockBehaviour.OffsetType.XZ;
-    }
-
-    @Override
-    public float getMaxHorizontalOffset() {
-        return 0.05f;
+    public void animateTick(BlockState state, Level level, BlockPos pos, Random random) {
+        onSaltAnimateTick(state, level, pos, random);
     }
 
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
-        if (Configuration.DISSOLVING_ENABLED.get() && Configuration.DISSOLVING_IN_RAIN.get() && level.isRainingAt(pos.above())
-                && level.random.nextDouble() < Configuration.DISSOLVING_IN_RAIN_CHANCE.get()) {
-            dissolve(state, level, pos, Fluids.EMPTY, false);
-            return;
-        }
 
-        BlockPos basePos = pos.below();
-        if (state.getValue(FACING) == Direction.UP)
-            SaltBlock.maybeGrowCluster(level.getBlockState(basePos), basePos, level);
+        // Cluster does not call ISaltBlock#onSaltRandomTick because functionality differs a little
+
+        BlockPos basePos = pos.relative(state.getValue(FACING).getOpposite());
+        if (Melting.maybeMeltByBlock(basePos, level))
+            return; // Base block is melted - which means cluster cannot is destroyed too.
+
+        if (Dissolving.maybeDissolve(Blocks.AIR.defaultBlockState(), pos, level.getBlockState(basePos), basePos, level))
+            return;
+
+        if (Dissolving.maybeDissolveInRain(getDissolvedState(state, level, pos, Fluids.WATER), level, pos))
+            return;
+
+        if (state.getValue(FACING) == Direction.UP) {
+            BlockPos belowPos = pos.below();
+            ISaltBlock.maybeGrowCluster(level.getBlockState(belowPos), belowPos, level);
+        }
     }
 
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
@@ -105,8 +110,7 @@ public class SaltClusterBlock extends Block implements ISaltBlock{
             case WEST -> this.westAabb;
             case EAST -> this.eastAabb;
         };
-        Vec3 vec3 = state.getOffset(level, pos);
-        return shape.move(vec3.x, 0, vec3.z);
+        return shape;
     }
 
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {

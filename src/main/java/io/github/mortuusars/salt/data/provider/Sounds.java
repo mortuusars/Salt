@@ -15,10 +15,10 @@ public class Sounds extends SoundDefinitionsProvider {
     @Override
     public void registerSounds() {
         add(Salt.Sounds.SALT_DISSOLVE.get(), definition()
-                .subtitle(LangKeys.SUBTITLES_SALT_DISSOLVE)
+                .subtitle(LangKeys.SUBTITLES_DISSOLVES)
                 .with(multiple(6, "block/beehive/drip", 0.6f, 0.6f)));
         add(Salt.Sounds.MELT.get(), definition()
-                .subtitle(LangKeys.SUBTITLES_MELT)
+                .subtitle(LangKeys.SUBTITLES_MELTS)
                 .with(multiple(8, "entity/boat/paddle_water", 1f, 1.25f)));
         add(Salt.Sounds.CAULDRON_EVAPORATE.get(), definition()
                 .subtitle(LangKeys.SUBTITLES_CAULDRON_EVAPORATE)

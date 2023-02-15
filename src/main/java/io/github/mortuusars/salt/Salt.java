@@ -255,12 +255,12 @@ public class Salt
     public static class BlockTags {
         public static final TagKey<Block> HEATERS = net.minecraft.tags.BlockTags.create(
                 Salt.resource("heaters"));
-        public static final TagKey<Block> SALT_CLUSTER_GROWABLE = net.minecraft.tags.BlockTags.create(
-                Salt.resource("salt_cluster_growable"));
-        public static final TagKey<Block> DISSOLVES_SALT = net.minecraft.tags.BlockTags.create(
-                Salt.resource("dissolves_salt"));
-        public static final TagKey<Block> MELTED_BY_SALT = net.minecraft.tags.BlockTags.create(
-                Salt.resource("melted_by_salt"));
+        public static final TagKey<Block> SALT_CLUSTER_GROWABLES = net.minecraft.tags.BlockTags.create(
+                Salt.resource("salt_cluster_growables"));
+        public static final TagKey<Block> SALT_DISSOLVABLES = net.minecraft.tags.BlockTags.create(
+                Salt.resource("salt_dissolvables"));
+        public static final TagKey<Block> MELTABLES = net.minecraft.tags.BlockTags.create(
+                Salt.resource("meltables"));
         public static final TagKey<Block> SALT_CLUSTER_REPLACEABLES = net.minecraft.tags.BlockTags.create(
                 Salt.resource("salt_cluster_replaceables"));
     }

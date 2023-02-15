@@ -31,13 +31,13 @@ public class BlockTags extends BlockTagsProvider {
                 .add(Blocks.SOUL_FIRE)
                 .add(Blocks.MAGMA_BLOCK);
 
-        tag(Salt.BlockTags.SALT_CLUSTER_GROWABLE)
+        tag(Salt.BlockTags.SALT_CLUSTER_GROWABLES)
                 .add(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get());
 
-        tag(Salt.BlockTags.DISSOLVES_SALT)
+        tag(Salt.BlockTags.SALT_DISSOLVABLES)
                 .add(Blocks.WATER);
 
-        tag(Salt.BlockTags.MELTED_BY_SALT)
+        tag(Salt.BlockTags.MELTABLES)
                 .addTag(net.minecraft.tags.BlockTags.ICE)
                 .addTag(net.minecraft.tags.BlockTags.SNOW)
                 .remove(Blocks.FROSTED_ICE)

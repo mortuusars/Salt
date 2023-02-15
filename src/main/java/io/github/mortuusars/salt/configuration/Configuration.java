@@ -30,8 +30,10 @@ public class Configuration {
     public static final ForgeConfigSpec.DoubleValue DISSOLVING_IN_RAIN_CHANCE;
 
     // Melting
-    public static final ForgeConfigSpec.BooleanValue MELTING_ENABLED;
-    public static final ForgeConfigSpec.DoubleValue MELTING_CHANCE;
+    public static final ForgeConfigSpec.BooleanValue MELTING_ITEM_ENABLED;
+    public static final ForgeConfigSpec.BooleanValue MELTING_BY_BLOCK_ENABLED;
+    public static final ForgeConfigSpec.DoubleValue MELTING_BLOCK_CHANCE;
+    public static final ForgeConfigSpec.BooleanValue MELTING_PLACES_WATER;
 
     // Evaporation
     public static final ForgeConfigSpec.BooleanValue EVAPORATION_ENABLED;
@@ -106,13 +108,21 @@ public class Configuration {
 
         builder.push("Melting");
 
-        MELTING_ENABLED = builder
-                .comment("Salt blocks will melt adjacent blocks defined in tag 'salt/tags/blocks/melted_by_salt' on random tick.")
-                .define("SaltMeltingEnabled", true);
+        MELTING_ITEM_ENABLED = builder
+                .comment("Salt (item) will melt clicked blocks defined in tag 'salt/tags/blocks/meltables'.")
+                .define("SaltItemMeltingEnabled", true);
 
-        MELTING_CHANCE = builder
+        MELTING_BY_BLOCK_ENABLED = builder
+                .comment("Salt blocks will melt adjacent blocks defined in tag 'salt/tags/blocks/meltables' on random tick.")
+                .define("SaltBlockMeltingEnabled", true);
+
+        MELTING_BLOCK_CHANCE = builder
                 .comment("Chance of block melting on random tick. 1.0 = first random tick. 0.0 = never.")
                 .defineInRange("SaltMeltingChance", 0.4d, 0.0d, 1.0d);
+
+        MELTING_PLACES_WATER = builder
+                .comment("Melted block will be replaced with Water source block.")
+                .define("SaltMeltingPlaceWater", true);
 
         builder.pop();
 
@@ -134,7 +144,7 @@ public class Configuration {
         builder.push("GrowingSaltClusters");
 
         SALT_CLUSTER_GROWING_ENABLED = builder
-                .comment("Water dripping from a Pointed Dripstone on a blocks tagged as 'salt/tags/blocks/salt_cluster_growable' will grow Salt Clusters")
+                .comment("Water dripping from a Pointed Dripstone on a blocks tagged as 'salt/tags/blocks/salt_cluster_growables' will grow Salt Clusters")
                 .define("SaltClusterGrowingEnabled", true);
         SALT_CLUSTER_GROWING_CHANCE = builder
                 .comment("Chance of cluster growing by one stage on random tick. 1.0 = first random tick. 0.0 = never.")

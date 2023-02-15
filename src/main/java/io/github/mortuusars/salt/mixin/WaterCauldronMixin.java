@@ -9,6 +9,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
@@ -70,10 +71,11 @@ public abstract class WaterCauldronMixin extends Block {
 
             Vec3 center = Vec3.atCenterOf(pos);
             for (int i = 0; i < 8; i++) {
-                //TODO: use sendParticles
-                level.addParticle(ParticleTypes.CLOUD,
-                        center.x + random.nextFloat() * 0.1f, center.y + 0.2f, center.z + random.nextFloat() * 0.1f,
-                        random.nextFloat() * 0.02f, 0.015f, random.nextFloat() * 0.02f);
+                level.sendParticles(ParticleTypes.CLOUD,
+                        center.x + random.nextFloat() * 0.1f,
+                        center.y + 0.2f,
+                        center.z + random.nextFloat() * 0.1f,
+                        1,random.nextFloat() * 0.02f, 0.015f, random.nextFloat() * 0.02f, 0.01f);
             }
 
             ci.cancel();
