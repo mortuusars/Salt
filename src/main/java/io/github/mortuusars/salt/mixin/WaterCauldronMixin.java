@@ -1,5 +1,6 @@
 package io.github.mortuusars.salt.mixin;
 
+import io.github.mortuusars.salt.Evaporation;
 import io.github.mortuusars.salt.Salt;
 import io.github.mortuusars.salt.configuration.Configuration;
 import io.github.mortuusars.salt.helper.CallStackHelper;
@@ -7,9 +8,7 @@ import io.github.mortuusars.salt.helper.Heater;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
@@ -28,6 +27,8 @@ public abstract class WaterCauldronMixin extends Block {
     public WaterCauldronMixin(Properties pProperties) {
         super(pProperties);
     }
+
+    //TODO: Entity inside hurt
 
     /**
      * Handles converting water cauldron into a salt cauldron.
@@ -63,21 +64,12 @@ public abstract class WaterCauldronMixin extends Block {
         // which causes cauldron to fill up quicker than intended.
         // But: callers of this method are different. Dripstone is calling from the 'tick' method.
         // We are interested only in calls from 'randomTick'.
-        if (state.is(Blocks.WATER_CAULDRON) && state.getValue(LayeredCauldronBlock.LEVEL) != 0 && hasHeatSourceBelow && CallStackHelper.isCalledFrom(CallStackHelper.RANDOM_TICK)
-            && level.getRandom().nextDouble() < Configuration.EVAPORATION_CHANCE.get()) {
-            level.setBlockAndUpdate(pos, Salt.Blocks.SALT_CAULDRON.get().withPropertiesOf(state));
-            level.playSound(null, pos, Salt.Sounds.CAULDRON_EVAPORATE.get(),
-                    SoundSource.BLOCKS, 1f, level.getRandom().nextFloat() * 0.2f + 0.9f);
-
-            Vec3 center = Vec3.atCenterOf(pos);
-            for (int i = 0; i < 8; i++) {
-                level.sendParticles(ParticleTypes.CLOUD,
-                        center.x + random.nextFloat() * 0.1f,
-                        center.y + 0.2f,
-                        center.z + random.nextFloat() * 0.1f,
-                        1,random.nextFloat() * 0.02f, 0.015f, random.nextFloat() * 0.02f, 0.01f);
-            }
-
+        if (state.is(Blocks.WATER_CAULDRON)
+                && state.getValue(LayeredCauldronBlock.LEVEL) != 0
+                && hasHeatSourceBelow
+                && CallStackHelper.isCalledFrom(CallStackHelper.RANDOM_TICK)
+                && level.getRandom().nextDouble() < Configuration.EVAPORATION_CHANCE.get()) {
+            Evaporation.evaporateWaterAndFormSalt(state, level, pos, random);
             ci.cancel();
         }
     }

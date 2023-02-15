@@ -23,8 +23,13 @@ public class Sounds extends SoundDefinitionsProvider {
         add(Salt.Sounds.CAULDRON_EVAPORATE.get(), definition()
                 .subtitle(LangKeys.SUBTITLES_CAULDRON_EVAPORATE)
                 .with(sound("random/fizz").volume(0.9f).pitch(0.85f)));
+        add(Salt.Sounds.BUBBLE_POP.get(), definition()
+                .subtitle("subtitles.block.bubble_column.bubble_pop")
+                .with(sound("block/bubble_column/bubble2").volume(0.4f).pitch(0.4f)));
         add(Salt.Sounds.SALT_CAULDRON_REMOVE_SALT.get(), definition()
                 .with(multiple(5, "step/sand", 1.0f, 1.1f)));
+
+
 
         add(Salt.Sounds.SALT_BREAK.get(), definition()
                 .subtitle("subtitles.block.generic.break")

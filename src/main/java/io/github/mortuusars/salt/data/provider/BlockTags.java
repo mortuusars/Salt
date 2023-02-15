@@ -24,6 +24,9 @@ public class BlockTags extends BlockTagsProvider {
                 .add(Salt.Blocks.SMALL_SALT_BUD.get())
                 .add(Salt.Blocks.SALT_CAULDRON.get());
 
+        tag(net.minecraft.tags.BlockTags.MINEABLE_WITH_SHOVEL)
+                .add(Salt.Blocks.SALT_BLOCK.get());
+
         tag(Salt.BlockTags.HEATERS)
                 .add(Blocks.CAMPFIRE)
                 .add(Blocks.SOUL_CAMPFIRE)

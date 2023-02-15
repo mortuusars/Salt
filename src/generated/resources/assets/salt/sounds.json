@@ -81,6 +81,16 @@
       }
     ]
   },
+  "block.salt.bubble_pop": {
+    "subtitle": "subtitles.block.bubble_column.bubble_pop",
+    "sounds": [
+      {
+        "name": "block/bubble_column/bubble2",
+        "volume": 0.4,
+        "pitch": 1
+      }
+    ]
+  },
   "block.salt.salt_cauldron.remove_salt": {
     "sounds": [
       {
