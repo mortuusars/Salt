@@ -6,6 +6,7 @@
   "refmap": "mixins.salt.refmap.json",
   "mixins": [
     "BlockMixin",
+    "LayeredCauldronBlockMixin",
     "WaterCauldronMixin",
     "ItemModelShaperMixin",
     "ItemModelMesherForgeMixin"
