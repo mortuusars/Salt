@@ -5,6 +5,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
@@ -16,95 +17,166 @@ public class ItemTags extends ItemTagsProvider {
 
     @Override
     protected void addTags() {
-        tag(Salt.ItemTags.CAN_BE_SALTED)
-                // Vanilla
-                .add(Items.COOKED_BEEF)
-                .add(Items.COOKED_CHICKEN)
-                .add(Items.COOKED_MUTTON)
-                .add(Items.COOKED_RABBIT)
-                .add(Items.COOKED_PORKCHOP)
-                .add(Items.COOKED_COD)
-                .add(Items.COOKED_SALMON)
-
-                .add(Items.BAKED_POTATO)
-                .add(Items.BREAD)
-
-                .add(Items.SUSPICIOUS_STEW)
-                .add(Items.BEETROOT_SOUP)
-                .add(Items.MUSHROOM_STEW)
-                .add(Items.RABBIT_STEW)
-
-                .add(Items.ROTTEN_FLESH)
-
-                // Forge:
-                .addOptional(forge("bread"))
-                .addOptional(forge("cooked_beef"))
-                .addOptional(forge("cooked_bacon"))
-                .addOptional(forge("cooked_chicken"))
-                .addOptional(forge("cooked_pork"))
-                .addOptional(forge("cooked_mutton"))
-                .addOptional(forge("cooked_rabbit"))
-                .addOptional(forge("cooked_fishes"))
-
-                .addOptional(forge("crops/cabbage"))
-                .addOptional(forge("crops/tomato"))
-                .addOptional(forge("crops/onion"))
-                .addOptional(forge("salad_ingredients"))
-
-                // Farmer's Delight:
-
-                .addOptional(fd("fried_egg"))
-                .addOptional(fd("tomato_sauce"))
-                .addOptional(fd("smoked_ham"))
-                .addOptional(fd("mixed_salad"))
-                .addOptional(fd("barbecue_stick"))
-                .addOptional(fd("egg_sandwich"))
-                .addOptional(fd("chicken_sandwich"))
-                .addOptional(fd("hamburger"))
-                .addOptional(fd("bacon_sandwich"))
-                .addOptional(fd("mutton_wrap"))
-                .addOptional(fd("dumplings"))
-                .addOptional(fd("stuffed_potato"))
-                .addOptional(fd("cabbage_rolls"))
-                .addOptional(fd("salmon_roll"))
-                .addOptional(fd("cod_roll"))
-                .addOptional(fd("kelp_roll"))
-                .addOptional(fd("kelp_roll_slice"))
-                .addOptional(fd("cooked_rice"))
-                .addOptional(fd("bone_broth"))
-                .addOptional(fd("beef_stew"))
-                .addOptional(fd("chicken_soup"))
-                .addOptional(fd("vegetable_soup"))
-                .addOptional(fd("fish_stew"))
-                .addOptional(fd("fried_rice"))
-                .addOptional(fd("pumpkin_soup"))
-                .addOptional(fd("baked_cod_stew"))
-                .addOptional(fd("noodle_soup"))
-                .addOptional(fd("bacon_and_eggs"))
-                .addOptional(fd("pasta_with_meatballs"))
-                .addOptional(fd("pasta_with_mutton_chop"))
-                .addOptional(fd("mushroom_rice"))
-                .addOptional(fd("roasted_mutton_chops"))
-                .addOptional(fd("vegetable_noodles"))
-                .addOptional(fd("steak_and_potatoes"))
-                .addOptional(fd("ratatouille"))
-                .addOptional(fd("squid_ink_pasta"))
-                .addOptional(fd("grilled_salmon"))
-                .addOptional(fd("roast_chicken"))
-                .addOptional(fd("stuffed_pumpkin"))
-                .addOptional(fd("honey_glazed_ham"))
-                .addOptional(fd("shepherds_pie"))
-        ;
-
         tag(Salt.ItemTags.SALT)
                 .add(Salt.Items.SALT.get());
+
+        TagAppender<Item> canBeSaltedTag = tag(Salt.ItemTags.CAN_BE_SALTED);
+
+        // Vanilla
+        canBeSaltedTag
+                .add(// Meat
+                     Items.COOKED_BEEF,
+                     Items.COOKED_CHICKEN,
+                     Items.COOKED_MUTTON,
+                     Items.COOKED_RABBIT,
+                     Items.COOKED_PORKCHOP,
+                     Items.COOKED_COD,
+                     Items.COOKED_SALMON,
+                     // Vegetables
+                     Items.BAKED_POTATO,
+                     Items.BREAD,
+                     // Soups
+                     Items.SUSPICIOUS_STEW,
+                     Items.BEETROOT_SOUP,
+                     Items.MUSHROOM_STEW,
+                     Items.RABBIT_STEW,
+                     // Misc
+                     Items.ROTTEN_FLESH);
+
+        optionalTags(canBeSaltedTag, "forge",
+                // Meat
+                "bread",
+                "cooked_beef",
+                "cooked_bacon",
+                "cooked_chicken",
+                "cooked_pork",
+                "cooked_mutton",
+                "cooked_rabbit",
+                "cooked_fishes",
+                // Vegetables
+                "crops/cabbage",
+                "crops/tomato",
+                "crops/onion",
+                "salad_ingredients");
+
+        optional(canBeSaltedTag, "farmersdelight",
+                "fried_egg",
+                "tomato_sauce",
+                "smoked_ham",
+                "mixed_salad",
+                "barbecue_stick",
+                "egg_sandwich",
+                "chicken_sandwich",
+                "hamburger",
+                "bacon_sandwich",
+                "mutton_wrap",
+                "dumplings",
+                "stuffed_potato",
+                "cabbage_rolls",
+                "salmon_roll",
+                "cod_roll",
+                "kelp_roll",
+                "kelp_roll_slice",
+                "cooked_rice",
+                "bone_broth",
+                "beef_stew",
+                "chicken_soup",
+                "vegetable_soup",
+                "fish_stew",
+                "fried_rice",
+                "pumpkin_soup",
+                "baked_cod_stew",
+                "noodle_soup",
+                "bacon_and_eggs",
+                "pasta_with_meatballs",
+                "pasta_with_mutton_chop",
+                "mushroom_rice",
+                "roasted_mutton_chops",
+                "vegetable_noodles",
+                "steak_and_potatoes",
+                "ratatouille",
+                "squid_ink_pasta",
+                "grilled_salmon",
+                "roast_chicken",
+                "stuffed_pumpkin",
+                "honey_glazed_ham",
+                "shepherds_pie");
+
+        optional(canBeSaltedTag, "miners_delight",
+                "bat_wing",
+                "smoked_bat_wing",
+                "squid",
+                "glow_squid",
+                "baked_squid",
+                "tentacles",
+                "baked_tentacles",
+                "improvised_barbecue_stick",
+                "pasta_with_veggieballs",
+                "cave_soup",
+                "bowl_of_stuffed_squid",
+                "beetroot_soup_cup",
+                "mushroom_stew_cup",
+                "rabbit_stew_cup",
+                "baked_cod_stew_cup",
+                "noodle_stew_cup",
+                "beef_stew_cup",
+                "cave_stew_cup",
+                "chicken_stew_cup",
+                "fish_stew_cup",
+                "pumpkin_soup_cup",
+                "vegetable_soup_cup");
+
+        optionalTags(canBeSaltedTag, "butchercraft",
+//                "any_offal",
+//                "any_meat_raw",
+                "any_meat_cooked");
+        optional(canBeSaltedTag, "butchercraft",
+                "pork_stew",
+                "lamb_stew",
+                "sausage_roll",
+                "sos",
+                "liver_onions",
+                "fries",
+                "fried_fish",
+                "chicken_fried_steak",
+                "pork_tenderloin",
+                "fried_chicken",
+                "stuffed_heart",
+                "fried_brains",
+                "oxtail_soup",
+                "hash",
+                "potroast",
+                "salisbury_steak",
+                "bbq_ribs",
+                "meat_pie_slice",
+                "pulled_pork_sandwich",
+                "mashed_potato_gravy",
+                "rack_lamb",
+                "stirfry",
+                "beef_wellington",
+                "haggis");
+
+        optional(canBeSaltedTag, "quark",
+                "cooked_frog_leg",
+                "cooked_crab_leg");
+
+        optional(canBeSaltedTag, "aquaculture",
+                "algae",
+                "fish_fillet_cooked",
+                "frog_legs_cooked",
+                "turtle_soup",
+                "sushi");
     }
 
-    private ResourceLocation forge(String path) {
-        return new ResourceLocation("forge", path);
+    private void optionalTags(TagAppender<Item> tag, String namespace, String... items) {
+        for (String item : items) {
+            tag.addOptionalTag(new ResourceLocation(namespace, item));
+        }
     }
 
-    private ResourceLocation fd(String path) {
-        return new ResourceLocation("farmersdelight", path);
+    private void optional(TagAppender<Item> tag, String namespace, String... items) {
+        for (String item : items) {
+            tag.addOptional(new ResourceLocation(namespace, item));
+        }
     }
 }
