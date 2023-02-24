@@ -32,6 +32,7 @@ public class Lang extends LanguageProvider {
         add(Salt.Blocks.MEDIUM_SALT_BUD.get(), "Medium Salt Bud");
         add(Salt.Blocks.SMALL_SALT_BUD.get(), "Small Salt Bud");
         add(Salt.Blocks.SALT_CAULDRON.get(), "Salt Cauldron");
+        add(Salt.Blocks.SALT_LAMP.get(), "Salt Lamp");
 
         add(LangKeys.GUI_TOOLTIP_SALTED, "Salted");
         add(LangKeys.GUI_TOOLTIP_SALTED_EXPANDED_PART, ": %s nutrition");

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " S ",
+    " T ",
+    " W "
+  ],
+  "key": {
+    "S": {
+      "item": "salt:raw_rock_salt_block"
+    },
+    "T": {
+      "tag": "forge:torches"
+    },
+    "W": {
+      "tag": "minecraft:wooden_slabs"
+    }
+  },
+  "result": {
+    "item": "salt:salt_lamp"
+  }
+}

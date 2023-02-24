@@ -79,6 +79,8 @@ public class LootTables extends LootTableProvider {
         writeTable(cache, new ResourceLocation("salt:blocks/" + Salt.Blocks.MEDIUM_SALT_BUD.getId().getPath()), silkTouchTable(Salt.Items.MEDIUM_SALT_BUD.get()).build());
         writeTable(cache, new ResourceLocation("salt:blocks/" + Salt.Blocks.SMALL_SALT_BUD.getId().getPath()), silkTouchTable(Salt.Items.SMALL_SALT_BUD.get()).build());
 
+        dropsSelf(cache, Salt.Items.SALT_LAMP.get());
+
         // Evaporated salt:
 
         writeTable(cache, Salt.resource("cauldron_evaporation/salt_level_1"),

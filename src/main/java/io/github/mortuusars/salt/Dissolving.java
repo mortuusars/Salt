@@ -1,5 +1,6 @@
 package io.github.mortuusars.salt;
 
+import io.github.mortuusars.salt.block.ISaltBlock;
 import io.github.mortuusars.salt.configuration.Configuration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -7,7 +8,9 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
@@ -49,16 +52,29 @@ public class Dissolving {
         return false;
     }
 
-    public static void dissolve(BlockState dissolvedState, ServerLevel level, BlockPos pos, Fluid fluid, boolean isSource) {
-        if (dissolvedState.isAir()) {
-            if (isSource && Configuration.DISSOLVING_FLUID_SOURCE_CONVERSION.get())
-                level.setBlockAndUpdate(pos, fluid.defaultFluidState().createLegacyBlock());
-            else
-                level.removeBlock(pos, false);
-        }
-        else
-            level.setBlockAndUpdate(pos, dissolvedState);
+    public static void dissolve(BlockState state, ServerLevel level, BlockPos pos, Fluid fluid, boolean isSource) {
+        BlockState dissolvedState = state.getBlock() instanceof ISaltBlock saltBlock ?
+                saltBlock.getDissolvedState(state, level, pos, fluid) :
+                Blocks.AIR.defaultBlockState();
 
+        if (shouldPlaceFluidSource(level, pos, fluid, isSource)) {
+            if (dissolvedState.isAir())
+                dissolvedState = fluid.defaultFluidState().createLegacyBlock();
+            else if (dissolvedState.getBlock() instanceof SimpleWaterloggedBlock waterloggedBlock
+                        && waterloggedBlock.canPlaceLiquid(level, pos, dissolvedState, fluid))
+                dissolvedState = dissolvedState.setValue(BlockStateProperties.WATERLOGGED, true);
+        }
+
+        level.setBlockAndUpdate(pos, dissolvedState);
+
+        onBlockDissolved(level, pos);
+    }
+
+    private static boolean shouldPlaceFluidSource(ServerLevel level, BlockPos pos, Fluid fluid, boolean isSource) {
+        return Configuration.DISSOLVING_FLUID_SOURCE_CONVERSION.get() && fluid == Fluids.WATER && isSource;
+    }
+
+    private static void onBlockDissolved(ServerLevel level, BlockPos pos) {
         Vec3 center = Vec3.atCenterOf(pos);
         Random random = level.getRandom();
 

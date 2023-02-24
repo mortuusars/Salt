@@ -78,10 +78,6 @@ public class BlockStatesAndModels extends BlockStateProvider {
 
         simpleBlock(Salt.Blocks.SALT_BLOCK.get());
 
-//        simpleBlock(Salt.Blocks.SALT_BLOCK.get(),
-//                models()
-//                    .cubeAll(Salt.Blocks.SALT_BLOCK.get().getRegistryName().getPath(), blockTexture(Salt.Blocks.SALT_BLOCK.get())));
-
         BlockModelBuilder rawRockSaltBlock = models().cubeAll(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get().getRegistryName()
                 .getPath(), blockTexture(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get()));
 
@@ -98,10 +94,6 @@ public class BlockStatesAndModels extends BlockStateProvider {
                 .nextModel()
                 .modelFile(rawRockSaltBlockMirrored).rotationY(180)
                 .build());
-
-//        simpleBlock(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get(),
-//                models()
-//                    .cubeAll(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get().getRegistryName().getPath(), blockTexture(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get())));
 
         directionalBlock(Salt.Blocks.SALT_CLUSTER.get(), models().cross(Salt.Blocks.SALT_CLUSTER.get().getRegistryName().getPath(),
                 blockTexture(Salt.Blocks.SALT_CLUSTER.get())));
@@ -122,5 +114,10 @@ public class BlockStatesAndModels extends BlockStateProvider {
                 .partialState().with(SaltCauldronBlock.LEVEL, 3)
                 .modelForState().modelFile(
                         models().getExistingFile(modLoc("block/salt_cauldron_full"))).addModel();
+
+        simpleBlock(Salt.Blocks.SALT_LAMP.get(), models().cubeBottomTop("salt_lamp",
+                Salt.resource("block/salt_lamp_side"),
+                Salt.resource("block/salt_lamp_bottom"),
+                Salt.resource("block/salt_lamp_top")));
     }
 }

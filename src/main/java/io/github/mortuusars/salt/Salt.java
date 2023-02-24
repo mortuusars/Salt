@@ -1,9 +1,6 @@
 package io.github.mortuusars.salt;
 
-import io.github.mortuusars.salt.block.SaltBlock;
-import io.github.mortuusars.salt.block.SaltCauldronBlock;
-import io.github.mortuusars.salt.block.SaltClusterBlock;
-import io.github.mortuusars.salt.block.SaltSandBlock;
+import io.github.mortuusars.salt.block.*;
 import io.github.mortuusars.salt.configuration.Configuration;
 import io.github.mortuusars.salt.crafting.recipe.SaltingRecipe;
 import io.github.mortuusars.salt.event.ClientEvents;
@@ -11,25 +8,20 @@ import io.github.mortuusars.salt.event.CommonEvents;
 import io.github.mortuusars.salt.item.SaltItem;
 import io.github.mortuusars.salt.world.feature.MineralDepositFeature;
 import io.github.mortuusars.salt.world.feature.configurations.MineralDepositConfiguration;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.cauldron.CauldronInteraction;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.features.OreFeatures;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.random.SimpleWeightedRandomList;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -40,8 +32,8 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStatePr
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeSoundType;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -54,7 +46,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
-import java.util.Random;
 
 @Mod(Salt.ID)
 public class Salt
@@ -71,6 +62,7 @@ public class Salt
         Blocks.BLOCKS.register(modEventBus);
         Items.ITEMS.register(modEventBus);
         Sounds.SOUNDS.register(modEventBus);
+        EntityTypes.ENTITY_TYPES.register(modEventBus);
         RecipeSerializers.RECIPE_SERIALIZERS.register(modEventBus);
         WorldGenFeatures.FEATURES.register(modEventBus);
 
@@ -79,6 +71,7 @@ public class Salt
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
             modEventBus.addListener(ClientEvents::onClientSetup);
             modEventBus.addListener(ClientEvents::onRegisterModels);
+            modEventBus.addListener(this::registerRenderers);
             MinecraftForge.EVENT_BUS.addListener(ClientEvents::onItemTooltipEvent);
         });
         MinecraftForge.EVENT_BUS.addListener(CommonEvents::onItemUseFinish);
@@ -87,6 +80,10 @@ public class Salt
         MinecraftForge.EVENT_BUS.register(this);
 
         MinecraftForge.EVENT_BUS.addListener(this::onRightClick);
+    }
+
+    public void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+//        event.registerEntityRenderer(EntityTypes.MELTING.get(), InvisibleEntityRenderer::new);
     }
 
     public static ResourceLocation resource(String path) {
@@ -150,6 +147,14 @@ public class Salt
 
         public static final RegistryObject<SaltCauldronBlock> SALT_CAULDRON = BLOCKS.register("salt_cauldron",
                 () -> new SaltCauldronBlock(LayeredCauldronBlock.RAIN, CauldronInteraction.EMPTY));
+
+        public static final RegistryObject<SaltBlock> SALT_LAMP = BLOCKS.register("salt_lamp",
+                () -> new SaltBlock(net.minecraft.world.level.block.Blocks.SPRUCE_SLAB.defaultBlockState(),
+                        BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_ORANGE)
+                                .sound(Salt.Sounds.Types.SALT)
+                                .randomTicks()
+                                .strength(2f)
+                                .lightLevel(blockState -> 15)));
     }
 
     public static class Items {
@@ -176,6 +181,9 @@ public class Salt
                 () -> new BlockItem(Salt.Blocks.MEDIUM_SALT_BUD.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
         public static final RegistryObject<BlockItem> SMALL_SALT_BUD = ITEMS.register("small_salt_bud",
                 () -> new BlockItem(Salt.Blocks.SMALL_SALT_BUD.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
+
+        public static final RegistryObject<BlockItem> SALT_LAMP = ITEMS.register("salt_lamp",
+                () -> new BlockItem(Blocks.SALT_LAMP.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
     }
 
     public static class Sounds {
@@ -259,10 +267,13 @@ public class Salt
     }
 
     public static class ItemTags {
-        public static final TagKey<Item> SALT = net.minecraft.tags.ItemTags.create(
-                new ResourceLocation("forge", "salts"));
         public static final TagKey<Item> CAN_BE_SALTED = net.minecraft.tags.ItemTags.create(
                 Salt.resource("can_be_salted"));
+
+        public static final TagKey<Item> FORGE_SALTS = net.minecraft.tags.ItemTags.create(
+                new ResourceLocation("forge", "salts"));
+        public static final TagKey<Item> FORGE_TORCHES = net.minecraft.tags.ItemTags.create(
+                new ResourceLocation("forge:torches"));
     }
 
     public static class BlockTags {
@@ -281,6 +292,14 @@ public class Salt
     public static class BiomeTags {
         public static final TagKey<Biome> HAS_ROCK_SALT_DEPOSITS = TagKey.create(net.minecraft.core.Registry.BIOME_REGISTRY,
                 Salt.resource("has_rock_salt_deposits"));
+    }
+
+    public static class EntityTypes {
+        private static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
+                DeferredRegister.create(ForgeRegistries.ENTITIES, Salt.ID);
+
+//        public static final RegistryObject<EntityType<MeltingEntity>> MELTING = ENTITY_TYPES.register("melting_entity",
+//                () -> EntityType.Builder.<MeltingEntity>of(MeltingEntity::new, MobCategory.MISC).build(Salt.ID + "melting_entity"));
     }
 
     public static class RecipeSerializers {

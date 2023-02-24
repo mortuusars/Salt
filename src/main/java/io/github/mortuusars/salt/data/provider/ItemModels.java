@@ -35,6 +35,8 @@ public class ItemModels extends ItemModelProvider {
         withExistingParent(Salt.Blocks.DEEPSLATE_ROCK_SALT_ORE.get().getRegistryName().getPath(),
                 modLoc("block/" + Salt.Blocks.DEEPSLATE_ROCK_SALT_ORE.get().getRegistryName().getPath() + "_1"));
         blockItem(Salt.Items.RAW_ROCK_SALT_BLOCK.get());
+
+        blockItem(Salt.Items.SALT_LAMP.get());
     }
 
     private ItemModelBuilder blockItem(BlockItem item) {

@@ -40,7 +40,7 @@ public interface ISaltBlock {
             BlockPos adjacentPos = pos.relative(direction);
             BlockState adjacentState = level.getBlockState(adjacentPos);
 
-            if (Melting.maybeMeltByBlock(adjacentPos, level))
+            if (Melting.tryMeltFromBlock(adjacentPos, level))
                 break; // Melting only one block per random tick
 
             if (direction != Direction.DOWN && Dissolving.maybeDissolve(state, pos, adjacentState, adjacentPos, level))
@@ -56,7 +56,7 @@ public interface ISaltBlock {
     }
 
     default void onSaltAnimateTick(BlockState state, Level level, BlockPos pos, Random random) {
-        if (random.nextInt(2) == 0 && level.isRainingAt(pos.above())) {
+        if (random.nextInt(3) == 0 && level.isRainingAt(pos.above())) {
             Direction direction = Direction.getRandom(random);
             if (direction != Direction.UP) {
                 BlockPos blockpos = pos.relative(direction);

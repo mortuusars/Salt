@@ -3,12 +3,10 @@ package io.github.mortuusars.salt.block;
 import io.github.mortuusars.salt.Dissolving;
 import io.github.mortuusars.salt.Melting;
 import io.github.mortuusars.salt.Salt;
-import io.github.mortuusars.salt.configuration.Configuration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -17,7 +15,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -26,7 +23,6 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -85,7 +81,7 @@ public class SaltClusterBlock extends Block implements ISaltBlock {
         // Cluster does not call ISaltBlock#onSaltRandomTick because functionality differs a little
 
         BlockPos basePos = pos.relative(state.getValue(FACING).getOpposite());
-        if (Melting.maybeMeltByBlock(basePos, level))
+        if (Melting.tryMeltFromBlock(basePos, level))
             return; // Base block is melted - which means cluster cannot is destroyed too.
 
         if (Dissolving.maybeDissolve(Blocks.AIR.defaultBlockState(), pos, level.getBlockState(basePos), basePos, level))

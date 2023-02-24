@@ -17,7 +17,10 @@ public class ItemTags extends ItemTagsProvider {
 
     @Override
     protected void addTags() {
-        tag(Salt.ItemTags.SALT)
+        tag(Salt.ItemTags.FORGE_TORCHES)
+                .add(Items.TORCH);
+
+        tag(Salt.ItemTags.FORGE_SALTS)
                 .add(Salt.Items.SALT.get());
 
         TagAppender<Item> canBeSaltedTag = tag(Salt.ItemTags.CAN_BE_SALTED);

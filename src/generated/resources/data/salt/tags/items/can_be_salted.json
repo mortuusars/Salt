@@ -16,51 +16,51 @@
     "minecraft:rabbit_stew",
     "minecraft:rotten_flesh",
     {
-      "id": "forge:bread",
+      "id": "#forge:bread",
       "required": false
     },
     {
-      "id": "forge:cooked_beef",
+      "id": "#forge:cooked_beef",
       "required": false
     },
     {
-      "id": "forge:cooked_bacon",
+      "id": "#forge:cooked_bacon",
       "required": false
     },
     {
-      "id": "forge:cooked_chicken",
+      "id": "#forge:cooked_chicken",
       "required": false
     },
     {
-      "id": "forge:cooked_pork",
+      "id": "#forge:cooked_pork",
       "required": false
     },
     {
-      "id": "forge:cooked_mutton",
+      "id": "#forge:cooked_mutton",
       "required": false
     },
     {
-      "id": "forge:cooked_rabbit",
+      "id": "#forge:cooked_rabbit",
       "required": false
     },
     {
-      "id": "forge:cooked_fishes",
+      "id": "#forge:cooked_fishes",
       "required": false
     },
     {
-      "id": "forge:crops/cabbage",
+      "id": "#forge:crops/cabbage",
       "required": false
     },
     {
-      "id": "forge:crops/tomato",
+      "id": "#forge:crops/tomato",
       "required": false
     },
     {
-      "id": "forge:crops/onion",
+      "id": "#forge:crops/onion",
       "required": false
     },
     {
-      "id": "forge:salad_ingredients",
+      "id": "#forge:salad_ingredients",
       "required": false
     },
     {
@@ -225,6 +225,222 @@
     },
     {
       "id": "farmersdelight:shepherds_pie",
+      "required": false
+    },
+    {
+      "id": "miners_delight:bat_wing",
+      "required": false
+    },
+    {
+      "id": "miners_delight:smoked_bat_wing",
+      "required": false
+    },
+    {
+      "id": "miners_delight:squid",
+      "required": false
+    },
+    {
+      "id": "miners_delight:glow_squid",
+      "required": false
+    },
+    {
+      "id": "miners_delight:baked_squid",
+      "required": false
+    },
+    {
+      "id": "miners_delight:tentacles",
+      "required": false
+    },
+    {
+      "id": "miners_delight:baked_tentacles",
+      "required": false
+    },
+    {
+      "id": "miners_delight:improvised_barbecue_stick",
+      "required": false
+    },
+    {
+      "id": "miners_delight:pasta_with_veggieballs",
+      "required": false
+    },
+    {
+      "id": "miners_delight:cave_soup",
+      "required": false
+    },
+    {
+      "id": "miners_delight:bowl_of_stuffed_squid",
+      "required": false
+    },
+    {
+      "id": "miners_delight:beetroot_soup_cup",
+      "required": false
+    },
+    {
+      "id": "miners_delight:mushroom_stew_cup",
+      "required": false
+    },
+    {
+      "id": "miners_delight:rabbit_stew_cup",
+      "required": false
+    },
+    {
+      "id": "miners_delight:baked_cod_stew_cup",
+      "required": false
+    },
+    {
+      "id": "miners_delight:noodle_stew_cup",
+      "required": false
+    },
+    {
+      "id": "miners_delight:beef_stew_cup",
+      "required": false
+    },
+    {
+      "id": "miners_delight:cave_stew_cup",
+      "required": false
+    },
+    {
+      "id": "miners_delight:chicken_stew_cup",
+      "required": false
+    },
+    {
+      "id": "miners_delight:fish_stew_cup",
+      "required": false
+    },
+    {
+      "id": "miners_delight:pumpkin_soup_cup",
+      "required": false
+    },
+    {
+      "id": "miners_delight:vegetable_soup_cup",
+      "required": false
+    },
+    {
+      "id": "#butchercraft:any_meat_cooked",
+      "required": false
+    },
+    {
+      "id": "butchercraft:pork_stew",
+      "required": false
+    },
+    {
+      "id": "butchercraft:lamb_stew",
+      "required": false
+    },
+    {
+      "id": "butchercraft:sausage_roll",
+      "required": false
+    },
+    {
+      "id": "butchercraft:sos",
+      "required": false
+    },
+    {
+      "id": "butchercraft:liver_onions",
+      "required": false
+    },
+    {
+      "id": "butchercraft:fries",
+      "required": false
+    },
+    {
+      "id": "butchercraft:fried_fish",
+      "required": false
+    },
+    {
+      "id": "butchercraft:chicken_fried_steak",
+      "required": false
+    },
+    {
+      "id": "butchercraft:pork_tenderloin",
+      "required": false
+    },
+    {
+      "id": "butchercraft:fried_chicken",
+      "required": false
+    },
+    {
+      "id": "butchercraft:stuffed_heart",
+      "required": false
+    },
+    {
+      "id": "butchercraft:fried_brains",
+      "required": false
+    },
+    {
+      "id": "butchercraft:oxtail_soup",
+      "required": false
+    },
+    {
+      "id": "butchercraft:hash",
+      "required": false
+    },
+    {
+      "id": "butchercraft:potroast",
+      "required": false
+    },
+    {
+      "id": "butchercraft:salisbury_steak",
+      "required": false
+    },
+    {
+      "id": "butchercraft:bbq_ribs",
+      "required": false
+    },
+    {
+      "id": "butchercraft:meat_pie_slice",
+      "required": false
+    },
+    {
+      "id": "butchercraft:pulled_pork_sandwich",
+      "required": false
+    },
+    {
+      "id": "butchercraft:mashed_potato_gravy",
+      "required": false
+    },
+    {
+      "id": "butchercraft:rack_lamb",
+      "required": false
+    },
+    {
+      "id": "butchercraft:stirfry",
+      "required": false
+    },
+    {
+      "id": "butchercraft:beef_wellington",
+      "required": false
+    },
+    {
+      "id": "butchercraft:haggis",
+      "required": false
+    },
+    {
+      "id": "quark:cooked_frog_leg",
+      "required": false
+    },
+    {
+      "id": "quark:cooked_crab_leg",
+      "required": false
+    },
+    {
+      "id": "aquaculture:algae",
+      "required": false
+    },
+    {
+      "id": "aquaculture:fish_fillet_cooked",
+      "required": false
+    },
+    {
+      "id": "aquaculture:frog_legs_cooked",
+      "required": false
+    },
+    {
+      "id": "aquaculture:turtle_soup",
+      "required": false
+    },
+    {
+      "id": "aquaculture:sushi",
       "required": false
     }
   ]

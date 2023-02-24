@@ -14,6 +14,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -89,10 +90,13 @@ public class SaltCauldronBlock extends LayeredCauldronBlock {
 
         List<ItemStack> randomItems = lootTable.getRandomItems(lootContextBuilder.create(LootContextParamSets.EMPTY));
 
-        Vec3 center = Vec3.atCenterOf(pos);
-
         for (ItemStack itemStack : randomItems) {
-            Containers.dropItemStack(level, center.x, center.y + 0.45f, center.z, itemStack);
+            float d0 = level.random.nextFloat() * 0.7F + 0.15F;
+            float d1 = level.random.nextFloat() * 0.7F + 0.060000002F + 0.6F;
+            float d2 = level.random.nextFloat() * 0.7F + 0.15F;
+            ItemEntity itementity = new ItemEntity(level, (double)pos.getX() + d0, (double)pos.getY() + d1, (double)pos.getZ() + d2, itemStack);
+            itementity.setDefaultPickUpDelay();
+            level.addFreshEntity(itementity);
         }
     }
 

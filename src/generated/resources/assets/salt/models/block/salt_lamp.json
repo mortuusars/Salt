@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "side": "salt:block/salt_lamp_side",
+    "bottom": "salt:block/salt_lamp_bottom",
+    "top": "salt:block/salt_lamp_top"
+  }
+}

@@ -24,7 +24,7 @@ public class Melting {
     private static class SaltItemDispenseBehavior extends DefaultDispenseItemBehavior {
         @Override
         protected ItemStack execute(BlockSource source, ItemStack stack) {
-            if (!stack.is(Salt.ItemTags.SALT))
+            if (!stack.is(Salt.ItemTags.FORGE_SALTS))
                 return stack;
 
             Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
@@ -67,14 +67,16 @@ public class Melting {
         return false;
     }
 
+
     /**
      * Performs necessary checks and melts block at specified pos if all passes.
      * @return True if block was melted.
      */
-    public static boolean maybeMeltByBlock(BlockPos pos, ServerLevel level) {
-        if (Configuration.MELTING_BY_BLOCK_ENABLED.get() && level.getBlockState(pos).is(Salt.BlockTags.MELTABLES)
+    public static boolean tryMeltFromBlock(BlockPos pos, ServerLevel level) {
+        if (Configuration.MELTING_BY_BLOCK_ENABLED.get()
+                && level.getBlockState(pos).is(Salt.BlockTags.MELTABLES)
                 && level.random.nextDouble() < Configuration.MELTING_BLOCK_CHANCE.get()) {
-            Melting.meltBlock(pos, level);
+            meltBlock(pos, level);
             return true;
         }
 
@@ -83,7 +85,10 @@ public class Melting {
 
     public static void meltBlock(BlockPos pos, ServerLevel level) {
         BlockState oldState = level.getBlockState(pos);
-        BlockState newState = Configuration.MELTING_PLACES_WATER.get() ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
+        BlockState newState = Blocks.AIR.defaultBlockState();
+
+        if (Configuration.MELTING_PLACES_WATER.get() && level.dimensionType().ultraWarm())
+            newState = Blocks.WATER.defaultBlockState();
 
         level.setBlockAndUpdate(pos, newState);
 
