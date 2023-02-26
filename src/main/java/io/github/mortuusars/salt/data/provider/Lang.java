@@ -37,6 +37,7 @@ public class Lang extends LanguageProvider {
         add(LangKeys.GUI_TOOLTIP_SALTED, "Salted");
         add(LangKeys.GUI_TOOLTIP_SALTED_EXPANDED_PART, ": %s nutrition");
 
+        add(LangKeys.JEI_CATEGORY_SALT_CRYSTAL_GROWING, "Growing Salt Crystals");
         add(LangKeys.JEI_CATEGORY_SALT_EVAPORATION, "Water Evaporation");
         add(LangKeys.JEI_CATEGORY_SALT_EVAPORATION_HEAT_SOURCE_TOOLTIP, "Heat Source");
         add(LangKeys.JEI_CATEGORY_SALT_EVAPORATION_HEAT_SOURCE_TOOLTIP_2, "Any ");

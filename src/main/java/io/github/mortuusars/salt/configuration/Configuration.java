@@ -56,6 +56,10 @@ public class Configuration {
 
     public static final ForgeConfigSpec.BooleanValue SALTED_OVERLAY_ENABLED;
 
+    // JEI:
+    public static final ForgeConfigSpec.BooleanValue JEI_SALT_EVAPORATION_ENABLED;
+    public static final ForgeConfigSpec.BooleanValue JEI_SALT_CRYSTAL_GROWING_ENABLED;
+
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
 
@@ -192,6 +196,20 @@ public class Configuration {
 
 
         builder = new ForgeConfigSpec.Builder();
+
+        builder.push("JEI/REI");
+
+        JEI_SALT_EVAPORATION_ENABLED = builder
+                .comment("Water Evaporation category will be shown in JEI/REI. ",
+                        "*Will be disabled automatically if evaporation is disabled or salt:heaters tag has no blocks.")
+                .define("JeiWaterEvaporationEnabled", true);
+
+        JEI_SALT_CRYSTAL_GROWING_ENABLED = builder
+                .comment("Growing Salt Crystals category will be shown in JEI/REI.",
+                        "*Will be disabled automatically if Growing Crystals is disabled.")
+                .define("JeiGrowingSaltCrystalsEnabled", true);
+
+        builder.pop();
 
         builder.push("Compatibility");
 

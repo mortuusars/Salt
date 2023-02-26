@@ -1,4 +1,4 @@
-package io.github.mortuusars.salt.integration.jei;
+package io.github.mortuusars.salt.integration.jei.resource;
 
 import io.github.mortuusars.salt.Salting;
 import io.github.mortuusars.salt.crafting.recipe.SaltingRecipe;
