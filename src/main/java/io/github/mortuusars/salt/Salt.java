@@ -12,6 +12,9 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.features.OreFeatures;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
@@ -80,6 +83,10 @@ public class Salt
         MinecraftForge.EVENT_BUS.register(this);
 
         MinecraftForge.EVENT_BUS.addListener(this::onRightClick);
+    }
+
+    public static MutableComponent translate(String key, String... args) {
+        return new TranslatableComponent(key, args);
     }
 
     public void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {

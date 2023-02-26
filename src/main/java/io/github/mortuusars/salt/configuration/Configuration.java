@@ -54,7 +54,7 @@ public class Configuration {
 
     // CLIENT
 
-    public static final ForgeConfigSpec.BooleanValue SALTED_OVERLAY;
+    public static final ForgeConfigSpec.BooleanValue SALTED_OVERLAY_ENABLED;
 
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
@@ -131,11 +131,12 @@ public class Configuration {
         builder.push("Evaporation");
 
         EVAPORATION_ENABLED = builder
-                .comment("Water in a cauldron with a heat source beneath (defined in tag 'salt/tags/blocks/heaters') will evaporate and salt will be formed in the cauldron")
+                .comment("Water in a cauldron with a heat source beneath (defined in tag 'salt/tags/blocks/heaters') " +
+                        "will evaporate and salt will be formed in the cauldron")
                 .define("EvaporationEnabled", true);
         EVAPORATION_CHANCE = builder
                 .comment("Chance of water evaporating on random tick. 1.0 = first random tick. 0.0 = never.")
-                .defineInRange("EvaporationChance", 0.35d, 0.0d, 1.0d);
+                .defineInRange("EvaporationChance", 0.3d, 0.0d, 1.0d);
 
         builder.pop();
 
@@ -194,7 +195,7 @@ public class Configuration {
 
         builder.push("Compatibility");
 
-        SALTED_OVERLAY = builder
+        SALTED_OVERLAY_ENABLED = builder
                 .comment("Overlay texture will be drawn over salted foods. Disable if theres an issue with rendering items.")
                 .define("SaltingOverlayEnabled", true);
 
