@@ -52,6 +52,10 @@ public class Configuration {
     public static final ForgeConfigSpec.IntValue ROCK_SALT_MAX_HEIGHT;
     public static final ForgeConfigSpec.DoubleValue ROCK_SALT_CLUSTER_CHANCE;
 
+    // Villager Trades:
+    public static final ForgeConfigSpec.BooleanValue BUTCHER_SALT_TRADES_ENABLED;
+
+
     // CLIENT
 
     public static final ForgeConfigSpec.BooleanValue SALTED_OVERLAY_ENABLED;
@@ -189,6 +193,17 @@ public class Configuration {
                 .defineInRange("RockSaltClusterChance", 0.15f, 0.0, 1.0);
 
         builder.pop(2);
+
+
+
+
+        builder.push("VillagerTrades");
+
+        BUTCHER_SALT_TRADES_ENABLED = builder
+                .comment("Butcher will buy and sell Salt.")
+                .define("ButcherSaltTradesEnabled", true);
+
+        builder.pop();
 
 
         COMMON = builder.build();
