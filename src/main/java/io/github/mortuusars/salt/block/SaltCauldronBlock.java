@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
@@ -73,6 +74,8 @@ public class SaltCauldronBlock extends LayeredCauldronBlock {
                 dropContents(serverLevel, state, pos);
                 serverLevel.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
                 serverLevel.playSound(null, pos, Salt.Sounds.SALT_CAULDRON_REMOVE_SALT.get(), SoundSource.BLOCKS, 0.8F, serverLevel.getRandom().nextFloat() * 0.2f + 0.9f);
+                if (player instanceof ServerPlayer serverPlayer && !serverPlayer.isCreative())
+                    Salt.Advancements.SALT_EVAPORATED.trigger(serverPlayer);
             }
 
             return InteractionResult.sidedSuccess(level.isClientSide);

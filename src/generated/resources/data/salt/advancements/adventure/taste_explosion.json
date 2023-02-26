@@ -1,0 +1,29 @@
+{
+  "parent": "minecraft:husbandry/root",
+  "display": {
+    "icon": {
+      "item": "salt:salt"
+    },
+    "title": {
+      "translate": "salt.advancement.taste_explosion.title"
+    },
+    "description": {
+      "translate": "salt.advancement.taste_explosion.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "eat_salted_food": {
+      "trigger": "salt:salted_food_consumed",
+      "conditions": {}
+    }
+  },
+  "requirements": [
+    [
+      "eat_salted_food"
+    ]
+  ]
+}

@@ -3,10 +3,13 @@ package io.github.mortuusars.salt.block;
 import io.github.mortuusars.salt.Dissolving;
 import io.github.mortuusars.salt.Melting;
 import io.github.mortuusars.salt.Salt;
+import io.github.mortuusars.salt.configuration.Configuration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -20,6 +23,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
@@ -49,6 +53,20 @@ public class SaltClusterBlock extends Block implements ISaltBlock {
         this.southAabb = Block.box(offset, offset, 0.0D, (16 - offset), (16 - offset), size);
         this.eastAabb = Block.box(0.0D, offset, offset, size, (16 - offset), (16 - offset));
         this.westAabb = Block.box((16 - size), offset, offset, 16.0D, (16 - offset), (16 - offset));
+    }
+
+    @Override
+    public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
+        if (player instanceof ServerPlayer serverPlayer
+                && !player.isCreative()
+                && Configuration.SALT_CLUSTER_GROWING_ENABLED.get()
+                && state.is(Salt.Blocks.SALT_CLUSTER.get())
+                && level.getBlockState(pos.below()).is(Salt.BlockTags.SALT_CLUSTER_GROWABLES)
+                && ISaltBlock.getFluidDrippingOn(level, pos) == Fluids.WATER) {
+            Salt.Advancements.HARVEST_SALT_CRYSTAL.trigger(serverPlayer);
+        }
+
+        return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
     }
 
     @Override

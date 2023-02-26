@@ -1,0 +1,29 @@
+{
+  "parent": "salt:adventure/taste_explosion",
+  "display": {
+    "icon": {
+      "item": "salt:salt_cluster"
+    },
+    "title": {
+      "translate": "salt.advancement.crystal_garden.title"
+    },
+    "description": {
+      "translate": "salt.advancement.crystal_garden.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "harvest_salt_crystal": {
+      "trigger": "salt:harvest_salt_crystal",
+      "conditions": {}
+    }
+  },
+  "requirements": [
+    [
+      "harvest_salt_crystal"
+    ]
+  ]
+}

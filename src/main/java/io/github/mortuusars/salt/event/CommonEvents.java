@@ -20,6 +20,7 @@ public class CommonEvents {
             // 'randomTick' is used in mixin to convert Water Cauldron to Salt Cauldron:
             Blocks.WATER_CAULDRON.isRandomlyTicking = true;
 
+            Salt.Advancements.register();
             Salt.registerDispenserBehaviors();
         });
     }

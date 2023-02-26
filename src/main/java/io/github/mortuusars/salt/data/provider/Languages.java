@@ -5,10 +5,10 @@ import io.github.mortuusars.salt.client.LangKeys;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
 
-public class Lang extends LanguageProvider {
+public class Languages extends LanguageProvider {
     private final String locale;
 
-    public Lang(DataGenerator gen, String locale) {
+    public Languages(DataGenerator gen, String locale) {
         super(gen, Salt.ID, locale);
         this.locale = locale;
     }
@@ -36,6 +36,13 @@ public class Lang extends LanguageProvider {
 
         add(LangKeys.GUI_TOOLTIP_SALTED, "Salted");
         add(LangKeys.GUI_TOOLTIP_SALTED_EXPANDED_PART, ": %s nutrition");
+
+        add(LangKeys.ADVANCEMENT_TASTE_EXPLOSION_TITLE, "Taste Explosion");
+        add(LangKeys.ADVANCEMENT_TASTE_EXPLOSION_DESCRIPTION, "Consume a salted food, gaining additional nutrition");
+        add(LangKeys.ADVANCEMENT_BOIL_OFF_TITLE, "Boil Off");
+        add(LangKeys.ADVANCEMENT_BOIL_OFF_DESCRIPTION, "Scrape off the Salt that is formed by boiling water in a cauldron");
+        add(LangKeys.ADVANCEMENT_CRYSTAL_GARDEN_TITLE, "Crystal Garden");
+        add(LangKeys.ADVANCEMENT_CRYSTAL_GARDEN_DESCRIPTION, "Harvest fully grown Salt Cluster that has been formed by dripping water");
 
         add(LangKeys.JEI_CATEGORY_SALT_CRYSTAL_GROWING, "Growing Salt Crystals");
         add(LangKeys.JEI_CATEGORY_SALT_EVAPORATION, "Water Evaporation");

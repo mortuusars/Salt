@@ -1,5 +1,8 @@
 package io.github.mortuusars.salt;
 
+import io.github.mortuusars.salt.advancement.HarvestSaltCrystalTrigger;
+import io.github.mortuusars.salt.advancement.SaltEvaporationTrigger;
+import io.github.mortuusars.salt.advancement.SaltedFoodConsumedTrigger;
 import io.github.mortuusars.salt.block.*;
 import io.github.mortuusars.salt.configuration.Configuration;
 import io.github.mortuusars.salt.crafting.recipe.SaltingRecipe;
@@ -8,6 +11,7 @@ import io.github.mortuusars.salt.event.CommonEvents;
 import io.github.mortuusars.salt.item.SaltItem;
 import io.github.mortuusars.salt.world.feature.MineralDepositFeature;
 import io.github.mortuusars.salt.world.feature.configurations.MineralDepositConfiguration;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.Holder;
 import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.data.worldgen.features.FeatureUtils;
@@ -74,33 +78,20 @@ public class Salt
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
             modEventBus.addListener(ClientEvents::onClientSetup);
             modEventBus.addListener(ClientEvents::onRegisterModels);
-            modEventBus.addListener(this::registerRenderers);
             MinecraftForge.EVENT_BUS.addListener(ClientEvents::onItemTooltipEvent);
         });
         MinecraftForge.EVENT_BUS.addListener(CommonEvents::onItemUseFinish);
         MinecraftForge.EVENT_BUS.addListener(CommonEvents::onBiomeLoadingEvent);
 
         MinecraftForge.EVENT_BUS.register(this);
-
-        MinecraftForge.EVENT_BUS.addListener(this::onRightClick);
     }
 
     public static MutableComponent translate(String key, String... args) {
         return new TranslatableComponent(key, args);
     }
 
-    public void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-//        event.registerEntityRenderer(EntityTypes.MELTING.get(), InvisibleEntityRenderer::new);
-    }
-
     public static ResourceLocation resource(String path) {
         return new ResourceLocation(ID, path);
-    }
-
-    // Testing
-    private void onRightClick(PlayerInteractEvent.RightClickItem event) {
-        if (event.getEntity().getLevel().isClientSide || !(event.getEntity() instanceof Player player))
-            return;
     }
 
     public static void registerDispenserBehaviors() {
@@ -191,6 +182,18 @@ public class Salt
 
         public static final RegistryObject<BlockItem> SALT_LAMP = ITEMS.register("salt_lamp",
                 () -> new BlockItem(Blocks.SALT_LAMP.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
+    }
+
+    public static class Advancements {
+        public static SaltEvaporationTrigger SALT_EVAPORATED = new SaltEvaporationTrigger();
+        public static SaltedFoodConsumedTrigger SALTED_FOOD_CONSUMED = new SaltedFoodConsumedTrigger();
+        public static HarvestSaltCrystalTrigger HARVEST_SALT_CRYSTAL = new HarvestSaltCrystalTrigger();
+
+        public static void register() {
+            CriteriaTriggers.register(SALT_EVAPORATED);
+            CriteriaTriggers.register(SALTED_FOOD_CONSUMED);
+            CriteriaTriggers.register(HARVEST_SALT_CRYSTAL);
+        }
     }
 
     public static class Sounds {

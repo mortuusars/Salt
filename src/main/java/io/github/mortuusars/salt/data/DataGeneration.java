@@ -16,7 +16,7 @@ public class DataGeneration
         DataGenerator generator = event.getGenerator();
         ExistingFileHelper helper = event.getExistingFileHelper();
         if (event.includeServer()) {
-//            generator.addProvider(new Advancements(generator, helper));
+            generator.addProvider(new Advancements(generator, helper));
             generator.addProvider(new LootTables(generator));
             generator.addProvider(new Recipes(generator));
             BlockTags blockTags = new BlockTags(generator, helper);
@@ -29,7 +29,7 @@ public class DataGeneration
             generator.addProvider(blockStates);
             generator.addProvider(new ItemModels(generator, blockStates.models().existingFileHelper));
             generator.addProvider(new Sounds(generator, helper));
-            generator.addProvider(new Lang(generator, "en_us"));
+            generator.addProvider(new Languages(generator, "en_us"));
         }
     }
 }
