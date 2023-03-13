@@ -77,5 +77,5 @@ ef6d009e53f76237d278e2c212a4b08e4b759ecd data/salt/tags/blocks/meltables.json
 0be40b4d3fb4c69dec6f67d5b89b6d0d7c706553 data/salt/tags/blocks/salt_cluster_growables.json
 80e9a4ce4fe41ad2c8f9f1e3c392a0ff129ac1c7 data/salt/tags/blocks/salt_cluster_replaceables.json
 d524c74fcc0e83081919a087a2b9dcd7a246e48b data/salt/tags/blocks/salt_dissolvables.json
-56569d66b9f204872796eff9e3070d307737419e data/salt/tags/items/can_be_salted.json
+1816a2b08ee7e877e85692342b50948e2e6f2fb4 data/salt/tags/items/can_be_salted.json
 df321d0b24412eea91fa4e2ab74eaf0708ee396a data/salt/tags/worldgen/biome/has_rock_salt_deposits.json
