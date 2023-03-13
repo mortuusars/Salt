@@ -286,6 +286,18 @@ public class ItemTags extends ItemTagsProvider {
                 "baked_magmacubefish_stew",
                 "baked_glowdine_stew",
                 "baked_soulsucker_stew");
+
+        optionalItems(canBeSaltedTag, "delightful",
+                "field_salad",
+                "cheeseburger",
+                "deluxe_cheeseburger",
+                "cooked_venison_chops",
+                "cooked_goat");
+
+        optionalItems(canBeSaltedTag, "additionaladditions",
+                "fried_egg",
+                "chicken_nugget"
+        );
     }
 
     private void optionalTags(TagAppender<Item> tag, String namespace, String... items) {
