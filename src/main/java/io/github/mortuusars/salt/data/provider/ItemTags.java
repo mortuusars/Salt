@@ -256,6 +256,36 @@ public class ItemTags extends ItemTagsProvider {
                 "quiche",
                 "sunny_side_eggs",
                 "the_big_breakfast");
+
+        optionalItems(canBeSaltedTag, "netherdepthsupgrade",
+                "cooked_lava_pufferfish_slice",
+                "cooked_obsidianfish_slice",
+                "cooked_magmacubefish_slice",
+                "cooked_glowdine_slice",
+                "cooked_soulsucker_slice",
+                "lava_pufferfish_roll",
+                "obsidianfish_roll",
+                "searing_cod_roll",
+                "blazefish_roll",
+                "magmacubefish_roll",
+                "glowdine_roll",
+                "soulsucker_roll",
+                "warped_kelp_roll",
+                "warped_kelp_roll_slice",
+                "grilled_lava_pufferfish",
+                "grilled_obsidianfish",
+                "grilled_searing_cod",
+                "grilled_blazefish",
+                "grilled_magmacubefish",
+                "grilled_glowdine",
+                "grilled_soulsucker",
+                "baked_lava_pufferfish_stew",
+                "baked_obsidianfish_stew",
+                "baked_searing_cod_stew",
+                "baked_blazefish_stew",
+                "baked_magmacubefish_stew",
+                "baked_glowdine_stew",
+                "baked_soulsucker_stew");
     }
 
     private void optionalTags(TagAppender<Item> tag, String namespace, String... items) {
