@@ -62,7 +62,7 @@ public class ItemTags extends ItemTagsProvider {
                 "crops/onion",
                 "salad_ingredients");
 
-        optional(canBeSaltedTag, "farmersdelight",
+        optionalItems(canBeSaltedTag, "farmersdelight",
                 "fried_egg",
                 "tomato_sauce",
                 "smoked_ham",
@@ -105,7 +105,7 @@ public class ItemTags extends ItemTagsProvider {
                 "honey_glazed_ham",
                 "shepherds_pie");
 
-        optional(canBeSaltedTag, "miners_delight",
+        optionalItems(canBeSaltedTag, "miners_delight",
                 "bat_wing",
                 "smoked_bat_wing",
                 "squid",
@@ -133,7 +133,7 @@ public class ItemTags extends ItemTagsProvider {
 //                "any_offal",
 //                "any_meat_raw",
                 "any_meat_cooked");
-        optional(canBeSaltedTag, "butchercraft",
+        optionalItems(canBeSaltedTag, "butchercraft",
                 "pork_stew",
                 "lamb_stew",
                 "sausage_roll",
@@ -159,16 +159,103 @@ public class ItemTags extends ItemTagsProvider {
                 "beef_wellington",
                 "haggis");
 
-        optional(canBeSaltedTag, "quark",
+        optionalItems(canBeSaltedTag, "quark",
                 "cooked_frog_leg",
                 "cooked_crab_leg");
 
-        optional(canBeSaltedTag, "aquaculture",
+        optionalItems(canBeSaltedTag, "aquaculture",
                 "algae",
                 "fish_fillet_cooked",
                 "frog_legs_cooked",
                 "turtle_soup",
                 "sushi");
+
+        optionalItems(canBeSaltedTag, "croptopia",
+                "baked_beans",
+                "baked_sweet_potato",
+                "baked_yam",
+                "cooked_anchovy",
+                "cooked_calamari",
+                "cooked_shrimp",
+                "cooked_tuna",
+                "popcorn",
+                "toast",
+                "popcorn",
+                "tofu",
+                "pepperoni",
+                "beef_jerky",
+                "pork_jerky",
+                "cucumber_salad",
+                "caesar_salad",
+                "leafy_salad",
+                "veggie_salad",
+                "pork_and_beans",
+                "leek_soup",
+                "roasted_nuts",
+                "scrambled_eggs",
+                "buttered_toast",
+                "ham_sandwich",
+                "blt",
+                "grilled_cheese",
+                "tuna_sandwich",
+                "cheeseburger",
+                "hamburger",
+                "tofuburger",
+                "pizza",
+                "supreme_pizza",
+                "cheese_pizza",
+                "pineapple_pepperoni_pizza",
+                "lemon_chicken",
+                "fried_chicken",
+                "chicken_and_noodles",
+                "chicken_and_dumplings",
+                "tofu_and_dumplings",
+                "spaghetti_squash",
+                "chicken_and_rice",
+                "taco",
+                "sushi",
+                "egg_roll",
+                "cashew_chicken",
+                "burrito",
+                "tostada",
+                "carnitas",
+                "fajitas",
+                "enchilada",
+                "stuffed_poblanos",
+                "refried_beans",
+                "quesadilla",
+                "beef_wellington",
+                "cornish_pasty",
+                "avocado_toast",
+                "beef_stew",
+                "beef_stir_fry",
+                "cheesy_asparagus",
+                "eggplant_parmesan",
+                "potato_soup",
+                "ratatouille",
+                "steamed_broccoli",
+                "steamed_green_beans",
+                "stir_fry",
+                "toast_sandwich",
+                "corn_bread",
+                "cabbage_roll",
+                "borscht",
+                "goulash",
+                "beetroot_salad",
+                "steamed_crab",
+                "deep_fried_shrimp",
+                "tuna_roll",
+                "fried_calamari",
+                "anchovy_pizza",
+                "baked_crepes",
+                "croque_madame",
+                "croque_monsieur",
+                "dauphine_potatoes",
+                "fried_frog_legs",
+                "hashed_brown",
+                "quiche",
+                "sunny_side_eggs",
+                "the_big_breakfast");
     }
 
     private void optionalTags(TagAppender<Item> tag, String namespace, String... items) {
@@ -177,7 +264,7 @@ public class ItemTags extends ItemTagsProvider {
         }
     }
 
-    private void optional(TagAppender<Item> tag, String namespace, String... items) {
+    private void optionalItems(TagAppender<Item> tag, String namespace, String... items) {
         for (String item : items) {
             tag.addOptional(new ResourceLocation(namespace, item));
         }
