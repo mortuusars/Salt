@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#salt:has_rock_salt_deposits",
+  "features": "salt:mineral_rock_salt",
+  "step": "underground_ores"
+}

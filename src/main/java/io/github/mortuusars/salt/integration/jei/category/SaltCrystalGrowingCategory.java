@@ -2,6 +2,7 @@ package io.github.mortuusars.salt.integration.jei.category;
 
 import io.github.mortuusars.salt.Salt;
 import io.github.mortuusars.salt.client.LangKeys;
+import io.github.mortuusars.salt.integration.jei.SaltJeiPlugin;
 import io.github.mortuusars.salt.integration.jei.resource.SaltCrystalGrowingDummy;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -9,6 +10,7 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -53,6 +55,11 @@ public class SaltCrystalGrowingCategory implements IRecipeCategory<SaltCrystalGr
     }
 
     @Override
+    public RecipeType<SaltCrystalGrowingDummy> getRecipeType() {
+        return SaltJeiPlugin.SALT_CRYSTAL_GROWING_RECIPE_TYPE;
+    }
+
+    @Override
     public Component getTitle() {
         return title;
     }
@@ -63,15 +70,5 @@ public class SaltCrystalGrowingCategory implements IRecipeCategory<SaltCrystalGr
     @Override
     public IDrawable getIcon() {
         return icon;
-    }
-    @SuppressWarnings("removal")
-    @Override
-    public ResourceLocation getUid() {
-        return UID;
-    }
-    @SuppressWarnings("removal")
-    @Override
-    public Class<? extends SaltCrystalGrowingDummy> getRecipeClass() {
-        return SaltCrystalGrowingDummy.class;
     }
 }

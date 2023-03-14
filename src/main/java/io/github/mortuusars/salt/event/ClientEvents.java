@@ -4,28 +4,31 @@ import io.github.mortuusars.salt.Salt;
 import io.github.mortuusars.salt.Salting;
 import io.github.mortuusars.salt.client.LangKeys;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.network.chat.*;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.model.ForgeModelBakery;
+import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import java.util.List;
 
+@Mod.EventBusSubscriber(modid = Salt.ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientEvents {
 
     public static void onClientSetup(FMLClientSetupEvent ignoredEvent) {
-        ItemBlockRenderTypes.setRenderLayer(Salt.Blocks.SALT_CLUSTER.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(Salt.Blocks.LARGE_SALT_BUD.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(Salt.Blocks.MEDIUM_SALT_BUD.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(Salt.Blocks.SMALL_SALT_BUD.get(), RenderType.cutout());
+//        ItemBlockRenderTypes.setRenderLayer(Salt.Blocks.SALT_CLUSTER.get(), RenderType.cutout());
+//        ItemBlockRenderTypes.setRenderLayer(Salt.Blocks.LARGE_SALT_BUD.get(), RenderType.cutout());
+//        ItemBlockRenderTypes.setRenderLayer(Salt.Blocks.MEDIUM_SALT_BUD.get(), RenderType.cutout());
+//        ItemBlockRenderTypes.setRenderLayer(Salt.Blocks.SMALL_SALT_BUD.get(), RenderType.cutout());
     }
 
-    public static void onRegisterModels(ModelRegistryEvent ignoredEvent) {
-        ForgeModelBakery.addSpecialModel(Salt.resource("item/salted_overlay"));
+    @SubscribeEvent
+    public static void registerModels(ModelEvent.RegisterAdditional event) {
+        event.register(Salt.resource("item/salted_overlay"));
     }
 
     public static void onItemTooltipEvent(ItemTooltipEvent event) {
@@ -44,8 +47,8 @@ public class ClientEvents {
 
         @SuppressWarnings("SuperfluousFormat")
         public static MutableComponent get(int nutrition, float saturationModifier, boolean isExpanded) {
-            MutableComponent base = new TranslatableComponent(LangKeys.GUI_TOOLTIP_SALTED).withStyle(SALTED_STYLE);
-            return isExpanded ? base.append(new TranslatableComponent(LangKeys.GUI_TOOLTIP_SALTED_EXPANDED_PART,
+            MutableComponent base = Component.translatable(LangKeys.GUI_TOOLTIP_SALTED).withStyle(SALTED_STYLE);
+            return isExpanded ? base.append(Component.translatable(LangKeys.GUI_TOOLTIP_SALTED_EXPANDED_PART,
                     nutrition > 0 ? "+" + nutrition : "-" + nutrition,
                     saturationModifier > 0 ? "+" + saturationModifier : "-" + saturationModifier)
                     .withStyle(SALTED_EXPANDED_PART_STYLE))

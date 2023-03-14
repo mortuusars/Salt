@@ -3,11 +3,13 @@ package io.github.mortuusars.salt.world.feature;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import io.github.mortuusars.salt.Salt;
+import io.github.mortuusars.salt.configuration.Configuration;
 import io.github.mortuusars.salt.world.feature.configurations.MineralDepositConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.SectionPos;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -31,7 +33,7 @@ public class MineralDepositFeature extends Feature<MineralDepositConfiguration> 
      * @param context A context object with a reference to the level and the position the feature is being placed at
      */
     public boolean place(FeaturePlaceContext<MineralDepositConfiguration> context) {
-        Random random = context.random();
+        RandomSource random = context.random();
         BlockPos origin = context.origin();
         WorldGenLevel worldgenlevel = context.level();
 
@@ -39,14 +41,14 @@ public class MineralDepositFeature extends Feature<MineralDepositConfiguration> 
             return false;
 
         MineralDepositConfiguration configuration = context.config();
+
         float f = random.nextFloat() * (float)Math.PI;
-        float f1 = (float)configuration.size / 8.0F;
-        int i = Mth.ceil(((float)configuration.size / 16.0F * 2.0F + 1.0F) / 2.0F);
+        float f1 = configuration.getSize() / 8.0F;
+        int i = Mth.ceil((configuration.getSize() / 16.0F * 2.0F + 1.0F) / 2.0F);
         double minX = (double)origin.getX() + Math.sin(f) * (double)f1;
         double maxX = (double)origin.getX() - Math.sin(f) * (double)f1;
         double minZ = (double)origin.getZ() + Math.cos(f) * (double)f1;
         double maxZ = (double)origin.getZ() - Math.cos(f) * (double)f1;
-        int j = 2;
         double mixY = (origin.getY() + random.nextInt(3) - 2);
         double maxY = (origin.getY() + random.nextInt(3) - 2);
         int x = origin.getX() - Mth.ceil(f1) - i;
@@ -66,19 +68,19 @@ public class MineralDepositFeature extends Feature<MineralDepositConfiguration> 
         return false;
     }
 
-    protected boolean doPlace(WorldGenLevel level, Random random, MineralDepositConfiguration configuration, double pMinX, double pMaxX, double pMinZ, double pMaxZ, double pMinY, double pMaxY, int pX, int pY, int pZ, int pWidth, int pHeight) {
+    protected boolean doPlace(WorldGenLevel level, RandomSource random, MineralDepositConfiguration configuration, double pMinX, double pMaxX, double pMinZ, double pMaxZ, double pMinY, double pMaxY, int pX, int pY, int pZ, int pWidth, int pHeight) {
         int placedBlocks = 0;
         BitSet bitset = new BitSet(pWidth * pHeight * pWidth);
         BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-        int j = configuration.size;
-        double[] adouble = new double[j * 4];
+        int size = configuration.getSize();
+        double[] adouble = new double[size * 4];
 
-        for(int k = 0; k < j; ++k) {
-            float f = (float)k / (float)j;
+        for(int k = 0; k < size; ++k) {
+            float f = (float)k / (float)size;
             double d0 = Mth.lerp(f, pMinX, pMaxX);
             double d1 = Mth.lerp(f, pMinY, pMaxY);
             double d2 = Mth.lerp(f, pMinZ, pMaxZ);
-            double d3 = random.nextDouble() * (double)j / 16.0D;
+            double d3 = random.nextDouble() * (double)size / 16.0D;
             double d4 = ((double)(Mth.sin((float)Math.PI * f) + 1.0F) * d3 + 1.0D) / 2.0D;
             adouble[k * 4 + 0] = d0;
             adouble[k * 4 + 1] = d1;
@@ -86,9 +88,9 @@ public class MineralDepositFeature extends Feature<MineralDepositConfiguration> 
             adouble[k * 4 + 3] = d4;
         }
 
-        for(int l3 = 0; l3 < j - 1; ++l3) {
+        for(int l3 = 0; l3 < size - 1; ++l3) {
             if (!(adouble[l3 * 4 + 3] <= 0.0D)) {
-                for(int i4 = l3 + 1; i4 < j; ++i4) {
+                for(int i4 = l3 + 1; i4 < size; ++i4) {
                     if (!(adouble[i4 * 4 + 3] <= 0.0D)) {
                         double d8 = adouble[l3 * 4 + 0] - adouble[i4 * 4 + 0];
                         double d10 = adouble[l3 * 4 + 1] - adouble[i4 * 4 + 1];
@@ -109,7 +111,7 @@ public class MineralDepositFeature extends Feature<MineralDepositConfiguration> 
         BulkSectionAccess bulksectionaccess = new BulkSectionAccess(level);
 
         try {
-            for(int j4 = 0; j4 < j; ++j4) {
+            for(int j4 = 0; j4 < size; ++j4) {
                 double d9 = adouble[j4 * 4 + 3];
                 if (!(d9 < 0.0D)) {
                     double d11 = adouble[j4 * 4 + 0];
@@ -163,7 +165,7 @@ public class MineralDepositFeature extends Feature<MineralDepositConfiguration> 
         return placedBlocks > 0;
     }
 
-    private boolean placeBlock(WorldGenLevel level, Random random, MineralDepositConfiguration configuration, BlockPos.MutableBlockPos mutableBlockPos, BulkSectionAccess bulksectionaccess, int absoluteX, int absoluteY, int absoluteZ) {
+    private boolean placeBlock(WorldGenLevel level, RandomSource random, MineralDepositConfiguration configuration, BlockPos.MutableBlockPos mutableBlockPos, BulkSectionAccess bulksectionaccess, int absoluteX, int absoluteY, int absoluteZ) {
 
         LevelChunkSection levelchunksection = bulksectionaccess.getSection(mutableBlockPos);
         if (levelchunksection == null)
@@ -198,7 +200,7 @@ public class MineralDepositFeature extends Feature<MineralDepositConfiguration> 
                 Direction randomDirection = clusterDirections.get(random.nextInt(clusterDirections.size()));
                 clusterDirections.remove(randomDirection);
 
-                if (random.nextFloat() >= configuration.clusterChance)
+                if (random.nextFloat() >= configuration.getClusterChance())
                     continue;
 
                 int cX = relativeX + randomDirection.getStepX();
@@ -219,7 +221,7 @@ public class MineralDepositFeature extends Feature<MineralDepositConfiguration> 
         return true;
     }
 
-    protected List<Direction> getValidSidesForCluster(Random random, MineralDepositConfiguration configuration, LevelChunkSection levelchunksection, int relativeX, int relativeY, int relativeZ) {
+    protected List<Direction> getValidSidesForCluster(RandomSource random, MineralDepositConfiguration configuration, LevelChunkSection levelchunksection, int relativeX, int relativeY, int relativeZ) {
         List<Direction> airDirections = new ArrayList<>();
 
         for (Direction dir : Direction.values()) {

@@ -11,7 +11,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
 public class SaltingRecipe extends CustomRecipe {
@@ -49,31 +51,6 @@ public class SaltingRecipe extends CustomRecipe {
         }
 
         return hasFoodInput && matches.stream().allMatch(v -> v == true) && itemsCount == this.ingredients.size() + 1;
-
-//        boolean hasSalt = false;
-//        boolean hasSaltedIngredient = false;
-//
-//        for (int index = 0; index < craftingContainer.getContainerSize(); index++) {
-//            ItemStack itemStack = craftingContainer.getItem(index);
-//
-//            if (itemStack.isEmpty())
-//                continue;
-//
-//            if (SALT.test(itemStack)) {
-//                if (hasSalt)
-//                    return false;
-//
-//                hasSalt = true;
-//            }
-//            else if (CAN_BE_SALTED.test(itemStack)) {
-//                if (hasSaltedIngredient || Salting.isSalted(itemStack))
-//                    return false;
-//
-//                hasSaltedIngredient = true;
-//            }
-//        }
-//
-//        return hasSalt && hasSaltedIngredient;
     }
 
     @Override
@@ -111,7 +88,7 @@ public class SaltingRecipe extends CustomRecipe {
         return CAN_BE_SALTED;
     }
 
-    public static class Serializer extends net.minecraftforge.registries.ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<SaltingRecipe> {
+    public static class Serializer implements RecipeSerializer<SaltingRecipe> {
         private static final ResourceLocation NAME = Salt.resource("salting");
         public SaltingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             String group = GsonHelper.getAsString(json, "group", "");
@@ -124,7 +101,7 @@ public class SaltingRecipe extends CustomRecipe {
 
             for(int i = 0; i < jsonArray.size(); ++i) {
                 Ingredient ingredient = Ingredient.fromJson(jsonArray.get(i));
-                if (net.minecraftforge.common.ForgeConfig.SERVER.skipEmptyShapelessCheck.get() || !ingredient.isEmpty())
+                if (!ingredient.isEmpty())
                     ingredients.add(ingredient);
             }
 

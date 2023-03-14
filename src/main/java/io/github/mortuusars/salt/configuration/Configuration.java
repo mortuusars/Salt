@@ -44,12 +44,7 @@ public class Configuration {
     public static final ForgeConfigSpec.DoubleValue SALT_CLUSTER_GROWING_CHANCE;
 
     // Rock Salt:
-    public static final ForgeConfigSpec.BooleanValue GENERATE_ROCK_SALT;
-
-    public static final ForgeConfigSpec.IntValue ROCK_SALT_DEPOSIT_QUANTITY;
     public static final ForgeConfigSpec.IntValue ROCK_SALT_SIZE;
-    public static final ForgeConfigSpec.IntValue ROCK_SALT_MIN_HEIGHT;
-    public static final ForgeConfigSpec.IntValue ROCK_SALT_MAX_HEIGHT;
     public static final ForgeConfigSpec.DoubleValue ROCK_SALT_CLUSTER_CHANCE;
 
     // Villager Trades:
@@ -164,35 +159,22 @@ public class Configuration {
 
 
 
-        builder.push("RockSalt");
-
-        GENERATE_ROCK_SALT = builder
-                .comment("Rock Salt Deposits will generate in biomes defined in tag 'salt/tags/worldgen/biome/has_rock_salt_deposits'")
-                .define("GenerateRockSalt", true);
-
-        builder.push("Deposit");
-
-        ROCK_SALT_DEPOSIT_QUANTITY = builder
-                .comment("Quantity of Rock Salt deposits generated. Larger number = more deposits.")
-                .defineInRange("RockSaltDepositQuantity", 6, 1, 999);
+        builder.comment("Rock Salt Deposits will generate in biomes defined in tag 'salt/tags/worldgen/biome/has_rock_salt_deposits'",
+                        "Since 1.19 - parts of the Rock Salt generation is defined in jsons.",
+                        "To enable/disable the generation or configure the generation chances you'll need to create a datapack.",
+                        "Enable/disable generation - 'salt/worldgen/biome_modifier/add_rock_salt_deposit.json' - {\"type\": \"forge:none\"} will disable the generation.",
+                        "Changing generation chances - 'salt/worldgen/placed_feature/mineral_rock_salt.json'")
+                .push("RockSalt");
 
         ROCK_SALT_SIZE = builder
                 .comment("Size of the Rock Salt deposit")
                 .defineInRange("RockSaltSize", 64, 1, 64);
 
-        ROCK_SALT_MIN_HEIGHT = builder
-                .comment("Lowest y-level at which Rock Salt would be able to generate")
-                .defineInRange("RockSaltMinHeight", 5, -60, 300);
-
-        ROCK_SALT_MAX_HEIGHT = builder
-                .comment("Highest y-level at which Rock Salt would be able to generate")
-                .defineInRange("RockSaltMaxHeight", 110, -60, 300);
-
         ROCK_SALT_CLUSTER_CHANCE = builder
                 .comment("Chance of the Salt Clusters generating on the deposits (per side)")
                 .defineInRange("RockSaltClusterChance", 0.15f, 0.0, 1.0);
 
-        builder.pop(2);
+        builder.pop();
 
 
 
@@ -252,6 +234,11 @@ public class Configuration {
 
     private static void updateIndividualFoodValues() {
         FOOD_VALUES.clear();
+
+        boolean loaded = Configuration.COMMON.isLoaded();
+
+        if (!loaded)
+            return;
 
         for (String entry : SALTING_INDIVIDUAL_VALUES.get()) {
             try {

@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LayeredCauldronBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -11,7 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.Random;
 
 public class Evaporation {
-    public static void onWaterCauldronAnimateTick(BlockState state, Level level, BlockPos pos, Random random) {
+    public static void onWaterCauldronAnimateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (random.nextFloat() > 0.3f)
             return;
 
@@ -28,7 +29,7 @@ public class Evaporation {
                 Salt.Sounds.BUBBLE_POP.get(), SoundSource.BLOCKS, 0.35f, 0.4f + random.nextFloat() * 0.5f, false);
     }
 
-    public static void evaporateWaterAndFormSalt(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+    public static void evaporateWaterAndFormSalt(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         level.setBlockAndUpdate(pos, Salt.Blocks.SALT_CAULDRON.get().withPropertiesOf(state));
 
         level.playSound(null, pos, Salt.Sounds.CAULDRON_EVAPORATE.get(),

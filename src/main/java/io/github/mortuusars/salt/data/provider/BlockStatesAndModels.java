@@ -2,6 +2,7 @@ package io.github.mortuusars.salt.data.provider;
 
 import io.github.mortuusars.salt.Salt;
 import io.github.mortuusars.salt.block.SaltCauldronBlock;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
@@ -16,7 +17,7 @@ public class BlockStatesAndModels extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        String rockSaltPath = Salt.Blocks.ROCK_SALT_ORE.get().getRegistryName().getPath();
+        String rockSaltPath = Salt.Blocks.ROCK_SALT_ORE.getId().getPath();
 
         BlockModelBuilder rockSalt1 = models().cubeAll(rockSaltPath + "_1",
                 Salt.resource("block/" + rockSaltPath + "_1"));
@@ -46,7 +47,7 @@ public class BlockStatesAndModels extends BlockStateProvider {
                 .modelFile(rockSaltMirrored2).rotationY(180)
                 .build());
 
-        String deepslateRockSaltPath = Salt.Blocks.DEEPSLATE_ROCK_SALT_ORE.get().getRegistryName().getPath();
+        String deepslateRockSaltPath = Salt.Blocks.DEEPSLATE_ROCK_SALT_ORE.getId().getPath();
 
         BlockModelBuilder deepslateRockSalt1 = models().cubeAll(deepslateRockSaltPath + "_1",
                 Salt.resource("block/" + deepslateRockSaltPath + "_1"));
@@ -78,12 +79,12 @@ public class BlockStatesAndModels extends BlockStateProvider {
 
         simpleBlock(Salt.Blocks.SALT_BLOCK.get());
 
-        BlockModelBuilder rawRockSaltBlock = models().cubeAll(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get().getRegistryName()
+        BlockModelBuilder rawRockSaltBlock = models().cubeAll(Salt.Blocks.RAW_ROCK_SALT_BLOCK.getId()
                 .getPath(), blockTexture(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get()));
 
         BlockModelBuilder rawRockSaltBlockMirrored = models()
-                .withExistingParent(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get().getRegistryName().getPath() + "_mirrored", mcLoc("block/cube_mirrored_all"))
-                .texture("all", modLoc("block/" + Salt.Blocks.RAW_ROCK_SALT_BLOCK.get().getRegistryName().getPath()));
+                .withExistingParent(Salt.Blocks.RAW_ROCK_SALT_BLOCK.getId().getPath() + "_mirrored", mcLoc("block/cube_mirrored_all"))
+                .texture("all", modLoc("block/" + Salt.Blocks.RAW_ROCK_SALT_BLOCK.getId().getPath()));
 
         simpleBlock(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get(), ConfiguredModel.builder()
                 .modelFile(rawRockSaltBlock)
@@ -95,14 +96,14 @@ public class BlockStatesAndModels extends BlockStateProvider {
                 .modelFile(rawRockSaltBlockMirrored).rotationY(180)
                 .build());
 
-        directionalBlock(Salt.Blocks.SALT_CLUSTER.get(), models().cross(Salt.Blocks.SALT_CLUSTER.get().getRegistryName().getPath(),
-                blockTexture(Salt.Blocks.SALT_CLUSTER.get())));
-        directionalBlock(Salt.Blocks.LARGE_SALT_BUD.get(), models().cross(Salt.Blocks.LARGE_SALT_BUD.get().getRegistryName().getPath(),
-                blockTexture(Salt.Blocks.LARGE_SALT_BUD.get())));
-        directionalBlock(Salt.Blocks.MEDIUM_SALT_BUD.get(), models().cross(Salt.Blocks.MEDIUM_SALT_BUD.get().getRegistryName().getPath(),
-                blockTexture(Salt.Blocks.MEDIUM_SALT_BUD.get())));
-        directionalBlock(Salt.Blocks.SMALL_SALT_BUD.get(), models().cross(Salt.Blocks.SMALL_SALT_BUD.get().getRegistryName().getPath(),
-                blockTexture(Salt.Blocks.SMALL_SALT_BUD.get())));
+        directionalBlock(Salt.Blocks.SALT_CLUSTER.get(), models().cross(Salt.Blocks.SALT_CLUSTER.getId().getPath(),
+                blockTexture(Salt.Blocks.SALT_CLUSTER.get())).renderType("cutout"));
+        directionalBlock(Salt.Blocks.LARGE_SALT_BUD.get(), models().cross(Salt.Blocks.LARGE_SALT_BUD.getId().getPath(),
+                blockTexture(Salt.Blocks.LARGE_SALT_BUD.get())).renderType("cutout"));
+        directionalBlock(Salt.Blocks.MEDIUM_SALT_BUD.get(), models().cross(Salt.Blocks.MEDIUM_SALT_BUD.getId().getPath(),
+                blockTexture(Salt.Blocks.MEDIUM_SALT_BUD.get())).renderType("cutout"));
+        directionalBlock(Salt.Blocks.SMALL_SALT_BUD.get(), models().cross(Salt.Blocks.SMALL_SALT_BUD.getId().getPath(),
+                blockTexture(Salt.Blocks.SMALL_SALT_BUD.get())).renderType("cutout"));
 
         getVariantBuilder(Salt.Blocks.SALT_CAULDRON.get())
                 .partialState().with(SaltCauldronBlock.LEVEL, 1)

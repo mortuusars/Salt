@@ -6,7 +6,7 @@
     }
   ],
   "result": {
-    "item": "salt:raw_rock_salt",
-    "count": 9
+    "count": 9,
+    "item": "salt:raw_rock_salt"
   }
 }

@@ -4,8 +4,10 @@
       "model": "salt:block/salt_cluster",
       "x": 180
     },
-    "facing=up": {
-      "model": "salt:block/salt_cluster"
+    "facing=east": {
+      "model": "salt:block/salt_cluster",
+      "x": 90,
+      "y": 90
     },
     "facing=north": {
       "model": "salt:block/salt_cluster",
@@ -16,15 +18,13 @@
       "x": 90,
       "y": 180
     },
+    "facing=up": {
+      "model": "salt:block/salt_cluster"
+    },
     "facing=west": {
       "model": "salt:block/salt_cluster",
       "x": 90,
       "y": 270
-    },
-    "facing=east": {
-      "model": "salt:block/salt_cluster",
-      "x": 90,
-      "y": 90
     }
   }
 }

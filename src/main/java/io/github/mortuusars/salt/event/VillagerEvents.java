@@ -24,7 +24,7 @@ public class VillagerEvents {
 
         Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
         VillagerProfession profession = event.getType();
-        if (profession.getRegistryName() != null && profession.getRegistryName().getPath().equals("butcher")) {
+        if (profession.name().equals("butcher")) {
             trades.get(1).add(emeraldForItemsTrade(Salt.Items.SALT.get(), 18, 12, 2));
             trades.get(1).add(emeraldForItemsTrade(Salt.Items.SALT.get(), 8, 16, 2));
             trades.get(3).add(itemForEmeraldTrade(Salt.Items.SALT.get(), 14, 5, 10, 6));

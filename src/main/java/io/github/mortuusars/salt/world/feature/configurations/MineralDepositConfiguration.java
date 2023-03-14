@@ -2,6 +2,7 @@ package io.github.mortuusars.salt.world.feature.configurations;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.github.mortuusars.salt.configuration.Configuration;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
@@ -16,30 +17,27 @@ public class MineralDepositConfiguration implements FeatureConfiguration {
                                 .forGetter(config -> config.mainStateInfos),
                         DepositBlockStateInfo.CODEC
                                 .fieldOf("clusterStateInfo")
-                                .forGetter(config -> config.clusterStateInfo),
-                        Codec.intRange(0, 64)
-                                .fieldOf("size")
-                                .forGetter(config -> config.size),
-                        Codec.floatRange(0.0F, 1.0F)
-                                .fieldOf("outerChance")
-                                .forGetter(config -> config.clusterChance))
+                                .forGetter(config -> config.clusterStateInfo))
                 .apply(instance, MineralDepositConfiguration::new));
 
     public final List<DepositBlockStateInfo> mainStateInfos;
     public final DepositBlockStateInfo clusterStateInfo;
-    public final int size;
-    public final float clusterChance;
 
-    public MineralDepositConfiguration(List<DepositBlockStateInfo> mainStateInfos, DepositBlockStateInfo clusterStateInfo,
-                                       int size, float outerChance) {
+    public MineralDepositConfiguration(List<DepositBlockStateInfo> mainStateInfos, DepositBlockStateInfo clusterStateInfo) {
         this.mainStateInfos = mainStateInfos;
         this.clusterStateInfo = clusterStateInfo;
-        this.size = size;
-        this.clusterChance = outerChance;
     }
 
     public static DepositBlockStateInfo blockStateInfo(BlockStateProvider blockStateProvider, RuleTest ruleTest) {
         return new DepositBlockStateInfo(blockStateProvider, ruleTest);
+    }
+
+    public int getSize() {
+        return Configuration.ROCK_SALT_SIZE.get();
+    }
+
+    public float getClusterChance() {
+        return Configuration.ROCK_SALT_CLUSTER_CHANCE.get().floatValue();
     }
 
     public static class DepositBlockStateInfo {

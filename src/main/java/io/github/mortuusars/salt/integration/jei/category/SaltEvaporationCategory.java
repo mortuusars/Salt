@@ -2,6 +2,7 @@ package io.github.mortuusars.salt.integration.jei.category;
 
 import io.github.mortuusars.salt.Salt;
 import io.github.mortuusars.salt.client.LangKeys;
+import io.github.mortuusars.salt.integration.jei.SaltJeiPlugin;
 import io.github.mortuusars.salt.integration.jei.resource.SaltEvaporationDummy;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -10,11 +11,10 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -30,12 +30,12 @@ public class SaltEvaporationCategory implements IRecipeCategory<SaltEvaporationD
     private final IDrawable background;
     private final IDrawable icon;
 
-    private final List<Component> waterCauldronTooltip = List.of(new TranslatableComponent("block.minecraft.water_cauldron"));
-    private final List<Component> saltCauldronTooltip = List.of(new TranslatableComponent("block.salt.salt_cauldron"));
+    private final List<Component> waterCauldronTooltip = List.of(Salt.translate("block.minecraft.water_cauldron"));
+    private final List<Component> saltCauldronTooltip = List.of(Salt.translate("block.salt.salt_cauldron"));
     private final List<Component> heatSourceTooltip = List.of(
             Salt.translate(LangKeys.JEI_CATEGORY_SALT_EVAPORATION_HEAT_SOURCE_TOOLTIP),
             Salt.translate(LangKeys.JEI_CATEGORY_SALT_EVAPORATION_HEAT_SOURCE_TOOLTIP_2).withStyle(ChatFormatting.GRAY)
-                    .append(new TextComponent(Salt.BlockTags.HEATERS.location().toString()).withStyle(ChatFormatting.GOLD)));
+                    .append(Component.literal(Salt.BlockTags.HEATERS.location().toString()).withStyle(ChatFormatting.GOLD)));
 
     public SaltEvaporationCategory(IGuiHelper guiHelper) {
         title = Salt.translate(LangKeys.JEI_CATEGORY_SALT_EVAPORATION);
@@ -65,6 +65,11 @@ public class SaltEvaporationCategory implements IRecipeCategory<SaltEvaporationD
     }
 
     @Override
+    public RecipeType<SaltEvaporationDummy> getRecipeType() {
+        return SaltJeiPlugin.SALT_EVAPORATION_RECIPE_TYPE;
+    }
+
+    @Override
     public Component getTitle() {
         return title;
     }
@@ -75,15 +80,5 @@ public class SaltEvaporationCategory implements IRecipeCategory<SaltEvaporationD
     @Override
     public IDrawable getIcon() {
         return icon;
-    }
-    @SuppressWarnings("removal")
-    @Override
-    public ResourceLocation getUid() {
-        return UID;
-    }
-    @SuppressWarnings("removal")
-    @Override
-    public Class<? extends SaltEvaporationDummy> getRecipeClass() {
-        return SaltEvaporationDummy.class;
     }
 }

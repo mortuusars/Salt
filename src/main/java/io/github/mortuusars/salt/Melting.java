@@ -11,6 +11,7 @@ import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -51,7 +52,7 @@ public class Melting {
             }
             else {
                 Vec3 center = Vec3.atCenterOf(targetPos);
-                Random random = level.getRandom();
+                RandomSource random = level.getRandom();
                 for (int i = 0; i < 6; i++) {
                     level.addParticle(ParticleTypes.SPIT,
                             center.x + random.nextGaussian() * 0.35f,
@@ -93,7 +94,7 @@ public class Melting {
         level.setBlockAndUpdate(pos, newState);
 
         Vec3 center = Vec3.atCenterOf(pos);
-        Random random = level.getRandom();
+        RandomSource random = level.getRandom();
 
         level.playSound(null, center.x, center.y, center.z, Salt.Sounds.MELT.get(), SoundSource.BLOCKS, 0.9f,
                 random.nextFloat() * 0.2f + 0.9f);

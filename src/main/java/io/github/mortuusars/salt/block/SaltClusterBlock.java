@@ -9,6 +9,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ThrownTrident;
@@ -57,12 +58,12 @@ public class SaltClusterBlock extends Block implements ISaltBlock {
 
     @Override
     public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
-        if (player instanceof ServerPlayer serverPlayer
+        if (player instanceof ServerPlayer serverPlayer && level instanceof ServerLevel serverLevel
                 && !player.isCreative()
                 && Configuration.SALT_CLUSTER_GROWING_ENABLED.get()
                 && state.is(Salt.Blocks.SALT_CLUSTER.get())
                 && level.getBlockState(pos.below()).is(Salt.BlockTags.SALT_CLUSTER_GROWABLES)
-                && ISaltBlock.getFluidDrippingOn(level, pos) == Fluids.WATER) {
+                && ISaltBlock.getFluidDrippingOn(serverLevel, pos) == Fluids.WATER) {
             Salt.Advancements.HARVEST_SALT_CRYSTAL.trigger(serverPlayer);
         }
 
@@ -89,12 +90,12 @@ public class SaltClusterBlock extends Block implements ISaltBlock {
     }
 
     @Override
-    public void animateTick(BlockState state, Level level, BlockPos pos, Random random) {
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         onSaltAnimateTick(state, level, pos, random);
     }
 
     @Override
-    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 
         // Cluster does not call ISaltBlock#onSaltRandomTick because functionality differs a little
 

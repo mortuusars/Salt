@@ -1,14 +1,12 @@
 package io.github.mortuusars.salt.data.provider;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import io.github.mortuusars.salt.Salt;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.HashCache;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
@@ -22,13 +20,12 @@ import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.ApplyExplosionDecay;
-import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -37,7 +34,6 @@ import java.nio.file.Path;
 
 public class LootTables extends LootTableProvider {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     private final DataGenerator generator;
 
     public LootTables(DataGenerator generator) {
@@ -46,7 +42,7 @@ public class LootTables extends LootTableProvider {
     }
 
     @Override
-    public void run(HashCache cache) {
+    public void run(CachedOutput cache) {
 
         // Blocks:
 
@@ -112,8 +108,8 @@ public class LootTables extends LootTableProvider {
                         .build());
     }
 
-    private void dropsSelf(HashCache cache, BlockItem blockItem) {
-        writeTable(cache, new ResourceLocation("salt:blocks/" + blockItem.getBlock().getRegistryName().getPath()),
+    private void dropsSelf(CachedOutput cache, BlockItem blockItem) {
+        writeTable(cache, new ResourceLocation("salt:blocks/" + ForgeRegistries.BLOCKS.getKey(blockItem.getBlock()).getPath()),
                 LootTable.lootTable()
                         .setParamSet(LootContextParamSets.BLOCK)
                         .withPool(
@@ -136,7 +132,7 @@ public class LootTables extends LootTableProvider {
 
     protected LootTable.Builder silkTouchOrDefaultTable(Block block, Item lootItem, float min, float max) {
         LootPool.Builder builder = LootPool.lootPool()
-                .name(block.getRegistryName().getPath())
+                .name(ForgeRegistries.BLOCKS.getKey(block).getPath())
                 .setRolls(ConstantValue.exactly(1))
                 .add(AlternativesEntry.alternatives(
                                 LootItem.lootTableItem(block)
@@ -148,11 +144,11 @@ public class LootTables extends LootTableProvider {
         return LootTable.lootTable().setParamSet(LootContextParamSets.BLOCK).withPool(builder);
     }
 
-    private void writeTable(HashCache cache, ResourceLocation location, LootTable lootTable) {
+    private void writeTable(CachedOutput cache, ResourceLocation location, LootTable lootTable) {
         Path outputFolder = this.generator.getOutputFolder();
         Path path = outputFolder.resolve("data/" + location.getNamespace() + "/loot_tables/" + location.getPath() + ".json");
         try {
-            DataProvider.save(GSON, cache, net.minecraft.world.level.storage.loot.LootTables.serialize(lootTable), path);
+            DataProvider.saveStable(cache, net.minecraft.world.level.storage.loot.LootTables.serialize(lootTable), path);
         } catch (IOException e) {
             LOGGER.error("Couldn't write loot lootTable {}", path, e);
         }

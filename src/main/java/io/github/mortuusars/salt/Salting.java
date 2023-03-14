@@ -6,6 +6,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 
@@ -34,14 +35,14 @@ public class Salting {
     }
 
     public static FoodValue getAdditionalFoodValue(ItemStack stack) {
-        @Nullable FoodValue foodValue = Configuration.FOOD_VALUES.get(stack.getItem().getRegistryName().toString());
+        @Nullable FoodValue foodValue = Configuration.FOOD_VALUES.get(ForgeRegistries.ITEMS.getKey(stack.getItem()).toString());
         return foodValue != null ? foodValue : new FoodValue(Configuration.SALTING_ADDITIONAL_NUTRITION.get(),
                 Configuration.SALTING_ADDITIONAL_SATURATION_MODIFIER.get().floatValue());
     }
 
     public static void onFoodEaten(LivingEntityUseItemEvent.Finish event) {
         ItemStack itemStack = event.getItem();
-        if (itemStack.getItem().isEdible() && Salting.isSalted(itemStack) && event.getEntityLiving() instanceof Player player) {
+        if (itemStack.getItem().isEdible() && Salting.isSalted(itemStack) && event.getEntity() instanceof Player player) {
             FoodValue additionalFoodValue = getAdditionalFoodValue(itemStack);
             player.getFoodData().eat(additionalFoodValue.nutrition, additionalFoodValue.saturationModifier);
             if (player instanceof ServerPlayer serverPlayer && !serverPlayer.isCreative())

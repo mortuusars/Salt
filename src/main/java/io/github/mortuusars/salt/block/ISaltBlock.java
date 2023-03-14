@@ -10,6 +10,7 @@ import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.PointedDripstoneBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -31,7 +32,7 @@ public interface ISaltBlock {
      * Performs generic salt things on random tick.
      * @return false if block was removed (by dissolving or something else)
      */
-    default boolean onSaltRandomTick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+    default boolean onSaltRandomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         ArrayList<Direction> directions = Arrays.stream(Direction.values())
                 .collect(Collectors.toCollection(ArrayList::new));
         Collections.shuffle(directions);
@@ -55,7 +56,7 @@ public interface ISaltBlock {
         return true;
     }
 
-    default void onSaltAnimateTick(BlockState state, Level level, BlockPos pos, Random random) {
+    default void onSaltAnimateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (random.nextInt(3) == 0 && level.isRainingAt(pos.above())) {
             Direction direction = Direction.getRandom(random);
             if (direction != Direction.UP) {
@@ -91,7 +92,7 @@ public interface ISaltBlock {
         }
     }
 
-    static Fluid getFluidDrippingOn(Level level, BlockPos pos) {
+    static Fluid getFluidDrippingOn(ServerLevel level, BlockPos pos) {
         BlockPos blockpos = PointedDripstoneBlock.findStalactiteTipAboveCauldron(level, pos);
         return blockpos == null ? Fluids.EMPTY : PointedDripstoneBlock.getCauldronFillFluidType(level, blockpos);
     }
@@ -116,7 +117,7 @@ public interface ISaltBlock {
 
         level.setBlockAndUpdate(clusterPos, clusterState.setValue(SaltClusterBlock.FACING, Direction.UP));
 
-        Random random = level.getRandom();
+        Random random = new Random();
 
         level.playSound(null, clusterPos, Salt.Sounds.SALT_CLUSTER_FALL.get(), SoundSource.BLOCKS, 0.3f, random.nextFloat() * 0.3f + 0.75f);
 

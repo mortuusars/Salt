@@ -8,6 +8,7 @@ import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class ItemModels extends ItemModelProvider {
     public ItemModels(DataGenerator generator, ExistingFileHelper existingFileHelper) {
@@ -18,34 +19,36 @@ public class ItemModels extends ItemModelProvider {
     protected void registerModels() {
         singleTexture("salted_overlay", mcLoc("item/generated"), "layer0", modLoc("item/salted_overlay"));
 
-        withExistingParent(Salt.Blocks.SALT_CLUSTER.get().getRegistryName().getPath(), mcLoc("item/amethyst_cluster"))
-                .texture("layer0", modLoc("block/" + Salt.Blocks.SALT_CLUSTER.get().getRegistryName().getPath()));
-        withExistingParent(Salt.Blocks.LARGE_SALT_BUD.get().getRegistryName().getPath(), mcLoc("item/large_amethyst_bud"))
-                .texture("layer0", modLoc("block/" + Salt.Blocks.LARGE_SALT_BUD.get().getRegistryName().getPath()));
-        withExistingParent(Salt.Blocks.MEDIUM_SALT_BUD.get().getRegistryName().getPath(), mcLoc("item/medium_amethyst_bud"))
-                .texture("layer0", modLoc("block/" + Salt.Blocks.MEDIUM_SALT_BUD.get().getRegistryName().getPath()));
-        withExistingParent(Salt.Blocks.SMALL_SALT_BUD.get().getRegistryName().getPath(), mcLoc("item/small_amethyst_bud"))
-                .texture("layer0", modLoc("block/" + Salt.Blocks.SMALL_SALT_BUD.get().getRegistryName().getPath()));
+        withExistingParent(Salt.Blocks.SALT_CLUSTER.getId().getPath(), mcLoc("item/amethyst_cluster"))
+                .texture("layer0", modLoc("block/" + Salt.Blocks.SALT_CLUSTER.getId().getPath()));
+        withExistingParent(Salt.Blocks.LARGE_SALT_BUD.getId().getPath(), mcLoc("item/large_amethyst_bud"))
+                .texture("layer0", modLoc("block/" + Salt.Blocks.LARGE_SALT_BUD.getId().getPath()));
+        withExistingParent(Salt.Blocks.MEDIUM_SALT_BUD.getId().getPath(), mcLoc("item/medium_amethyst_bud"))
+                .texture("layer0", modLoc("block/" + Salt.Blocks.MEDIUM_SALT_BUD.getId().getPath()));
+        withExistingParent(Salt.Blocks.SMALL_SALT_BUD.getId().getPath(), mcLoc("item/small_amethyst_bud"))
+                .texture("layer0", modLoc("block/" + Salt.Blocks.SMALL_SALT_BUD.getId().getPath()));
 
         singleTextureItem(Salt.Items.SALT.get());
         singleTextureItem(Salt.Items.RAW_ROCK_SALT.get());
         blockItem(Salt.Items.SALT_BLOCK.get());
-        withExistingParent(Salt.Blocks.ROCK_SALT_ORE.get().getRegistryName().getPath(),
-                modLoc("block/" + Salt.Blocks.ROCK_SALT_ORE.get().getRegistryName().getPath() + "_1"));
-        withExistingParent(Salt.Blocks.DEEPSLATE_ROCK_SALT_ORE.get().getRegistryName().getPath(),
-                modLoc("block/" + Salt.Blocks.DEEPSLATE_ROCK_SALT_ORE.get().getRegistryName().getPath() + "_1"));
+        withExistingParent(Salt.Blocks.ROCK_SALT_ORE.getId().getPath(),
+                modLoc("block/" + Salt.Blocks.ROCK_SALT_ORE.getId().getPath() + "_1"));
+        withExistingParent(Salt.Blocks.DEEPSLATE_ROCK_SALT_ORE.getId().getPath(),
+                modLoc("block/" + Salt.Blocks.DEEPSLATE_ROCK_SALT_ORE.getId().getPath() + "_1"));
         blockItem(Salt.Items.RAW_ROCK_SALT_BLOCK.get());
 
         blockItem(Salt.Items.SALT_LAMP.get());
     }
 
     private ItemModelBuilder blockItem(BlockItem item) {
-        return withExistingParent(item.getRegistryName().getPath(), modLoc("block/" + item.getBlock().getRegistryName().getPath()));
+        return withExistingParent(ForgeRegistries.ITEMS.getKey(item).getPath(),
+                modLoc("block/" + ForgeRegistries.BLOCKS.getKey(item.getBlock()).getPath()));
     }
 
     private ItemModelBuilder singleTextureItem(Item item) {
-        return singleTexture(item.getRegistryName().getPath(),
+        String itemPath = ForgeRegistries.ITEMS.getKey(item).getPath();
+        return singleTexture(itemPath,
                 mcLoc("item/generated"), "layer0",
-                modLoc("item/" + item.getRegistryName().getPath()));
+                modLoc("item/" + itemPath));
     }
 }

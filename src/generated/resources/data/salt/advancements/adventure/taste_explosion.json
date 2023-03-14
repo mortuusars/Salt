@@ -1,24 +1,24 @@
 {
   "parent": "minecraft:husbandry/root",
+  "criteria": {
+    "eat_salted_food": {
+      "conditions": {},
+      "trigger": "salt:salted_food_consumed"
+    }
+  },
   "display": {
-    "icon": {
-      "item": "salt:salt"
-    },
-    "title": {
-      "translate": "salt.advancement.taste_explosion.title"
-    },
+    "announce_to_chat": false,
     "description": {
       "translate": "salt.advancement.taste_explosion.description"
     },
     "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "salt:salt"
+    },
     "show_toast": true,
-    "announce_to_chat": false,
-    "hidden": false
-  },
-  "criteria": {
-    "eat_salted_food": {
-      "trigger": "salt:salted_food_consumed",
-      "conditions": {}
+    "title": {
+      "translate": "salt.advancement.taste_explosion.title"
     }
   },
   "requirements": [

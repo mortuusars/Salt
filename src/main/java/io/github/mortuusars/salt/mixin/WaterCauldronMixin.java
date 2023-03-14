@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
@@ -38,7 +39,7 @@ public abstract class WaterCauldronMixin extends Block {
      * Another way to do this can probably be injecting in 'LayeredCauldronBlock#randomTick' and stopping it from proceeding to 'tick'.
      */
     @Inject(method = "tick", at = @At("HEAD"), cancellable = true, require = 1)
-    private void tick(BlockState state, ServerLevel level, BlockPos pos, Random random, CallbackInfo ci) {
+    private void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo ci) {
         if (!Configuration.EVAPORATION_ENABLED.get())
             return;
 

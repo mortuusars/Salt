@@ -6,17 +6,14 @@ import io.github.mortuusars.salt.configuration.Configuration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.Random;
 
 public class SaltItem extends Item {
     public SaltItem(Properties properties) {
@@ -35,7 +32,7 @@ public class SaltItem extends Item {
             }
             else {
                 Vec3 center = Vec3.atCenterOf(clickedPos);
-                Random random = level.getRandom();
+                RandomSource random = level.getRandom();
                 for (int i = 0; i < 6; i++) {
                     level.addParticle(ParticleTypes.SPIT,
                             center.x + random.nextGaussian() * 0.35f,

@@ -7,6 +7,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -76,7 +77,7 @@ public class Dissolving {
 
     private static void onBlockDissolved(ServerLevel level, BlockPos pos) {
         Vec3 center = Vec3.atCenterOf(pos);
-        Random random = level.getRandom();
+        RandomSource random = level.getRandom();
 
         level.playSound(null, center.x, center.y, center.z, Salt.Sounds.SALT_DISSOLVE.get(), SoundSource.BLOCKS, 1f, random.nextFloat() * 0.2f + 0.9f);
 
