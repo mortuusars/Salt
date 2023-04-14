@@ -94,7 +94,7 @@ public class SaltingRecipe extends CustomRecipe {
         return CAN_BE_SALTED;
     }
 
-    public static class Serializer extends net.minecraftforge.registries.ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<SaltingRecipe> {
+    public static class Serializer implements RecipeSerializer<SaltingRecipe> {
         public @NotNull SaltingRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
             String group = GsonHelper.getAsString(json, "group", "");
             return new SaltingRecipe(recipeId, group, getIngredients(json));
