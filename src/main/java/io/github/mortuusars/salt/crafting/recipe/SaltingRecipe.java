@@ -13,12 +13,13 @@ import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 public class SaltingRecipe extends CustomRecipe {
     private static final Ingredient CAN_BE_SALTED = Ingredient.of(Salt.ItemTags.CAN_BE_SALTED);
 
     private final String group;
-    private NonNullList<Ingredient> ingredients;
+    private final NonNullList<Ingredient> ingredients;
 
     public SaltingRecipe(ResourceLocation id, String group, NonNullList<Ingredient> ingredients) {
         super(id);
@@ -27,7 +28,12 @@ public class SaltingRecipe extends CustomRecipe {
     }
 
     @Override
-    public boolean matches(CraftingContainer craftingContainer, Level level) {
+    public @NotNull NonNullList<ItemStack> getRemainingItems(CraftingContainer pContainer) {
+        return NonNullList.withSize(pContainer.getContainerSize(), ItemStack.EMPTY);
+    }
+
+    @Override
+    public boolean matches(CraftingContainer craftingContainer, @NotNull Level level) {
         boolean hasFoodInput = false;
         NonNullList<Boolean> matches = NonNullList.withSize(this.ingredients.size(), false);
         int itemsCount = 0;
@@ -48,36 +54,11 @@ public class SaltingRecipe extends CustomRecipe {
             }
         }
 
-        return hasFoodInput && matches.stream().allMatch(v -> v == true) && itemsCount == this.ingredients.size() + 1;
-
-//        boolean hasSalt = false;
-//        boolean hasSaltedIngredient = false;
-//
-//        for (int index = 0; index < craftingContainer.getContainerSize(); index++) {
-//            ItemStack itemStack = craftingContainer.getItem(index);
-//
-//            if (itemStack.isEmpty())
-//                continue;
-//
-//            if (SALT.test(itemStack)) {
-//                if (hasSalt)
-//                    return false;
-//
-//                hasSalt = true;
-//            }
-//            else if (CAN_BE_SALTED.test(itemStack)) {
-//                if (hasSaltedIngredient || Salting.isSalted(itemStack))
-//                    return false;
-//
-//                hasSaltedIngredient = true;
-//            }
-//        }
-//
-//        return hasSalt && hasSaltedIngredient;
+        return hasFoodInput && matches.stream().allMatch(match -> match) && itemsCount == this.ingredients.size() + 1;
     }
 
     @Override
-    public ItemStack assemble(CraftingContainer craftingContainer) {
+    public @NotNull ItemStack assemble(CraftingContainer craftingContainer) {
         for (int index = 0; index < craftingContainer.getContainerSize(); index++) {
             ItemStack itemStack = craftingContainer.getItem(index);
 
@@ -98,12 +79,12 @@ public class SaltingRecipe extends CustomRecipe {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<?> getSerializer() {
         return Salt.RecipeSerializers.SALTING.get();
     }
 
     @Override
-    public NonNullList<Ingredient> getIngredients() {
+    public @NotNull NonNullList<Ingredient> getIngredients() {
         return ingredients;
     }
 
@@ -112,8 +93,7 @@ public class SaltingRecipe extends CustomRecipe {
     }
 
     public static class Serializer extends net.minecraftforge.registries.ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<SaltingRecipe> {
-        private static final ResourceLocation NAME = Salt.resource("salting");
-        public SaltingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+        public @NotNull SaltingRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
             String group = GsonHelper.getAsString(json, "group", "");
             return new SaltingRecipe(recipeId, group, getIngredients(json));
         }
@@ -135,11 +115,12 @@ public class SaltingRecipe extends CustomRecipe {
             return ingredients;
         }
 
-        public SaltingRecipe fromNetwork(ResourceLocation recipeID, FriendlyByteBuf buffer) {
+        public SaltingRecipe fromNetwork(@NotNull ResourceLocation recipeID, FriendlyByteBuf buffer) {
             String group = buffer.readUtf();
             int ingredientsCount = buffer.readVarInt();
             NonNullList<Ingredient> ingredients = NonNullList.withSize(ingredientsCount, Ingredient.EMPTY);
 
+            //noinspection Java8ListReplaceAll
             for(int i = 0; i < ingredients.size(); ++i) {
                 ingredients.set(i, Ingredient.fromNetwork(buffer));
             }
