@@ -48,7 +48,8 @@ public class LootTables extends LootTableProvider {
 
     @Override
     public @NotNull CompletableFuture<?> run(@NotNull CachedOutput cache) {
-        return CompletableFuture.runAsync(() -> {
+        // Not using CompletableFuture because some loot tables not generating. ¯\_(ツ)_/¯
+//        return CompletableFuture.runAsync(() -> {
 
             // Blocks:
 
@@ -116,7 +117,9 @@ public class LootTables extends LootTableProvider {
                                             .add(LootItem.lootTableItem(Salt.Items.SALT.get())
                                                     .when(LootItemRandomChanceCondition.randomChance(0.25f))))
                             .build());
-        });
+//        });
+
+        return CompletableFuture.runAsync(() -> {});
     }
 
     private void dropsSelf(CachedOutput cache, BlockItem blockItem) {

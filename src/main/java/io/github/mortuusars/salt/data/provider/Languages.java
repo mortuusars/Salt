@@ -16,10 +16,12 @@ public class Languages extends LanguageProvider {
     @Override
     protected void addTranslations() {
         if (locale.equals("en_us"))
-            addEN_US();
+            en_us();
+        else if (locale.equals("uk_ua"))
+            uk_ua();
     }
 
-    protected void addEN_US() {
+    protected void en_us() {
         add(Salt.Items.SALT.get(), "Salt");
         add(Salt.Items.RAW_ROCK_SALT.get(), "Raw Rock Salt");
 
@@ -52,5 +54,40 @@ public class Languages extends LanguageProvider {
         add(LangKeys.SUBTITLES_DISSOLVES, "Block dissolves");
         add(LangKeys.SUBTITLES_MELTS, "Block melts");
         add(LangKeys.SUBTITLES_CAULDRON_EVAPORATE, "Water evaporates");
+    }
+
+    protected void uk_ua() {
+        add(Salt.Items.SALT.get(), "Сіль");
+        add(Salt.Items.RAW_ROCK_SALT.get(), "Необроблена кам’яна сіль");
+
+        add(Salt.Blocks.SALT_BLOCK.get(), "Блок солі");
+        add(Salt.Blocks.ROCK_SALT_ORE.get(), "Кам’яна сіль");
+        add(Salt.Blocks.DEEPSLATE_ROCK_SALT_ORE.get(), "Глибосланцева кам’яна сіль");
+        add(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get(), "Блок необробленої кам’яної солі");
+        add(Salt.Blocks.SALT_CLUSTER.get(), "Соляна друза");
+        add(Salt.Blocks.LARGE_SALT_BUD.get(), "Великий зародок солі");
+        add(Salt.Blocks.MEDIUM_SALT_BUD.get(), "Середній зародок солі");
+        add(Salt.Blocks.SMALL_SALT_BUD.get(), "Малий зародок солі");
+        add(Salt.Blocks.SALT_CAULDRON.get(), "Казан із сіллю");
+        add(Salt.Blocks.SALT_LAMP.get(), "Соляна лампа");
+
+        add(LangKeys.GUI_TOOLTIP_SALTED, "Солоне");
+        add(LangKeys.GUI_TOOLTIP_SALTED_EXPANDED_PART, ": %s до поживної цінності");
+
+        add(LangKeys.ADVANCEMENT_TASTE_EXPLOSION_TITLE, "А пахне як!...");
+        add(LangKeys.ADVANCEMENT_TASTE_EXPLOSION_DESCRIPTION, "Отримайте додаткову поживну цінність, з’ївши посолену їжу");
+        add(LangKeys.ADVANCEMENT_BOIL_OFF_TITLE, "Соляна пара");
+        add(LangKeys.ADVANCEMENT_BOIL_OFF_DESCRIPTION, "Вишкребіть сіль, яка залишилась від википівшої води у казані");
+        add(LangKeys.ADVANCEMENT_CRYSTAL_GARDEN_TITLE, "Рости, сілька, велика і маленька");
+        add(LangKeys.ADVANCEMENT_CRYSTAL_GARDEN_DESCRIPTION, "Зберіть Соляну друзу, яка виросла від крапаючої води");
+
+        add(LangKeys.JEI_CATEGORY_SALT_CRYSTAL_GROWING, "Вирощування кристалів солі");
+        add(LangKeys.JEI_CATEGORY_SALT_EVAPORATION, "Випаровування води");
+        add(LangKeys.JEI_CATEGORY_SALT_EVAPORATION_HEAT_SOURCE_TOOLTIP, "Джерело тепла");
+        add(LangKeys.JEI_CATEGORY_SALT_EVAPORATION_HEAT_SOURCE_TOOLTIP_2, "Будь-який з ");
+
+        add(LangKeys.SUBTITLES_DISSOLVES, "Блок розчиняється");
+        add(LangKeys.SUBTITLES_MELTS, "Блок плавиться");
+        add(LangKeys.SUBTITLES_CAULDRON_EVAPORATE, "Вода випаровується");
     }
 }
