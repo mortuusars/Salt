@@ -15,14 +15,14 @@ public class DataGeneration
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
         ExistingFileHelper helper = event.getExistingFileHelper();
-        if (event.includeServer())
-            generator.addProvider(event.includeServer(), new Advancements(generator, helper));
-            generator.addProvider(event.includeServer(), new LootTables(generator));
-            generator.addProvider(event.includeServer(), new Recipes(generator));
-            BlockTags blockTags = new BlockTags(generator, helper);
-            generator.addProvider(event.includeServer(), blockTags);
-            generator.addProvider(event.includeServer(), new ItemTags(generator, blockTags, helper));
-            generator.addProvider(event.includeServer(), new BiomeTags(generator, helper));
+
+        generator.addProvider(event.includeServer(), new Advancements(generator, helper));
+        generator.addProvider(event.includeServer(), new LootTables(generator));
+        generator.addProvider(event.includeServer(), new Recipes(generator));
+        BlockTags blockTags = new BlockTags(generator, helper);
+        generator.addProvider(event.includeServer(), blockTags);
+        generator.addProvider(event.includeServer(), new ItemTags(generator, blockTags, helper));
+        generator.addProvider(event.includeServer(), new BiomeTags(generator, helper));
 
         BlockStatesAndModels blockStates = new BlockStatesAndModels(generator, helper);
         generator.addProvider(event.includeClient(), blockStates);
