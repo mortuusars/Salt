@@ -10,9 +10,12 @@ import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.Objects;
+
+@SuppressWarnings("UnusedReturnValue")
 public class ItemModels extends ItemModelProvider {
     public ItemModels(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-        super(generator, Salt.ID, existingFileHelper);
+        super(generator.getPackOutput(), Salt.ID, existingFileHelper);
     }
 
     @Override
@@ -41,12 +44,12 @@ public class ItemModels extends ItemModelProvider {
     }
 
     private ItemModelBuilder blockItem(BlockItem item) {
-        return withExistingParent(ForgeRegistries.ITEMS.getKey(item).getPath(),
-                modLoc("block/" + ForgeRegistries.BLOCKS.getKey(item.getBlock()).getPath()));
+        return withExistingParent(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath(),
+                modLoc("block/" + Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(item.getBlock())).getPath()));
     }
 
     private ItemModelBuilder singleTextureItem(Item item) {
-        String itemPath = ForgeRegistries.ITEMS.getKey(item).getPath();
+        String itemPath = Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath();
         return singleTexture(itemPath,
                 mcLoc("item/generated"), "layer0",
                 modLoc("item/" + itemPath));

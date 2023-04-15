@@ -2,7 +2,6 @@ package io.github.mortuusars.salt.data.provider;
 
 import io.github.mortuusars.salt.Salt;
 import io.github.mortuusars.salt.block.SaltCauldronBlock;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
@@ -12,7 +11,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 public class BlockStatesAndModels extends BlockStateProvider {
 
     public BlockStatesAndModels(DataGenerator gen, ExistingFileHelper exFileHelper) {
-        super(gen, Salt.ID, exFileHelper);
+        super(gen.getPackOutput(), Salt.ID, exFileHelper);
     }
 
     @Override

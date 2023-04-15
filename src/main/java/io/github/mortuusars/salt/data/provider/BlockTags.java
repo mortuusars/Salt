@@ -1,19 +1,23 @@
 package io.github.mortuusars.salt.data.provider;
 
 import io.github.mortuusars.salt.Salt;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.concurrent.CompletableFuture;
+
 public class BlockTags extends BlockTagsProvider {
-    public BlockTags(DataGenerator generator, @Nullable ExistingFileHelper existingFileHelper) {
-        super(generator, Salt.ID, existingFileHelper);
+    public BlockTags(DataGenerator generator, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
+        super(generator.getPackOutput(), lookupProvider, Salt.ID, existingFileHelper);
     }
 
     @Override
-    protected void addTags() {
+    protected void addTags(HolderLookup.@NotNull Provider provider) {
         tag(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(Salt.Blocks.ROCK_SALT_ORE.get())
                 .add(Salt.Blocks.DEEPSLATE_ROCK_SALT_ORE.get())

@@ -15,13 +15,19 @@ import io.github.mortuusars.salt.item.SaltItem;
 import io.github.mortuusars.salt.world.feature.MineralDepositFeature;
 import io.github.mortuusars.salt.world.feature.configurations.MineralDepositConfiguration;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.Registry;
 import net.minecraft.core.cauldron.CauldronInteraction;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.OreFeatures;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.world.entity.EntityType;
@@ -33,10 +39,12 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
@@ -71,23 +79,16 @@ public class Salt
         Sounds.SOUNDS.register(modEventBus);
         EntityTypes.ENTITY_TYPES.register(modEventBus);
         RecipeSerializers.RECIPE_SERIALIZERS.register(modEventBus);
-
-//        Configuration.COMMON.lo
-
         WorldGenFeatures.FEATURES.register(modEventBus);
-        ConfiguredFeatures.CONFIGURED_FEATURES.register(modEventBus);
-        PlacedFeatures.PLACED_FEATURES.register(modEventBus);
 
         modEventBus.addListener(CommonEvents::onCommonSetup);
 
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-//            modEventBus.register(ClientEvents::onClientSetup);
-//            modEventBus.addListener(ClientEvents::onRegisterModels);
+            modEventBus.addListener(ClientEvents::creativeTabEvent);
             MinecraftForge.EVENT_BUS.addListener(ClientEvents::onItemTooltipEvent);
         });
-        MinecraftForge.EVENT_BUS.addListener(CommonEvents::onItemUseFinish);
-//        MinecraftForge.EVENT_BUS.addListener(CommonEvents::onBiomeLoadingEvent);
 
+        MinecraftForge.EVENT_BUS.addListener(CommonEvents::onItemUseFinish);
         MinecraftForge.EVENT_BUS.register(this);
     }
 
@@ -163,30 +164,30 @@ public class Salt
     public static class Items {
         private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Salt.ID);
         public static final RegistryObject<Item> SALT = ITEMS.register("salt",
-                () -> new SaltItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
+                () -> new SaltItem(new Item.Properties()));
         public static final RegistryObject<Item> RAW_ROCK_SALT = ITEMS.register("raw_rock_salt",
-                () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
+                () -> new Item(new Item.Properties()));
 
         public static final RegistryObject<BlockItem> SALT_BLOCK = ITEMS.register("salt_block",
-                () -> new BlockItem(Salt.Blocks.SALT_BLOCK.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
+                () -> new BlockItem(Salt.Blocks.SALT_BLOCK.get(), new Item.Properties()));
         public static final RegistryObject<BlockItem> ROCK_SALT_ORE = ITEMS.register("rock_salt_ore",
-                () -> new BlockItem(Salt.Blocks.ROCK_SALT_ORE.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
+                () -> new BlockItem(Salt.Blocks.ROCK_SALT_ORE.get(), new Item.Properties()));
         public static final RegistryObject<BlockItem> DEEPSLATE_ROCK_SALT_ORE = ITEMS.register("deepslate_rock_salt_ore",
-                () -> new BlockItem(Blocks.DEEPSLATE_ROCK_SALT_ORE.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
+                () -> new BlockItem(Blocks.DEEPSLATE_ROCK_SALT_ORE.get(), new Item.Properties()));
         public static final RegistryObject<BlockItem> RAW_ROCK_SALT_BLOCK = ITEMS.register("raw_rock_salt_block",
-                () -> new BlockItem(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
+                () -> new BlockItem(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get(), new Item.Properties()));
 
         public static final RegistryObject<BlockItem> SALT_CLUSTER = ITEMS.register("salt_cluster",
-                () -> new BlockItem(Salt.Blocks.SALT_CLUSTER.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
+                () -> new BlockItem(Salt.Blocks.SALT_CLUSTER.get(), new Item.Properties()));
         public static final RegistryObject<BlockItem> LARGE_SALT_BUD = ITEMS.register("large_salt_bud",
-                () -> new BlockItem(Salt.Blocks.LARGE_SALT_BUD.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
+                () -> new BlockItem(Salt.Blocks.LARGE_SALT_BUD.get(), new Item.Properties()));
         public static final RegistryObject<BlockItem> MEDIUM_SALT_BUD = ITEMS.register("medium_salt_bud",
-                () -> new BlockItem(Salt.Blocks.MEDIUM_SALT_BUD.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
+                () -> new BlockItem(Salt.Blocks.MEDIUM_SALT_BUD.get(), new Item.Properties()));
         public static final RegistryObject<BlockItem> SMALL_SALT_BUD = ITEMS.register("small_salt_bud",
-                () -> new BlockItem(Salt.Blocks.SMALL_SALT_BUD.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
+                () -> new BlockItem(Salt.Blocks.SMALL_SALT_BUD.get(), new Item.Properties()));
 
         public static final RegistryObject<BlockItem> SALT_LAMP = ITEMS.register("salt_lamp",
-                () -> new BlockItem(Blocks.SALT_LAMP.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
+                () -> new BlockItem(Blocks.SALT_LAMP.get(), new Item.Properties()));
     }
 
     public static class Advancements {
@@ -241,7 +242,7 @@ public class Salt
         public static final RegistryObject<SoundEvent> SMALL_SALT_BUD_FALL = registerBlockSound("small_salt_bud.fall");
 
         private static RegistryObject<SoundEvent> registerBlockSound(String name) {
-            return SOUNDS.register("block.salt." + name, () -> new SoundEvent(Salt.resource("block.salt." + name)));
+            return SOUNDS.register("block.salt." + name, () -> SoundEvent.createVariableRangeEvent(Salt.resource("block.salt." + name)));
         }
 
         public static class Types {
@@ -305,16 +306,12 @@ public class Salt
     }
 
     public static class BiomeTags {
-        public static final TagKey<Biome> HAS_ROCK_SALT_DEPOSITS = TagKey.create(net.minecraft.core.Registry.BIOME_REGISTRY,
-                Salt.resource("has_rock_salt_deposits"));
+        public static final TagKey<Biome> HAS_ROCK_SALT_DEPOSITS = TagKey.create(Registries.BIOME, Salt.resource("has_rock_salt_deposits"));
     }
 
     public static class EntityTypes {
         private static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
                 DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, Salt.ID);
-
-//        public static final RegistryObject<EntityType<MeltingEntity>> MELTING = ENTITY_TYPES.register("melting_entity",
-//                () -> EntityType.Builder.<MeltingEntity>of(MeltingEntity::new, MobCategory.MISC).build(Salt.ID + "melting_entity"));
     }
 
     public static class RecipeSerializers {
@@ -322,7 +319,7 @@ public class Salt
                 DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Salt.ID);
 
         public static final RegistryObject<RecipeSerializer<?>> SALTING = RECIPE_SERIALIZERS.register("salting",
-                () -> new SaltingRecipe.Serializer());
+                SaltingRecipe.Serializer::new);
     }
 
     public static class WorldGenFeatures {
@@ -332,33 +329,53 @@ public class Salt
     }
 
     public static class PlacedFeatures {
-        private static final DeferredRegister<PlacedFeature> PLACED_FEATURES = DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, Salt.ID);
 
-//        public static final RegistryObject<PlacedFeature> ROCK_SALT_DEPOSIT = PLACED_FEATURES.register("mineral_rock_salt",
-//                SaltPlacedFeatures::newRockSaltFeature); /*new PlacedFeature(ConfiguredFeatures.ROCK_SALT.getHolder().get(), List.of(CountPlacement.of(10*//*Configuration.ROCK_SALT_DEPOSIT_QUANTITY.get()*//*),
-//                        RarityFilter.onAverageOnceEvery(16),
-//                        InSquarePlacement.spread(),
-//                        HeightRangePlacement.uniform(VerticalAnchor.absolute(0*//*Configuration.ROCK_SALT_MIN_HEIGHT.get()*//*),
-//                                VerticalAnchor.absolute(110*//*Configuration.ROCK_SALT_MAX_HEIGHT.get()*//*)),
-//                        BiomeFilter.biome())));*/
+        public static final ResourceKey<PlacedFeature> MINERAL_ROCK_SALT_PLACED_KEY = createKey("mineral_rock_salt");
+
+        public static void bootstrap(BootstapContext<PlacedFeature> context) {
+            HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
+
+            register(context, MINERAL_ROCK_SALT_PLACED_KEY, configuredFeatures.getOrThrow(ConfiguredFeatures.MINERAL_ROCK_SALT),
+                    CountPlacement.of(1),
+                    RarityFilter.onAverageOnceEvery(8),
+                    InSquarePlacement.spread(),
+                    HeightRangePlacement.uniform(VerticalAnchor.absolute(-5), VerticalAnchor.absolute(110)),
+                    BiomeFilter.biome());
+        }
+
+
+        private static ResourceKey<PlacedFeature> createKey(String name) {
+            return ResourceKey.create(Registries.PLACED_FEATURE, Salt.resource(name));
+        }
+
+        private static void register(BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> configuration,
+                                     List<PlacementModifier> modifiers) {
+            context.register(key, new PlacedFeature(configuration, List.copyOf(modifiers)));
+        }
+
+        private static void register(BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> configuration,
+                                     PlacementModifier... modifiers) {
+            register(context, key, configuration, List.of(modifiers));
+        }
     }
 
     public static class ConfiguredFeatures {
-        private static final DeferredRegister<ConfiguredFeature<?, ?>> CONFIGURED_FEATURES = DeferredRegister.create(Registry.CONFIGURED_FEATURE_REGISTRY, Salt.ID);
+
+        public static final ResourceKey<ConfiguredFeature<?, ?>> MINERAL_ROCK_SALT = registerKey("mineral_rock_salt");
 
         private static final Supplier<MineralDepositConfiguration.DepositBlockStateInfo> ROCK_SALT_STONE_BLOCKS = () -> MineralDepositConfiguration.blockStateInfo(
                 new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                         .add(Blocks.ROCK_SALT_ORE.get().defaultBlockState(), 8)
                         .add(Blocks.RAW_ROCK_SALT_BLOCK.get().defaultBlockState(), 1)
                         .build()),
-                OreFeatures.STONE_ORE_REPLACEABLES);
+                new TagMatchTest(net.minecraft.tags.BlockTags.STONE_ORE_REPLACEABLES));
 
         private static final Supplier<MineralDepositConfiguration.DepositBlockStateInfo> ROCK_SALT_DEEPSLATE_BLOCKS = () -> MineralDepositConfiguration.blockStateInfo(
                 new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                         .add(Blocks.DEEPSLATE_ROCK_SALT_ORE.get().defaultBlockState(), 8)
                         .add(Blocks.RAW_ROCK_SALT_BLOCK.get().defaultBlockState(), 1)
                         .build()),
-                OreFeatures.DEEPSLATE_ORE_REPLACEABLES);
+                new TagMatchTest(net.minecraft.tags.BlockTags.DEEPSLATE_ORE_REPLACEABLES));
 
         private static final Supplier<MineralDepositConfiguration.DepositBlockStateInfo> ROCK_SALT_CLUSTERS = () -> MineralDepositConfiguration.blockStateInfo(
                 new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
@@ -369,8 +386,48 @@ public class Salt
                         .build()),
                 new TagMatchTest(BlockTags.SALT_CLUSTER_REPLACEABLES));
 
-        public static final RegistryObject<ConfiguredFeature<?, ?>> ROCK_SALT = CONFIGURED_FEATURES.register("mineral_rock_salt",
-                () -> new ConfiguredFeature<>(WorldGenFeatures.MINERAL_DEPOSIT.get(), new MineralDepositConfiguration(
-                        List.of(ROCK_SALT_STONE_BLOCKS.get(), ROCK_SALT_DEEPSLATE_BLOCKS.get()), ROCK_SALT_CLUSTERS.get())));
+        public static void bootstrap(BootstapContext<ConfiguredFeature<?,?>> context) {
+            register(context, MINERAL_ROCK_SALT, WorldGenFeatures.MINERAL_DEPOSIT.get(), new MineralDepositConfiguration(
+                    List.of(ROCK_SALT_STONE_BLOCKS.get(), ROCK_SALT_DEEPSLATE_BLOCKS.get()), ROCK_SALT_CLUSTERS.get()));
+        }
+
+        public static ResourceKey<ConfiguredFeature<?,?>> registerKey(String name) {
+            return ResourceKey.create(Registries.CONFIGURED_FEATURE, Salt.resource(name));
+        }
+
+        private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstapContext<ConfiguredFeature<?,?>> context,
+                                                                                              ResourceKey<ConfiguredFeature<?,?>> key, F feature, FC configuration) {
+            context.register(key, new ConfiguredFeature<>(feature, configuration));
+        }
+
+
+//        private static final DeferredRegister<ConfiguredFeature<?, ?>> CONFIGURED_FEATURES = DeferredRegister.create(Registries.CONFIGURED_FEATURE, Salt.ID);
+//
+//        private static final Supplier<MineralDepositConfiguration.DepositBlockStateInfo> ROCK_SALT_STONE_BLOCKS = () -> MineralDepositConfiguration.blockStateInfo(
+//                new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+//                        .add(Blocks.ROCK_SALT_ORE.get().defaultBlockState(), 8)
+//                        .add(Blocks.RAW_ROCK_SALT_BLOCK.get().defaultBlockState(), 1)
+//                        .build()),
+//                new TagMatchTest(net.minecraft.tags.BlockTags.STONE_ORE_REPLACEABLES));
+//
+//        private static final Supplier<MineralDepositConfiguration.DepositBlockStateInfo> ROCK_SALT_DEEPSLATE_BLOCKS = () -> MineralDepositConfiguration.blockStateInfo(
+//                new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+//                        .add(Blocks.DEEPSLATE_ROCK_SALT_ORE.get().defaultBlockState(), 8)
+//                        .add(Blocks.RAW_ROCK_SALT_BLOCK.get().defaultBlockState(), 1)
+//                        .build()),
+//                new TagMatchTest(net.minecraft.tags.BlockTags.DEEPSLATE_ORE_REPLACEABLES));
+//
+//        private static final Supplier<MineralDepositConfiguration.DepositBlockStateInfo> ROCK_SALT_CLUSTERS = () -> MineralDepositConfiguration.blockStateInfo(
+//                new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+//                        .add(Blocks.SALT_CLUSTER.get().defaultBlockState(), 16)
+//                        .add(Blocks.LARGE_SALT_BUD.get().defaultBlockState(), 2)
+//                        .add(Blocks.MEDIUM_SALT_BUD.get().defaultBlockState(), 1)
+//                        .add(Blocks.SMALL_SALT_BUD.get().defaultBlockState(), 1)
+//                        .build()),
+//                new TagMatchTest(BlockTags.SALT_CLUSTER_REPLACEABLES));
+//
+//        public static final RegistryObject<ConfiguredFeature<?, ?>> ROCK_SALT = CONFIGURED_FEATURES.register("mineral_rock_salt",
+//                () -> new ConfiguredFeature<>(WorldGenFeatures.MINERAL_DEPOSIT.get(), new MineralDepositConfiguration(
+//                        List.of(ROCK_SALT_STONE_BLOCKS.get(), ROCK_SALT_DEEPSLATE_BLOCKS.get()), ROCK_SALT_CLUSTERS.get())));
     }
 }

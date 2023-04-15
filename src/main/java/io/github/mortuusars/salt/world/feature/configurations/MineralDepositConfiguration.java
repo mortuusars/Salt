@@ -13,10 +13,10 @@ public class MineralDepositConfiguration implements FeatureConfiguration {
     public static final Codec<MineralDepositConfiguration> CODEC = RecordCodecBuilder.create((instance) ->
             instance.group(
                         Codec.list(DepositBlockStateInfo.CODEC)
-                                .fieldOf("mainStateInfos")
+                                .fieldOf("mainTargets")
                                 .forGetter(config -> config.mainStateInfos),
                         DepositBlockStateInfo.CODEC
-                                .fieldOf("clusterStateInfo")
+                                .fieldOf("clusterTargets")
                                 .forGetter(config -> config.clusterStateInfo))
                 .apply(instance, MineralDepositConfiguration::new));
 

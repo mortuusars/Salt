@@ -9,7 +9,7 @@ public class Languages extends LanguageProvider {
     private final String locale;
 
     public Languages(DataGenerator gen, String locale) {
-        super(gen, Salt.ID, locale);
+        super(gen.getPackOutput(), Salt.ID, locale);
         this.locale = locale;
     }
 

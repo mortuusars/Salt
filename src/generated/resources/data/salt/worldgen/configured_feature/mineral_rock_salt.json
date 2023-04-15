@@ -1,0 +1,100 @@
+{
+  "type": "salt:mineral_deposit",
+  "config": {
+    "clusterTargets": {
+      "blockStateProvider": {
+        "type": "minecraft:weighted_state_provider",
+        "entries": [
+          {
+            "data": {
+              "Name": "salt:salt_cluster",
+              "Properties": {
+                "facing": "up"
+              }
+            },
+            "weight": 16
+          },
+          {
+            "data": {
+              "Name": "salt:large_salt_bud",
+              "Properties": {
+                "facing": "up"
+              }
+            },
+            "weight": 2
+          },
+          {
+            "data": {
+              "Name": "salt:medium_salt_bud",
+              "Properties": {
+                "facing": "up"
+              }
+            },
+            "weight": 1
+          },
+          {
+            "data": {
+              "Name": "salt:small_salt_bud",
+              "Properties": {
+                "facing": "up"
+              }
+            },
+            "weight": 1
+          }
+        ]
+      },
+      "ruleTest": {
+        "predicate_type": "minecraft:tag_match",
+        "tag": "salt:salt_cluster_replaceables"
+      }
+    },
+    "mainTargets": [
+      {
+        "blockStateProvider": {
+          "type": "minecraft:weighted_state_provider",
+          "entries": [
+            {
+              "data": {
+                "Name": "salt:rock_salt_ore"
+              },
+              "weight": 8
+            },
+            {
+              "data": {
+                "Name": "salt:raw_rock_salt_block"
+              },
+              "weight": 1
+            }
+          ]
+        },
+        "ruleTest": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "minecraft:stone_ore_replaceables"
+        }
+      },
+      {
+        "blockStateProvider": {
+          "type": "minecraft:weighted_state_provider",
+          "entries": [
+            {
+              "data": {
+                "Name": "salt:deepslate_rock_salt_ore"
+              },
+              "weight": 8
+            },
+            {
+              "data": {
+                "Name": "salt:raw_rock_salt_block"
+              },
+              "weight": 1
+            }
+          ]
+        },
+        "ruleTest": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "minecraft:deepslate_ore_replaceables"
+        }
+      }
+    ]
+  }
+}

@@ -11,6 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -24,7 +25,7 @@ public class SaltingRecipe extends CustomRecipe {
     private final NonNullList<Ingredient> ingredients;
 
     public SaltingRecipe(ResourceLocation id, String group, NonNullList<Ingredient> ingredients) {
-        super(id);
+        super(id, CraftingBookCategory.MISC);
         this.group = group;
         this.ingredients = ingredients;
     }
