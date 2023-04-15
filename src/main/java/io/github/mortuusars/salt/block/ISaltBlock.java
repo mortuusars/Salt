@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 /**
  * Contains all common functionality of salt blocks.
  */
+@SuppressWarnings("unused")
 public interface ISaltBlock {
     @NotNull BlockState getDissolvedState(BlockState state, ServerLevel level, BlockPos pos, Fluid fluid);
 
@@ -32,6 +33,7 @@ public interface ISaltBlock {
      * Performs generic salt things on random tick.
      * @return false if block was removed (by dissolving or something else)
      */
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     default boolean onSaltRandomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         ArrayList<Direction> directions = Arrays.stream(Direction.values())
                 .collect(Collectors.toCollection(ArrayList::new));

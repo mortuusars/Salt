@@ -1,6 +1,5 @@
 package io.github.mortuusars.salt.client.rendering;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.client.renderer.RenderType;
@@ -19,8 +18,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("deprecation")
 public class LayeredBakedModel implements BakedModel {
-    private List<BakedModel> layers;
+    private final List<BakedModel> layers;
 
     public LayeredBakedModel(List<BakedModel> layers) {
         this.layers = layers;
@@ -39,7 +39,7 @@ public class LayeredBakedModel implements BakedModel {
     }
 
     @Override
-    public List<BakedQuad> getQuads(@Nullable BlockState pState, @Nullable Direction pDirection, RandomSource pRandom) {
+    public @NotNull List<BakedQuad> getQuads(@Nullable BlockState pState, @Nullable Direction pDirection, @NotNull RandomSource pRandom) {
         return getQuads(pState, pDirection, pRandom, ModelData.EMPTY, null);
     }
 
@@ -64,17 +64,17 @@ public class LayeredBakedModel implements BakedModel {
     }
 
     @Override
-    public TextureAtlasSprite getParticleIcon() {
+    public @NotNull TextureAtlasSprite getParticleIcon() {
         return layers.get(0).getParticleIcon();
     }
 
     @Override
-    public ItemOverrides getOverrides() {
+    public @NotNull ItemOverrides getOverrides() {
         return layers.get(0).getOverrides();
     }
 
     @Override
-    public ItemTransforms getTransforms() {
+    public @NotNull ItemTransforms getTransforms() {
         return layers.get(0).getTransforms();
     }
 

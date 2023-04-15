@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
+@SuppressWarnings("deprecation")
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class Advancements extends AdvancementProvider
@@ -31,6 +32,7 @@ public class Advancements extends AdvancementProvider
         super(dataGenerator.getPackOutput(), provider, List.of(new SaltAdvancements(existingFileHelper)));
     }
 
+    @SuppressWarnings("unused")
     public static class SaltAdvancements implements AdvancementSubProvider
     {
         private final ExistingFileHelper existingFileHelper;

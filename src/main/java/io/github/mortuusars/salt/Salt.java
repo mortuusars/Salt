@@ -17,22 +17,18 @@ import io.github.mortuusars.salt.world.feature.configurations.MineralDepositConf
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
-import net.minecraft.core.Registry;
 import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
-import net.minecraft.data.worldgen.features.OreFeatures;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.biome.Biome;
@@ -92,7 +88,7 @@ public class Salt
         MinecraftForge.EVENT_BUS.register(this);
     }
 
-    public static MutableComponent translate(String key, String... args) {
+    public static MutableComponent translate(String key, Object... args) {
         return Component.translatable(key, args);
     }
 
@@ -191,9 +187,9 @@ public class Salt
     }
 
     public static class Advancements {
-        public static SaltEvaporationTrigger SALT_EVAPORATED = new SaltEvaporationTrigger();
-        public static SaltedFoodConsumedTrigger SALTED_FOOD_CONSUMED = new SaltedFoodConsumedTrigger();
-        public static HarvestSaltCrystalTrigger HARVEST_SALT_CRYSTAL = new HarvestSaltCrystalTrigger();
+        public static final SaltEvaporationTrigger SALT_EVAPORATED = new SaltEvaporationTrigger();
+        public static final SaltedFoodConsumedTrigger SALTED_FOOD_CONSUMED = new SaltedFoodConsumedTrigger();
+        public static final HarvestSaltCrystalTrigger HARVEST_SALT_CRYSTAL = new HarvestSaltCrystalTrigger();
 
         public static void register() {
             CriteriaTriggers.register(SALT_EVAPORATED);
@@ -247,38 +243,38 @@ public class Salt
 
         public static class Types {
             public static final SoundType SALT = new ForgeSoundType(1.0f, 1.0f,
-                    SALT_BREAK::get,
-                    SALT_STEP::get,
-                    SALT_PLACE::get,
-                    SALT_HIT::get,
-                    SALT_FALL::get);
+                    SALT_BREAK,
+                    SALT_STEP,
+                    SALT_PLACE,
+                    SALT_HIT,
+                    SALT_FALL);
             public static final SoundType SALT_CLUSTER = new ForgeSoundType(1.0f, 1.0f,
-                    SALT_CLUSTER_BREAK::get,
-                    SALT_CLUSTER_STEP::get,
-                    SALT_CLUSTER_PLACE::get,
-                    SALT_CLUSTER_HIT::get,
-                    SALT_CLUSTER_FALL::get);
+                    SALT_CLUSTER_BREAK,
+                    SALT_CLUSTER_STEP,
+                    SALT_CLUSTER_PLACE,
+                    SALT_CLUSTER_HIT,
+                    SALT_CLUSTER_FALL);
 
             public static final SoundType LARGE_SALT_BUD = new ForgeSoundType(1.0f, 1.0f,
-                    LARGE_SALT_BUD_BREAK::get,
-                    LARGE_SALT_BUD_STEP::get,
-                    LARGE_SALT_BUD_PLACE::get,
-                    LARGE_SALT_BUD_HIT::get,
-                    LARGE_SALT_BUD_FALL::get);
+                    LARGE_SALT_BUD_BREAK,
+                    LARGE_SALT_BUD_STEP,
+                    LARGE_SALT_BUD_PLACE,
+                    LARGE_SALT_BUD_HIT,
+                    LARGE_SALT_BUD_FALL);
 
             public static final SoundType MEDIUM_SALT_BUD = new ForgeSoundType(1.0f, 1.0f,
-                    MEDIUM_SALT_BUD_BREAK::get,
-                    MEDIUM_SALT_BUD_STEP::get,
-                    MEDIUM_SALT_BUD_PLACE::get,
-                    MEDIUM_SALT_BUD_HIT::get,
-                    MEDIUM_SALT_BUD_FALL::get);
+                    MEDIUM_SALT_BUD_BREAK,
+                    MEDIUM_SALT_BUD_STEP,
+                    MEDIUM_SALT_BUD_PLACE,
+                    MEDIUM_SALT_BUD_HIT,
+                    MEDIUM_SALT_BUD_FALL);
 
             public static final SoundType SMALL_SALT_BUD = new ForgeSoundType(1.0f, 1.0f,
-                    SMALL_SALT_BUD_BREAK::get,
-                    SMALL_SALT_BUD_STEP::get,
-                    SMALL_SALT_BUD_PLACE::get,
-                    SMALL_SALT_BUD_HIT::get,
-                    SMALL_SALT_BUD_FALL::get);
+                    SMALL_SALT_BUD_BREAK,
+                    SMALL_SALT_BUD_STEP,
+                    SMALL_SALT_BUD_PLACE,
+                    SMALL_SALT_BUD_HIT,
+                    SMALL_SALT_BUD_FALL);
         }
     }
 
@@ -344,6 +340,7 @@ public class Salt
         }
 
 
+        @SuppressWarnings("SameParameterValue")
         private static ResourceKey<PlacedFeature> createKey(String name) {
             return ResourceKey.create(Registries.PLACED_FEATURE, Salt.resource(name));
         }
@@ -353,6 +350,7 @@ public class Salt
             context.register(key, new PlacedFeature(configuration, List.copyOf(modifiers)));
         }
 
+        @SuppressWarnings("SameParameterValue")
         private static void register(BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> configuration,
                                      PlacementModifier... modifiers) {
             register(context, key, configuration, List.of(modifiers));
@@ -395,39 +393,10 @@ public class Salt
             return ResourceKey.create(Registries.CONFIGURED_FEATURE, Salt.resource(name));
         }
 
+        @SuppressWarnings("SameParameterValue")
         private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstapContext<ConfiguredFeature<?,?>> context,
                                                                                               ResourceKey<ConfiguredFeature<?,?>> key, F feature, FC configuration) {
             context.register(key, new ConfiguredFeature<>(feature, configuration));
         }
-
-
-//        private static final DeferredRegister<ConfiguredFeature<?, ?>> CONFIGURED_FEATURES = DeferredRegister.create(Registries.CONFIGURED_FEATURE, Salt.ID);
-//
-//        private static final Supplier<MineralDepositConfiguration.DepositBlockStateInfo> ROCK_SALT_STONE_BLOCKS = () -> MineralDepositConfiguration.blockStateInfo(
-//                new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-//                        .add(Blocks.ROCK_SALT_ORE.get().defaultBlockState(), 8)
-//                        .add(Blocks.RAW_ROCK_SALT_BLOCK.get().defaultBlockState(), 1)
-//                        .build()),
-//                new TagMatchTest(net.minecraft.tags.BlockTags.STONE_ORE_REPLACEABLES));
-//
-//        private static final Supplier<MineralDepositConfiguration.DepositBlockStateInfo> ROCK_SALT_DEEPSLATE_BLOCKS = () -> MineralDepositConfiguration.blockStateInfo(
-//                new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-//                        .add(Blocks.DEEPSLATE_ROCK_SALT_ORE.get().defaultBlockState(), 8)
-//                        .add(Blocks.RAW_ROCK_SALT_BLOCK.get().defaultBlockState(), 1)
-//                        .build()),
-//                new TagMatchTest(net.minecraft.tags.BlockTags.DEEPSLATE_ORE_REPLACEABLES));
-//
-//        private static final Supplier<MineralDepositConfiguration.DepositBlockStateInfo> ROCK_SALT_CLUSTERS = () -> MineralDepositConfiguration.blockStateInfo(
-//                new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-//                        .add(Blocks.SALT_CLUSTER.get().defaultBlockState(), 16)
-//                        .add(Blocks.LARGE_SALT_BUD.get().defaultBlockState(), 2)
-//                        .add(Blocks.MEDIUM_SALT_BUD.get().defaultBlockState(), 1)
-//                        .add(Blocks.SMALL_SALT_BUD.get().defaultBlockState(), 1)
-//                        .build()),
-//                new TagMatchTest(BlockTags.SALT_CLUSTER_REPLACEABLES));
-//
-//        public static final RegistryObject<ConfiguredFeature<?, ?>> ROCK_SALT = CONFIGURED_FEATURES.register("mineral_rock_salt",
-//                () -> new ConfiguredFeature<>(WorldGenFeatures.MINERAL_DEPOSIT.get(), new MineralDepositConfiguration(
-//                        List.of(ROCK_SALT_STONE_BLOCKS.get(), ROCK_SALT_DEEPSLATE_BLOCKS.get()), ROCK_SALT_CLUSTERS.get())));
     }
 }

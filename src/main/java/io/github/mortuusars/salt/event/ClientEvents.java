@@ -63,7 +63,6 @@ public class ClientEvents {
         public static final Style SALTED_STYLE = Style.EMPTY.withColor(0xF0D8D5);
         public static final Style SALTED_EXPANDED_PART_STYLE = Style.EMPTY.withColor(0xC7B7B5);
 
-        @SuppressWarnings("SuperfluousFormat")
         public static MutableComponent get(int nutrition, float saturationModifier, boolean isExpanded) {
             MutableComponent base = Component.translatable(LangKeys.GUI_TOOLTIP_SALTED).withStyle(SALTED_STYLE);
             return isExpanded ? base.append(Component.translatable(LangKeys.GUI_TOOLTIP_SALTED_EXPANDED_PART,

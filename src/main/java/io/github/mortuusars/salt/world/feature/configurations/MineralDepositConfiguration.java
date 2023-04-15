@@ -9,24 +9,17 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 
 import java.util.List;
 
-public class MineralDepositConfiguration implements FeatureConfiguration {
+public record MineralDepositConfiguration(List<DepositBlockStateInfo> mainStateInfos,
+                                          io.github.mortuusars.salt.world.feature.configurations.MineralDepositConfiguration.DepositBlockStateInfo clusterStateInfo) implements FeatureConfiguration {
     public static final Codec<MineralDepositConfiguration> CODEC = RecordCodecBuilder.create((instance) ->
             instance.group(
-                        Codec.list(DepositBlockStateInfo.CODEC)
-                                .fieldOf("mainTargets")
-                                .forGetter(config -> config.mainStateInfos),
-                        DepositBlockStateInfo.CODEC
-                                .fieldOf("clusterTargets")
-                                .forGetter(config -> config.clusterStateInfo))
-                .apply(instance, MineralDepositConfiguration::new));
-
-    public final List<DepositBlockStateInfo> mainStateInfos;
-    public final DepositBlockStateInfo clusterStateInfo;
-
-    public MineralDepositConfiguration(List<DepositBlockStateInfo> mainStateInfos, DepositBlockStateInfo clusterStateInfo) {
-        this.mainStateInfos = mainStateInfos;
-        this.clusterStateInfo = clusterStateInfo;
-    }
+                            Codec.list(DepositBlockStateInfo.CODEC)
+                                    .fieldOf("mainTargets")
+                                    .forGetter(config -> config.mainStateInfos),
+                            DepositBlockStateInfo.CODEC
+                                    .fieldOf("clusterTargets")
+                                    .forGetter(config -> config.clusterStateInfo))
+                    .apply(instance, MineralDepositConfiguration::new));
 
     public static DepositBlockStateInfo blockStateInfo(BlockStateProvider blockStateProvider, RuleTest ruleTest) {
         return new DepositBlockStateInfo(blockStateProvider, ruleTest);
@@ -43,10 +36,10 @@ public class MineralDepositConfiguration implements FeatureConfiguration {
     public static class DepositBlockStateInfo {
         public static final Codec<DepositBlockStateInfo> CODEC = RecordCodecBuilder.create(instance ->
                 instance.group(
-                        BlockStateProvider.CODEC.fieldOf("blockStateProvider")
-                                .forGetter(target -> target.blockStateProvider),
-                        RuleTest.CODEC.fieldOf("ruleTest")
-                                .forGetter(target -> target.ruleTest))
+                                BlockStateProvider.CODEC.fieldOf("blockStateProvider")
+                                        .forGetter(target -> target.blockStateProvider),
+                                RuleTest.CODEC.fieldOf("ruleTest")
+                                        .forGetter(target -> target.ruleTest))
                         .apply(instance, DepositBlockStateInfo::new));
 
         public final BlockStateProvider blockStateProvider;

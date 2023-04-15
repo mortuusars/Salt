@@ -14,6 +14,9 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class SaltItem extends Item {
     public SaltItem(Properties properties) {
@@ -21,7 +24,7 @@ public class SaltItem extends Item {
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext context) {
+    public @NotNull InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();
         BlockPos clickedPos = context.getClickedPos();
         BlockState clickedBlockState = level.getBlockState(clickedPos);
@@ -43,7 +46,7 @@ public class SaltItem extends Item {
             }
 
             Player player = context.getPlayer();
-            if (!player.isCreative())
+            if (!Objects.requireNonNull(player).isCreative())
                 context.getItemInHand().shrink(1);
             return InteractionResult.sidedSuccess(context.getLevel().isClientSide);
         }

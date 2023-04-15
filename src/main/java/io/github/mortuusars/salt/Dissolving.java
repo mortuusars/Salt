@@ -3,7 +3,6 @@ package io.github.mortuusars.salt;
 import io.github.mortuusars.salt.block.ISaltBlock;
 import io.github.mortuusars.salt.configuration.Configuration;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -17,9 +16,7 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
 
-import javax.annotation.Nullable;
-import java.util.Random;
-
+@SuppressWarnings("unused")
 public class Dissolving {
 
     /**

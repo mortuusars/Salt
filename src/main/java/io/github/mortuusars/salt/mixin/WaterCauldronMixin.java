@@ -20,8 +20,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Random;
-
 @Mixin(AbstractCauldronBlock.class)
 public abstract class WaterCauldronMixin extends Block {
 
@@ -35,7 +33,7 @@ public abstract class WaterCauldronMixin extends Block {
      * Handles converting water cauldron into a salt cauldron.
      * By default, 'tick' is called only when dripstone is filling the cauldron -
      * We set LayeredCauldronBlock#isRandomlyTicking to true, so it is called also on random tick.
-     *
+     * <p>
      * Another way to do this can probably be injecting in 'LayeredCauldronBlock#randomTick' and stopping it from proceeding to 'tick'.
      */
     @Inject(method = "tick", at = @At("HEAD"), cancellable = true, require = 1)

@@ -8,17 +8,18 @@ import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import org.jetbrains.annotations.NotNull;
 
 public class SaltEvaporationTrigger extends SimpleCriterionTrigger<SaltEvaporationTrigger.TriggerInstance> {
     private static final ResourceLocation ID = Salt.resource("salt_evaporated");
 
     @Override
-    public ResourceLocation getId() {
+    public @NotNull ResourceLocation getId() {
         return ID;
     }
 
     @Override
-    protected SaltEvaporationTrigger.TriggerInstance createInstance(JsonObject json, EntityPredicate.Composite player, DeserializationContext conditionsParser) {
+    protected SaltEvaporationTrigger.@NotNull TriggerInstance createInstance(@NotNull JsonObject json, EntityPredicate.@NotNull Composite player, @NotNull DeserializationContext conditionsParser) {
         return new SaltEvaporationTrigger.TriggerInstance(player);
     }
 

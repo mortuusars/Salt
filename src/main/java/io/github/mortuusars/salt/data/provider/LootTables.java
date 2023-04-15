@@ -159,10 +159,10 @@ public class LootTables extends LootTableProvider {
     private void writeTable(CachedOutput cache, ResourceLocation location, LootTable lootTable) {
         Path outputFolder = this.generator.getPackOutput().getOutputFolder();
         Path path = outputFolder.resolve("data/" + location.getNamespace() + "/loot_tables/" + location.getPath() + ".json");
-        try {
-            DataProvider.saveStable(cache, net.minecraft.world.level.storage.loot.LootTables.serialize(lootTable), path);
-        } catch (Exception e) {
-            LOGGER.error("Couldn't write loot lootTable {}", path, e);
-        }
+        DataProvider.saveStable(cache, net.minecraft.world.level.storage.loot.LootTables.serialize(lootTable), path);
+//        try {
+//        } catch (Exception e) {
+//            LOGGER.error("Couldn't write loot lootTable {}", path, e);
+//        }
     }
 }

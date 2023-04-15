@@ -15,6 +15,7 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
 
+@SuppressWarnings("SameParameterValue")
 @Mod.EventBusSubscriber(modid = Salt.ID)
 public class VillagerEvents {
     @SubscribeEvent

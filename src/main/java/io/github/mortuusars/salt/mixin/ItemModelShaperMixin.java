@@ -24,8 +24,9 @@ public abstract class ItemModelShaperMixin {
 
     private static final ResourceLocation SALT_OVERLAY = Salt.resource("item/salted_overlay");
 
+    @SuppressWarnings("SameReturnValue")
     @Shadow
-    protected static int getIndex(Item pItem) {
+    private static int getIndex(Item pItem) {
         return 0;
     }
 

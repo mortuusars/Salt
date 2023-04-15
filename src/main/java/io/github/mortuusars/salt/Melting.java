@@ -18,13 +18,12 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.Random;
+import org.jetbrains.annotations.NotNull;
 
 public class Melting {
     private static class SaltItemDispenseBehavior extends DefaultDispenseItemBehavior {
         @Override
-        protected ItemStack execute(BlockSource source, ItemStack stack) {
+        protected @NotNull ItemStack execute(@NotNull BlockSource source, ItemStack stack) {
             if (!stack.is(Salt.ItemTags.FORGE_SALTS))
                 return stack;
 

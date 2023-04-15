@@ -9,7 +9,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -41,14 +40,14 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.function.Predicate;
 
 public class SaltCauldronBlock extends LayeredCauldronBlock {
-    private Predicate<Biome.Precipitation> fillPredicate;
+    private final Predicate<Biome.Precipitation> fillPredicate;
 
     public SaltCauldronBlock(Predicate<Biome.Precipitation> fillPredicate, Map<Item, CauldronInteraction> interactions) {
         super(BlockBehaviour.Properties.copy(Blocks.CAULDRON), fillPredicate, interactions);
@@ -61,14 +60,14 @@ public class SaltCauldronBlock extends LayeredCauldronBlock {
     }
 
     @Override
-    public void destroy(LevelAccessor level, BlockPos pos, BlockState state) {
+    public void destroy(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state) {
         super.destroy(level, pos, state);
         if (level instanceof ServerLevel serverLevel)
             dropContents(serverLevel, state, pos);
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult blockHitResult) {
+    public @NotNull InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult blockHitResult) {
         if (player.getItemInHand(hand).isEmpty()) {
             if (level instanceof ServerLevel serverLevel) {
                 dropContents(serverLevel, state, pos);
@@ -112,7 +111,7 @@ public class SaltCauldronBlock extends LayeredCauldronBlock {
     }
 
     @Override
-    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+    public void entityInside(@NotNull BlockState state, Level level, BlockPos pos, @NotNull Entity entity) {
         if (Heater.isHeatSource(level.getBlockState(pos.below()))) {
             if (!entity.fireImmune() && entity instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity)entity)) {
                 entity.hurt(DamageSource.IN_FIRE, 1f);
@@ -121,7 +120,7 @@ public class SaltCauldronBlock extends LayeredCauldronBlock {
     }
 
     @Override
-    public void handlePrecipitation(BlockState state, Level level, BlockPos pos, Biome.Precipitation precipitation) {
+    public void handlePrecipitation(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Biome.@NotNull Precipitation precipitation) {
         if (CauldronBlock.shouldHandlePrecipitation(level, precipitation) && Heater.isHeatSource(level.getBlockState(pos.below())) && this.fillPredicate.test(precipitation)) {
             if (precipitation == Biome.Precipitation.RAIN) {
                 level.setBlockAndUpdate(pos, Blocks.WATER_CAULDRON.defaultBlockState());
@@ -134,12 +133,12 @@ public class SaltCauldronBlock extends LayeredCauldronBlock {
     }
 
     @Override
-    protected boolean canReceiveStalactiteDrip(Fluid fluid) {
+    protected boolean canReceiveStalactiteDrip(@NotNull Fluid fluid) {
         return true;
     }
 
     @Override
-    protected void receiveStalactiteDrip(BlockState state, Level level, BlockPos pos, Fluid fluid) {
+    protected void receiveStalactiteDrip(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Fluid fluid) {
         if (fluid == Fluids.LAVA) {
             level.setBlockAndUpdate(pos, Blocks.LAVA_CAULDRON.defaultBlockState());
             level.levelEvent(LevelEvent.SOUND_DRIP_LAVA_INTO_CAULDRON, pos, 0);

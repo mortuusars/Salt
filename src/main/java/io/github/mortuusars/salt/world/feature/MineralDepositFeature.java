@@ -3,7 +3,6 @@ package io.github.mortuusars.salt.world.feature;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import io.github.mortuusars.salt.Salt;
-import io.github.mortuusars.salt.configuration.Configuration;
 import io.github.mortuusars.salt.world.feature.configurations.MineralDepositConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -21,6 +20,7 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
 import java.util.*;
 
+@SuppressWarnings("unused")
 public class MineralDepositFeature extends Feature<MineralDepositConfiguration> {
     public MineralDepositFeature(Codec<MineralDepositConfiguration> codec) {
         super(codec);
@@ -68,6 +68,7 @@ public class MineralDepositFeature extends Feature<MineralDepositConfiguration> 
         return false;
     }
 
+    @SuppressWarnings("PointlessArithmeticExpression")
     protected boolean doPlace(WorldGenLevel level, RandomSource random, MineralDepositConfiguration configuration, double pMinX, double pMaxX, double pMinZ, double pMaxZ, double pMinY, double pMaxY, int pX, int pY, int pZ, int pWidth, int pHeight) {
         int placedBlocks = 0;
         BitSet bitset = new BitSet(pWidth * pHeight * pWidth);
@@ -179,7 +180,7 @@ public class MineralDepositFeature extends Feature<MineralDepositConfiguration> 
 
         boolean mainBlockPlaced = false;
 
-        for (MineralDepositConfiguration.DepositBlockStateInfo mainStateInfo : configuration.mainStateInfos) {
+        for (MineralDepositConfiguration.DepositBlockStateInfo mainStateInfo : configuration.mainStateInfos()) {
             if (mainStateInfo.ruleTest.test(oldBlockstate, random)) {
                 BlockState newBlockState = mainStateInfo.blockStateProvider.getState(random, mutableBlockPos);
                 // Place ore:
@@ -207,7 +208,7 @@ public class MineralDepositFeature extends Feature<MineralDepositConfiguration> 
                 int cY = relativeY + randomDirection.getStepY();
                 int cZ = relativeZ + randomDirection.getStepZ();
 
-                BlockState state = configuration.clusterStateInfo.blockStateProvider.getState(random, mutableBlockPos);
+                BlockState state = configuration.clusterStateInfo().blockStateProvider.getState(random, mutableBlockPos);
                 if (state.hasProperty(BlockStateProperties.FACING))
                     state = state.setValue(BlockStateProperties.FACING, randomDirection);
 
@@ -234,7 +235,7 @@ public class MineralDepositFeature extends Feature<MineralDepositConfiguration> 
                 continue;
 
             BlockState blockStateAtPos = levelchunksection.getBlockState(cX, cY, cZ);
-            if (configuration.clusterStateInfo.ruleTest.test(blockStateAtPos, random))
+            if (configuration.clusterStateInfo().ruleTest.test(blockStateAtPos, random))
                 airDirections.add(dir);
         }
 

@@ -9,6 +9,7 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 public class Salting {
 
@@ -22,7 +23,7 @@ public class Salting {
     private static final String SALTED_KEY = "Salted";
 
     public static boolean isSalted(ItemStack itemStack) {
-        return itemStack.hasTag() && itemStack.getTag().contains(SALTED_KEY);
+        return itemStack.hasTag() && Objects.requireNonNull(itemStack.getTag()).contains(SALTED_KEY);
     }
 
     /**
@@ -35,7 +36,8 @@ public class Salting {
     }
 
     public static FoodValue getAdditionalFoodValue(ItemStack stack) {
-        @Nullable FoodValue foodValue = Configuration.FOOD_VALUES.get(ForgeRegistries.ITEMS.getKey(stack.getItem()).toString());
+        @Nullable FoodValue foodValue = Configuration.FOOD_VALUES.get(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(stack.getItem()))
+                .toString());
         return foodValue != null ? foodValue : new FoodValue(Configuration.SALTING_ADDITIONAL_NUTRITION.get(),
                 Configuration.SALTING_ADDITIONAL_SATURATION_MODIFIER.get().floatValue());
     }

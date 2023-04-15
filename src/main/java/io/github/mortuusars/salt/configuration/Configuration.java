@@ -20,7 +20,7 @@ public class Configuration {
     public static final ForgeConfigSpec.IntValue SALTING_ADDITIONAL_NUTRITION;
     public static final ForgeConfigSpec.DoubleValue SALTING_ADDITIONAL_SATURATION_MODIFIER;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> SALTING_INDIVIDUAL_VALUES;
-    public static Map<String, Salting.FoodValue> FOOD_VALUES = new HashMap<>();
+    public static final Map<String, Salting.FoodValue> FOOD_VALUES = new HashMap<>();
 
     // Dissolving
     public static final ForgeConfigSpec.BooleanValue DISSOLVING_ENABLED;
@@ -224,11 +224,11 @@ public class Configuration {
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT);
     }
 
-    public static void onConfigReload(final ModConfigEvent.Reloading event) {
+    public static void onConfigReload(final ModConfigEvent.Reloading ignoredEvent) {
         updateIndividualFoodValues();
     }
 
-    public static void onConfigLoad(final ModConfigEvent.Loading event) {
+    public static void onConfigLoad(final ModConfigEvent.Loading ignoredEvent) {
         updateIndividualFoodValues();
     }
 

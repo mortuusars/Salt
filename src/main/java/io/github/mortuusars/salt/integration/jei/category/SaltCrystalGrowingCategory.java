@@ -16,6 +16,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class SaltCrystalGrowingCategory implements IRecipeCategory<SaltCrystalGr
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, SaltCrystalGrowingDummy recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, @NotNull SaltCrystalGrowingDummy recipe, @NotNull IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.INPUT, 104, 8)
                 .addItemStack(new ItemStack(Items.WATER_BUCKET));
 
@@ -55,20 +56,20 @@ public class SaltCrystalGrowingCategory implements IRecipeCategory<SaltCrystalGr
     }
 
     @Override
-    public RecipeType<SaltCrystalGrowingDummy> getRecipeType() {
+    public @NotNull RecipeType<SaltCrystalGrowingDummy> getRecipeType() {
         return SaltJeiPlugin.SALT_CRYSTAL_GROWING_RECIPE_TYPE;
     }
 
     @Override
-    public Component getTitle() {
+    public @NotNull Component getTitle() {
         return title;
     }
     @Override
-    public IDrawable getBackground() {
+    public @NotNull IDrawable getBackground() {
         return background;
     }
     @Override
-    public IDrawable getIcon() {
+    public @NotNull IDrawable getIcon() {
         return icon;
     }
 }

@@ -18,7 +18,10 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -31,10 +34,9 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
-import java.util.Random;
-
+@SuppressWarnings("deprecation")
 public class SaltClusterBlock extends Block implements ISaltBlock {
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
@@ -71,7 +73,7 @@ public class SaltClusterBlock extends Block implements ISaltBlock {
     }
 
     @Override
-    public void onProjectileHit(Level level, BlockState blockState, BlockHitResult blockHitResult, Projectile projectile) {
+    public void onProjectileHit(Level level, @NotNull BlockState blockState, BlockHitResult blockHitResult, @NotNull Projectile projectile) {
         BlockPos blockpos = blockHitResult.getBlockPos();
         if (!level.isClientSide && projectile.mayInteract(level, blockpos) && projectile instanceof ThrownTrident
                 && projectile.getDeltaMovement().length() > 0.6D) {
@@ -80,7 +82,7 @@ public class SaltClusterBlock extends Block implements ISaltBlock {
     }
 
     @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+    public void onRemove(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
         if (!level.isClientSide && !newState.getFluidState().is(Fluids.EMPTY)) {
             level.playSound(null, pos, Salt.Sounds.SALT_DISSOLVE.get(), SoundSource.BLOCKS, 0.8f,
                     level.getRandom().nextFloat() * 0.2f + 0.9f);
@@ -90,12 +92,12 @@ public class SaltClusterBlock extends Block implements ISaltBlock {
     }
 
     @Override
-    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+    public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
         onSaltAnimateTick(state, level, pos, random);
     }
 
     @Override
-    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    public void randomTick(BlockState state, @NotNull ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
 
         // Cluster does not call ISaltBlock#onSaltRandomTick because functionality differs a little
 
@@ -115,9 +117,9 @@ public class SaltClusterBlock extends Block implements ISaltBlock {
         }
     }
 
-    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public @NotNull VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         Direction direction = state.getValue(FACING);
-        VoxelShape shape = switch (direction) {
+        return switch (direction) {
             case DOWN -> this.downAabb;
             case UP -> this.upAabb;
             case NORTH -> this.northAabb;
@@ -125,7 +127,6 @@ public class SaltClusterBlock extends Block implements ISaltBlock {
             case WEST -> this.westAabb;
             case EAST -> this.eastAabb;
         };
-        return shape;
     }
 
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
@@ -135,7 +136,7 @@ public class SaltClusterBlock extends Block implements ISaltBlock {
     }
 
     @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pNeighborPos) {
+    public @NotNull BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor pLevel, @NotNull BlockPos pCurrentPos, @NotNull BlockPos pNeighborPos) {
         return direction == state.getValue(FACING).getOpposite() && !state.canSurvive(pLevel, pCurrentPos) ?
                 Blocks.AIR.defaultBlockState() :
                 super.updateShape(state, direction, neighborState, pLevel, pCurrentPos, pNeighborPos);
@@ -146,11 +147,11 @@ public class SaltClusterBlock extends Block implements ISaltBlock {
         return this.defaultBlockState().setValue(FACING, context.getClickedFace());
     }
 
-    public BlockState rotate(BlockState state, Rotation rotation) {
+    public @NotNull BlockState rotate(BlockState state, Rotation rotation) {
         return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
-    public BlockState mirror(BlockState state, Mirror mirror) {
+    public @NotNull BlockState mirror(BlockState state, Mirror mirror) {
         return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
@@ -158,7 +159,7 @@ public class SaltClusterBlock extends Block implements ISaltBlock {
         pBuilder.add(FACING);
     }
 
-    public PushReaction getPistonPushReaction(BlockState state) {
+    public @NotNull PushReaction getPistonPushReaction(@NotNull BlockState state) {
         return PushReaction.DESTROY;
     }
 

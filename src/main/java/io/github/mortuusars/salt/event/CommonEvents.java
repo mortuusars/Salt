@@ -2,10 +2,7 @@ package io.github.mortuusars.salt.event;
 
 import io.github.mortuusars.salt.Salt;
 import io.github.mortuusars.salt.Salting;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 

@@ -8,11 +8,11 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SandBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.Random;
-
+@SuppressWarnings({"deprecation", "unused"})
 public class SaltSandBlock extends SandBlock implements ISaltBlock {
-    private BlockState dissolvedState;
+    private final BlockState dissolvedState;
 
     public SaltSandBlock(BlockState dissolvedState, int dustColor, Properties properties) {
         super(dustColor, properties);
@@ -25,18 +25,19 @@ public class SaltSandBlock extends SandBlock implements ISaltBlock {
     }
 
     @Override
-    public BlockState getDissolvedState(BlockState originalState, ServerLevel level, BlockPos pos, Fluid fluid) {
+    public @NotNull BlockState getDissolvedState(BlockState originalState, ServerLevel level, BlockPos pos, Fluid fluid) {
         return dissolvedState;
     }
 
     @Override
-    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+    public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
         onSaltAnimateTick(state, level, pos, random);
     }
 
     @Override
-    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
         if (!onSaltRandomTick(state, level, pos, random))
+            //noinspection UnnecessaryReturnStatement
             return;
     }
 }

@@ -10,6 +10,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICraftingCategoryExtension;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 
 public record SaltingShapelessExtension(SaltingRecipe saltingRecipe) implements ICraftingCategoryExtension {
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, ICraftingGridHelper craftingGridHelper, IFocusGroup focuses) {
+    public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull ICraftingGridHelper craftingGridHelper, @NotNull IFocusGroup focuses) {
         List<ItemStack> canBeSaltedItems = Arrays.stream(saltingRecipe.getFoodIngredient().getItems()).toList();
 
         if (canBeSaltedItems.size() == 1 && canBeSaltedItems.get(0).is(Items.BARRIER))
@@ -26,7 +27,7 @@ public record SaltingShapelessExtension(SaltingRecipe saltingRecipe) implements 
 
         List<List<ItemStack>> ingredientItems = saltingRecipe.getIngredients().stream()
                 .map(i -> List.of(i.getItems()))
-                .collect(Collectors.toList());
+                .toList();
 
         List<List<ItemStack>> inputs = new ArrayList<>();
         inputs.add(canBeSaltedItems);
