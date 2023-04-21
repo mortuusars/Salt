@@ -38,7 +38,7 @@ public class Evaporation {
                     pos.getX() + 0.3f + random.nextFloat() * 0.4f,
                     pos.getY() + 1f + random.nextFloat() * 0.2f,
                     pos.getZ() + 0.3f + random.nextFloat() * 0.4f,
-                    1,0, 0.02f, 0, 0.01f);
+                    1,0, 0.02f, 0, 0.02f);
         }
     }
 }

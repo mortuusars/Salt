@@ -33,7 +33,10 @@ public abstract class ItemModelShaperMixin {
     @Inject(method = "getItemModel(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/client/resources/model/BakedModel;",
             at = @At("RETURN"), cancellable = true)
     private void onGetItemModel(ItemStack stack, CallbackInfoReturnable<BakedModel> cir) {
-        if (!Configuration.SALTED_OVERLAY_ENABLED.get() || CallStackHelper.isCalledFrom(CallStackHelper.ITEM_IN_HAND) || !Salting.isSalted(stack))
+        if (!Configuration.SALTED_OVERLAY_ENABLED.get()
+                || !stack.is(Salt.ItemTags.CAN_BE_SALTED)
+                || !Salting.isSalted(stack)
+                || !CallStackHelper.isCalledFrom(CallStackHelper.ITEM_IN_HAND))
             return;
 
         BakedModel cachedModel = LayeredBakedModel.Cache.get(getIndex(stack.getItem()));

@@ -5,11 +5,12 @@
   "compatibilityLevel": "JAVA_16",
   "refmap": "mixins.salt.refmap.json",
   "mixins": [
+    "BlockBehaviourMixin",
     "BlockMixin",
-    "LayeredCauldronBlockMixin",
-    "WaterCauldronMixin",
+    "ItemModelMesherForgeMixin",
     "ItemModelShaperMixin",
-    "ItemModelMesherForgeMixin"
+    "LayeredCauldronBlockMixin",
+    "WaterCauldronMixin"
   ],
   "injectors": {
     "defaultRequire": -1
