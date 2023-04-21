@@ -20,7 +20,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'org.spongepowered.mixin'
 
-version = '1.0.3'
+version = '1.0.4'
 group = 'io.github.mortuusars.salt' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'salt-1.18.2'
 
