@@ -1,16 +1,16 @@
 package io.github.mortuusars.salt.mixin;
 
-import com.mojang.logging.LogUtils;
-import io.github.mortuusars.salt.Evaporation;
 import io.github.mortuusars.salt.Salt;
 import io.github.mortuusars.salt.configuration.Configuration;
-import io.github.mortuusars.salt.helper.CallStackHelper;
 import io.github.mortuusars.salt.helper.Heater;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.AbstractCauldronBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.PointedDripstoneBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
@@ -34,7 +34,7 @@ public abstract class WaterCauldronMixin extends Block {
      * Cancels filling cauldron with dripping liquid when heated.
      */
     @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
-    private void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo ci) {
+    private void tick(BlockState state, ServerLevel level, BlockPos pos, Random random, CallbackInfo ci) {
         if (Configuration.EVAPORATION_ENABLED.get() && state.is(Blocks.CAULDRON) && Heater.isHeatSource(level.getBlockState(pos.below()))) {
             BlockPos stalactitePos = PointedDripstoneBlock.findStalactiteTipAboveCauldron(level, pos);
             if (stalactitePos == null)
