@@ -8,11 +8,13 @@
     "BlockBehaviourMixin",
     "BlockMixin",
     "ItemModelMesherForgeMixin",
-    "ItemModelShaperMixin",
     "LayeredCauldronBlockMixin",
     "WaterCauldronMixin"
   ],
   "injectors": {
     "defaultRequire": -1
-  }
+  },
+  "client": [
+    "ItemRendererMixin"
+  ]
 }
