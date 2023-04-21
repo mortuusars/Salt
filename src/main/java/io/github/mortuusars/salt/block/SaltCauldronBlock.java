@@ -94,11 +94,11 @@ public class SaltCauldronBlock extends LayeredCauldronBlock {
         List<ItemStack> randomItems = lootTable.getRandomItems(lootContextBuilder.create(LootContextParamSets.EMPTY));
 
         for (ItemStack itemStack : randomItems) {
-            float d0 = level.random.nextFloat() * 0.7F + 0.15F;
-            float d1 = level.random.nextFloat() * 0.7F + 0.060000002F + 0.6F;
-            float d2 = level.random.nextFloat() * 0.7F + 0.15F;
-            ItemEntity itementity = new ItemEntity(level, (double)pos.getX() + d0, (double)pos.getY() + d1, (double)pos.getZ() + d2, itemStack);
-            itementity.setDefaultPickUpDelay();
+            float x = pos.getX() + 0.4f + level.random.nextFloat() * 0.2f;
+            float y = pos.getY() + 0.7f + level.random.nextFloat() * 0.2f;
+            float z = pos.getZ() + 0.4f + level.random.nextFloat() * 0.2f;
+            ItemEntity itementity = new ItemEntity(level, x, y, z, itemStack);
+            itementity.setPickUpDelay(5);
             level.addFreshEntity(itementity);
         }
     }

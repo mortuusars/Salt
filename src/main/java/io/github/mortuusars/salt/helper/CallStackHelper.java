@@ -8,8 +8,11 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class CallStackHelper {
-    public static final Predicate<String> RANDOM_TICK = s -> s.equals("randomTick");
-    public static final Predicate<String> ITEM_IN_HAND = s -> s.equals("renderArmWithItem") || s.equals("renderHandsWithItems") || s.equals("renderItemInHand");
+//    public static final Predicate<String> RANDOM_TICK = s -> s.equals("randomTick");
+    public static final Predicate<String> ITEM_IN_HAND = s ->
+            (s.equals("renderArmWithItem") || s.equals("m_109371_"))
+            || (s.equals("renderHandsWithItems") || s.equals("m_109314_"))
+            || (s.equals("renderItemInHand") || s.equals("m_109120_"));
 
     public static boolean isCalledFrom(Predicate<String> methodNamePredicate) {
         try {
