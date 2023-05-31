@@ -81,6 +81,7 @@ public class Salt
 
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
             modEventBus.addListener(ClientEvents::creativeTabEvent);
+            modEventBus.addListener(ClientEvents::onClientSetup);
             MinecraftForge.EVENT_BUS.addListener(ClientEvents::onItemTooltipEvent);
         });
 

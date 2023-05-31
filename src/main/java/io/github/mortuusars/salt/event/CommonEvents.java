@@ -16,8 +16,4 @@ public class CommonEvents {
             Salt.registerDispenserBehaviors();
         });
     }
-
-    public static void onItemUseFinish(LivingEntityUseItemEvent.Finish event) {
-        Salting.onFoodEaten(event);
-    }
 }
