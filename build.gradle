@@ -20,7 +20,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'org.spongepowered.mixin'
 
-version = '1.0.4'
+version = '1.1.0'
 group = 'io.github.mortuusars.salt' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'salt-1.19.2'
 
@@ -173,6 +173,7 @@ repositories {
         url = "https://modmaven.dev"
     }
 
+    maven { url "https://maven.ryanliptak.com/" }
     maven { url "https://maven.architectury.dev/" }
     maven { url "https://maven.shedaniel.me/" }
 }
@@ -203,13 +204,6 @@ dependencies {
         def version = basename.substring(versionSep + 1)
         runtimeOnly fg.deobf("extra-mods:$artifactId:$version")
     }
-
-    // Examples using mod jars from ./libs
-    // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
-
-    // For more info...
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
 }
 
 mixin {

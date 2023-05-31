@@ -3,6 +3,7 @@ package io.github.mortuusars.salt.event;
 import io.github.mortuusars.salt.Salt;
 import io.github.mortuusars.salt.Salting;
 import io.github.mortuusars.salt.client.LangKeys;
+import io.github.mortuusars.salt.integration.AppleSkinHandler;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -20,10 +21,9 @@ import java.util.List;
 public class ClientEvents {
 
     public static void onClientSetup(FMLClientSetupEvent ignoredEvent) {
-//        ItemBlockRenderTypes.setRenderLayer(Salt.Blocks.SALT_CLUSTER.get(), RenderType.cutout());
-//        ItemBlockRenderTypes.setRenderLayer(Salt.Blocks.LARGE_SALT_BUD.get(), RenderType.cutout());
-//        ItemBlockRenderTypes.setRenderLayer(Salt.Blocks.MEDIUM_SALT_BUD.get(), RenderType.cutout());
-//        ItemBlockRenderTypes.setRenderLayer(Salt.Blocks.SMALL_SALT_BUD.get(), RenderType.cutout());
+        if (ModList.get().isLoaded("appleskin")) {
+            MinecraftForge.EVENT_BUS.register(new AppleSkinHandler());
+        }
     }
 
     @SubscribeEvent
@@ -37,7 +37,7 @@ public class ClientEvents {
             List<Component> toolTip = event.getToolTip();
             Salting.FoodValue additionalFoodValue = Salting.getAdditionalFoodValue(itemStack);
             toolTip.add(toolTip.size() >= 1 ? 1 : 0, SaltedTooltip.get(additionalFoodValue.nutrition(),
-                    additionalFoodValue.saturationModifier(), Screen.hasShiftDown()));
+                    additionalFoodValue.saturationModifier(), Screen.hasShiftDown() && !ModList.get().isLoaded("appleskin")));
         }
     }
 

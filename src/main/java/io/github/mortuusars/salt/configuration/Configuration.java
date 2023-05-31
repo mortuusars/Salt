@@ -70,14 +70,14 @@ public class Configuration {
                         "Negative values will decrease hunger restored.")
                 .defineInRange("SaltingNutrition", 2, -20, 20);
         SALTING_ADDITIONAL_SATURATION_MODIFIER = builder
-                .comment("Amount of additional saturation that salted food provides.")
-                .defineInRange("SaltingSaturation", 0.5f, -10.0, 10.0f);
+                .comment("Amount of additional saturation modifier to apply when food is eaten.")
+                .defineInRange("SaltingSaturationModifier", 0.1f, -10.0, 10.0f);
 
         SALTING_INDIVIDUAL_VALUES = builder
                 .comment("Additional nutrition and saturation values per food. Overrides default values (defined above).",
                         "Format: itemRegistryName,nutrition,[saturationModifier].",
                         "Separated by commas. Saturation is optional (will use default value if not specified)")
-                .defineList("SaltingFoodValues", List.of("minecraft:rotten_flesh,1,0.25"), o -> true);
+                .defineList("SaltingFoodValues", List.of("minecraft:rotten_flesh,1,0.05"), o -> true);
 
         builder.pop();
 
@@ -211,7 +211,7 @@ public class Configuration {
         builder.push("Compatibility");
 
         SALTED_OVERLAY_ENABLED = builder
-                .comment("Overlay texture will be drawn over salted foods. Disable if theres an issue with rendering items.")
+                .comment("Overlay texture will be drawn over salted foods. Disable if there's an issue with rendering items.")
                 .define("SaltingOverlayEnabled", true);
 
         builder.pop();
