@@ -75,7 +75,7 @@ public class Advancements extends AdvancementProvider {
                     .display(new ItemStack(Salt.Items.SALT.get()),
                             Salt.translate(LangKeys.ADVANCEMENT_TASTE_EXPLOSION_TITLE),
                             Salt.translate(LangKeys.ADVANCEMENT_TASTE_EXPLOSION_DESCRIPTION),
-                            null, FrameType.TASK, true, false, false)
+                            null, FrameType.TASK, true, true, false)
                     .addCriterion("eat_salted_food", new SaltedFoodConsumedTrigger.TriggerInstance(EntityPredicate.Composite.ANY))
                     .save(advancementConsumer, Salt.resource("adventure/taste_explosion"), existingFileHelper);
 
@@ -84,7 +84,7 @@ public class Advancements extends AdvancementProvider {
                     .display(new ItemStack(Items.CAULDRON),
                             Salt.translate(LangKeys.ADVANCEMENT_BOIL_OFF_TITLE),
                             Salt.translate(LangKeys.ADVANCEMENT_BOIL_OFF_DESCRIPTION),
-                            null,  FrameType.TASK, true, false, false)
+                            null,  FrameType.TASK, true, true, false)
                     .addCriterion("evaporate_water_to_form_salt", new SaltEvaporationTrigger.TriggerInstance(EntityPredicate.Composite.ANY))
                     .save(advancementConsumer, Salt.resource("adventure/boil_off"), existingFileHelper);
 
@@ -93,7 +93,7 @@ public class Advancements extends AdvancementProvider {
                     .display(new ItemStack(Salt.Items.SALT_CLUSTER.get()),
                             Salt.translate(LangKeys.ADVANCEMENT_CRYSTAL_GARDEN_TITLE),
                             Salt.translate(LangKeys.ADVANCEMENT_CRYSTAL_GARDEN_DESCRIPTION),
-                            null,  FrameType.TASK, true, false, false)
+                            null,  FrameType.TASK, true, true, false)
                     .addCriterion("harvest_salt_crystal", new HarvestSaltCrystalTrigger.TriggerInstance(EntityPredicate.Composite.ANY))
                     .save(advancementConsumer, Salt.resource("adventure/crystal_garden"), existingFileHelper);
         }
