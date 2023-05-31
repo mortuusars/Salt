@@ -16,12 +16,4 @@ public class CommonEvents {
             Salt.registerDispenserBehaviors();
         });
     }
-
-    public static void onItemUseFinish(LivingEntityUseItemEvent.Finish event) {
-        Salting.onFoodEaten(event);
-    }
-
-//    public static void onBiomeLoadingEvent(final BiomeLoadingEvent event) {
-//        RockSaltGeneration.addFeaturesToGeneration(event);
-//    }
 }

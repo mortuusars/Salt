@@ -72,8 +72,6 @@ public class Salt
         EntityTypes.ENTITY_TYPES.register(modEventBus);
         RecipeSerializers.RECIPE_SERIALIZERS.register(modEventBus);
 
-//        Configuration.COMMON.lo
-
         WorldGenFeatures.FEATURES.register(modEventBus);
         ConfiguredFeatures.CONFIGURED_FEATURES.register(modEventBus);
         PlacedFeatures.PLACED_FEATURES.register(modEventBus);
@@ -81,12 +79,9 @@ public class Salt
         modEventBus.addListener(CommonEvents::onCommonSetup);
 
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-//            modEventBus.register(ClientEvents::onClientSetup);
-//            modEventBus.addListener(ClientEvents::onRegisterModels);
+            modEventBus.addListener(ClientEvents::onClientSetup);
             MinecraftForge.EVENT_BUS.addListener(ClientEvents::onItemTooltipEvent);
         });
-        MinecraftForge.EVENT_BUS.addListener(CommonEvents::onItemUseFinish);
-//        MinecraftForge.EVENT_BUS.addListener(CommonEvents::onBiomeLoadingEvent);
 
         MinecraftForge.EVENT_BUS.register(this);
     }

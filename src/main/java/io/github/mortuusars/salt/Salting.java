@@ -40,22 +40,4 @@ public class Salting {
         return foodValue != null ? foodValue : new FoodValue(Configuration.SALTING_ADDITIONAL_NUTRITION.get(),
                 Configuration.SALTING_ADDITIONAL_SATURATION_MODIFIER.get().floatValue());
     }
-
-    public static void onFoodEaten(LivingEntityUseItemEvent.Finish event) {
-//        ItemStack itemStack = event.getItem();
-//        if (itemStack.getItem().isEdible() && Salting.isSalted(itemStack) && event.getEntityLiving() instanceof Player player) {
-//            FoodValue additionalFoodValue = getAdditionalFoodValue(itemStack);
-//
-//            float additionalNutrition = 0;
-//
-//            FoodProperties foodProperties = itemStack.getFoodProperties(null);
-//            if (foodProperties != null)
-//                additionalNutrition = foodProperties.getNutrition() * additionalFoodValue.saturationModifier;
-//
-//            player.getFoodData().eat(additionalFoodValue.nutrition, additionalFoodValue.saturationModifier);
-//
-//            if (player instanceof ServerPlayer serverPlayer && !serverPlayer.isCreative())
-//                Salt.Advancements.SALTED_FOOD_CONSUMED.trigger(serverPlayer);
-//        }
-    }
 }
