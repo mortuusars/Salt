@@ -11,11 +11,13 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.event.ModelEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import java.util.List;
 

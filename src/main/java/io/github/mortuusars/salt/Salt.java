@@ -85,7 +85,6 @@ public class Salt
             MinecraftForge.EVENT_BUS.addListener(ClientEvents::onItemTooltipEvent);
         });
 
-        MinecraftForge.EVENT_BUS.addListener(CommonEvents::onItemUseFinish);
         MinecraftForge.EVENT_BUS.register(this);
     }
 
