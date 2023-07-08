@@ -1,3 +1,8 @@
+### 2023-07-08 - 1.2.0
+- Added many new foods to can_be_salted tag. Thanks Zap.
+- Reduced the size of Rock Salt deposit but increased the chance of them generating. 
+  - You may need to regenerate the config file for the reduced size to take effect. 
+
 ### 2023-05-31 - 1.1.0
 - Changed how saturation modifier is applied: it will now modify total food nutrition (original + salted) instead 
 of modifying only the additional salted nutrition 
