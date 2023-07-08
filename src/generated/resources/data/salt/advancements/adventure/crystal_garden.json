@@ -7,7 +7,7 @@
     }
   },
   "display": {
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "description": {
       "translate": "salt.advancement.crystal_garden.description"
     },
@@ -25,5 +25,6 @@
     [
       "harvest_salt_crystal"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

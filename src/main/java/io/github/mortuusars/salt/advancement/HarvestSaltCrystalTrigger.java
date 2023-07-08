@@ -2,10 +2,7 @@ package io.github.mortuusars.salt.advancement;
 
 import com.google.gson.JsonObject;
 import io.github.mortuusars.salt.Salt;
-import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
-import net.minecraft.advancements.critereon.DeserializationContext;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+import net.minecraft.advancements.critereon.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.NotNull;
@@ -19,8 +16,8 @@ public class HarvestSaltCrystalTrigger extends SimpleCriterionTrigger<HarvestSal
     }
 
     @Override
-    protected HarvestSaltCrystalTrigger.@NotNull TriggerInstance createInstance(@NotNull JsonObject json, EntityPredicate.@NotNull Composite player, @NotNull DeserializationContext conditionsParser) {
-        return new HarvestSaltCrystalTrigger.TriggerInstance(player);
+    protected HarvestSaltCrystalTrigger.@NotNull TriggerInstance createInstance(@NotNull JsonObject json, ContextAwarePredicate predicate, @NotNull DeserializationContext conditionsParser) {
+        return new HarvestSaltCrystalTrigger.TriggerInstance(predicate);
     }
 
     public void trigger(ServerPlayer player) {
@@ -28,8 +25,8 @@ public class HarvestSaltCrystalTrigger extends SimpleCriterionTrigger<HarvestSal
     }
 
     public static class TriggerInstance extends AbstractCriterionTriggerInstance {
-        public TriggerInstance(EntityPredicate.Composite player) {
-            super(HarvestSaltCrystalTrigger.ID, player);
+        public TriggerInstance(ContextAwarePredicate predicate) {
+            super(HarvestSaltCrystalTrigger.ID, predicate);
         }
     }
 }

@@ -42,8 +42,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeSoundType;
@@ -107,23 +106,24 @@ public class Salt
                 () -> new SaltSandBlock(0xe7d5cf, BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.SAND)));
 
         public static final RegistryObject<SaltBlock> ROCK_SALT_ORE = BLOCKS.register("rock_salt_ore",
-                () -> new SaltBlock(net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(), BlockBehaviour.Properties.of(Material.STONE)
-                        .color(MaterialColor.COLOR_LIGHT_GRAY)
+                () -> new SaltBlock(net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(), BlockBehaviour.Properties.of()
+                        .mapColor(MapColor.COLOR_LIGHT_GRAY)
                         .randomTicks()
                         .strength(2.5F)
                         .requiresCorrectToolForDrops()
                         .sound(Salt.Sounds.Types.SALT)));
         public static final RegistryObject<SaltBlock> DEEPSLATE_ROCK_SALT_ORE = BLOCKS.register("deepslate_rock_salt_ore",
                 () -> new SaltBlock(net.minecraft.world.level.block.Blocks.DEEPSLATE.defaultBlockState(), BlockBehaviour.Properties.copy(ROCK_SALT_ORE.get())
-                        .color(MaterialColor.COLOR_GRAY)));
+                        .mapColor(MapColor.COLOR_GRAY)));
 
         public static final RegistryObject<SaltBlock> RAW_ROCK_SALT_BLOCK = BLOCKS.register("raw_rock_salt_block",
                 () -> new SaltBlock(BlockBehaviour.Properties.copy(ROCK_SALT_ORE.get())
                         .sound(Sounds.Types.SALT_CLUSTER)));
 
         public static final RegistryObject<SaltClusterBlock> SALT_CLUSTER = BLOCKS.register("salt_cluster",
-                () -> new SaltClusterBlock(7, 3, BlockBehaviour.Properties.of(Material.DECORATION)
-                        .color(MaterialColor.COLOR_LIGHT_GRAY)
+                () -> new SaltClusterBlock(7, 3, BlockBehaviour.Properties.of()
+                        .mapColor(MapColor.COLOR_LIGHT_GRAY)
+                        .noOcclusion()
                         .randomTicks()
                         .strength(1.5F)
                         .sound(Salt.Sounds.Types.SALT_CLUSTER)
@@ -150,7 +150,8 @@ public class Salt
 
         public static final RegistryObject<SaltBlock> SALT_LAMP = BLOCKS.register("salt_lamp",
                 () -> new SaltBlock(net.minecraft.world.level.block.Blocks.SPRUCE_SLAB.defaultBlockState(),
-                        BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_ORANGE)
+                        BlockBehaviour.Properties.of()
+                                .mapColor(MapColor.COLOR_ORANGE)
                                 .sound(Salt.Sounds.Types.SALT)
                                 .randomTicks()
                                 .strength(2f)

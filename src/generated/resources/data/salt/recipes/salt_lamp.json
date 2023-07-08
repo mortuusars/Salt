@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "salt:salt_lamp"
-  }
+  },
+  "show_notification": true
 }

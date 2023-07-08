@@ -12,7 +12,7 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
@@ -24,13 +24,13 @@ import java.util.List;
 @Mod.EventBusSubscriber(modid = Salt.ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientEvents {
 
-    public static void creativeTabEvent(CreativeModeTabEvent.BuildContents event) {
-        if (event.getTab() == CreativeModeTabs.INGREDIENTS) {
+    public static void creativeTabEvent(BuildCreativeModeTabContentsEvent event) {
+        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
             event.accept(Salt.Items.SALT);
             event.accept(Salt.Items.RAW_ROCK_SALT);
         }
 
-        if (event.getTab() == CreativeModeTabs.NATURAL_BLOCKS) {
+        if (event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS) {
             event.accept(Salt.Items.SALT_BLOCK);
             event.accept(Salt.Items.ROCK_SALT_ORE);
             event.accept(Salt.Items.DEEPSLATE_ROCK_SALT_ORE);
@@ -38,7 +38,7 @@ public class ClientEvents {
             event.accept(Salt.Items.DEEPSLATE_ROCK_SALT_ORE);
         }
 
-        if (event.getTab() == CreativeModeTabs.BUILDING_BLOCKS) {
+        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
             event.accept(Salt.Items.SMALL_SALT_BUD);
             event.accept(Salt.Items.MEDIUM_SALT_BUD);
             event.accept(Salt.Items.LARGE_SALT_BUD);

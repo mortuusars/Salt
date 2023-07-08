@@ -8,6 +8,7 @@ import io.github.mortuusars.salt.client.LangKeys;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.FrameType;
+import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
@@ -49,7 +50,7 @@ public class Advancements extends AdvancementProvider
                             Salt.translate(LangKeys.ADVANCEMENT_TASTE_EXPLOSION_TITLE),
                             Salt.translate(LangKeys.ADVANCEMENT_TASTE_EXPLOSION_DESCRIPTION),
                             null, FrameType.TASK, true, true, false)
-                    .addCriterion("eat_salted_food", new SaltedFoodConsumedTrigger.TriggerInstance(EntityPredicate.Composite.ANY))
+                    .addCriterion("eat_salted_food", new SaltedFoodConsumedTrigger.TriggerInstance(ContextAwarePredicate.ANY))
                     .save(advancementConsumer, Salt.resource("adventure/taste_explosion"), existingFileHelper);
 
             Advancement boil_off = Advancement.Builder.advancement()
@@ -58,7 +59,7 @@ public class Advancements extends AdvancementProvider
                             Salt.translate(LangKeys.ADVANCEMENT_BOIL_OFF_TITLE),
                             Salt.translate(LangKeys.ADVANCEMENT_BOIL_OFF_DESCRIPTION),
                             null,  FrameType.TASK, true, true, false)
-                    .addCriterion("evaporate_water_to_form_salt", new SaltEvaporationTrigger.TriggerInstance(EntityPredicate.Composite.ANY))
+                    .addCriterion("evaporate_water_to_form_salt", new SaltEvaporationTrigger.TriggerInstance(ContextAwarePredicate.ANY))
                     .save(advancementConsumer, Salt.resource("adventure/boil_off"), existingFileHelper);
 
             Advancement crystal_garden = Advancement.Builder.advancement()
@@ -67,7 +68,7 @@ public class Advancements extends AdvancementProvider
                             Salt.translate(LangKeys.ADVANCEMENT_CRYSTAL_GARDEN_TITLE),
                             Salt.translate(LangKeys.ADVANCEMENT_CRYSTAL_GARDEN_DESCRIPTION),
                             null,  FrameType.TASK, true, true, false)
-                    .addCriterion("harvest_salt_crystal", new HarvestSaltCrystalTrigger.TriggerInstance(EntityPredicate.Composite.ANY))
+                    .addCriterion("harvest_salt_crystal", new HarvestSaltCrystalTrigger.TriggerInstance(ContextAwarePredicate.ANY))
                     .save(advancementConsumer, Salt.resource("adventure/crystal_garden"), existingFileHelper);
         }
     }

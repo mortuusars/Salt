@@ -30,5 +30,6 @@
     "recipes": [
       "salt:salt_from_raw_rock_salt"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -11,7 +11,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -33,7 +32,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -85,12 +84,13 @@ public class SaltCauldronBlock extends LayeredCauldronBlock {
 
     protected void dropContents(ServerLevel level, BlockState state, BlockPos pos) {
         ResourceLocation lootTablePath = Salt.resource("cauldron_evaporation/salt_" + getFullnessString(state));
-        LootTable lootTable = level.getServer().getLootTables().get(lootTablePath);
+        LootTable lootTable = level.getServer().getLootData().getLootTable(lootTablePath);
 
-        LootContext.Builder lootContextBuilder = (new LootContext.Builder(level))
-                .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(pos));
+        LootParams lootParams = new LootParams.Builder(level)
+                .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(pos))
+                .create(LootContextParamSets.EMPTY);
 
-        List<ItemStack> randomItems = lootTable.getRandomItems(lootContextBuilder.create(LootContextParamSets.EMPTY));
+        List<ItemStack> randomItems = lootTable.getRandomItems(lootParams);
 
         for (ItemStack itemStack : randomItems) {
             float x = pos.getX() + 0.4f + level.random.nextFloat() * 0.2f;
@@ -114,7 +114,7 @@ public class SaltCauldronBlock extends LayeredCauldronBlock {
     public void entityInside(@NotNull BlockState state, Level level, BlockPos pos, @NotNull Entity entity) {
         if (Heater.isHeatSource(level.getBlockState(pos.below()))) {
             if (!entity.fireImmune() && entity instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity)entity)) {
-                entity.hurt(DamageSource.IN_FIRE, 1f);
+                entity.hurt(level.damageSources().onFire(), 1f);
             }
         }
     }

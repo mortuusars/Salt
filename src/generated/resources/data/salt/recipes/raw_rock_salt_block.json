@@ -13,5 +13,6 @@
   ],
   "result": {
     "item": "salt:raw_rock_salt_block"
-  }
+  },
+  "show_notification": true
 }

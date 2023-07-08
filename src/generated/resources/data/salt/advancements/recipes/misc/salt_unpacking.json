@@ -30,5 +30,6 @@
     "recipes": [
       "salt:salt_unpacking"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

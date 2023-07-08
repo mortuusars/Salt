@@ -13,5 +13,6 @@
   ],
   "result": {
     "item": "salt:salt_block"
-  }
+  },
+  "show_notification": true
 }

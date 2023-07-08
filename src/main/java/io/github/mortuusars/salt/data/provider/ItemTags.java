@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class ItemTags extends ItemTagsProvider {
     public ItemTags(DataGenerator generator, CompletableFuture<HolderLookup.Provider> pLookupProvider, BlockTagsProvider blockTagsProvider, @Nullable ExistingFileHelper existingFileHelper) {
-        super(generator.getPackOutput(), pLookupProvider, blockTagsProvider, Salt.ID, existingFileHelper);
+        super(generator.getPackOutput(), pLookupProvider, blockTagsProvider.contentsGetter(), Salt.ID, existingFileHelper);
     }
 
 

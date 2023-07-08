@@ -6,6 +6,7 @@ import com.google.gson.JsonParseException;
 import io.github.mortuusars.salt.Salt;
 import io.github.mortuusars.salt.Salting;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -61,7 +62,7 @@ public class SaltingRecipe extends CustomRecipe {
     }
 
     @Override
-    public @NotNull ItemStack assemble(CraftingContainer craftingContainer) {
+    public @NotNull ItemStack assemble(CraftingContainer craftingContainer, @NotNull RegistryAccess registryAccess) {
         for (int index = 0; index < craftingContainer.getContainerSize(); index++) {
             ItemStack itemStack = craftingContainer.getItem(index);
 

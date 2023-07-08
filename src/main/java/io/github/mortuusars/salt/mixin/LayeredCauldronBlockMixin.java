@@ -22,7 +22,7 @@ public class LayeredCauldronBlockMixin {
     private void onEntityInside(BlockState state, Level level, BlockPos pos, Entity entity, CallbackInfo ci) {
         if (Configuration.EVAPORATION_ENABLED.get() && state.is(Blocks.WATER_CAULDRON) && Heater.isHeatSource(level.getBlockState(pos.below()))) {
             if (!entity.fireImmune() && entity instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entity)) {
-                entity.hurt(DamageSource.IN_FIRE, 1f);
+                entity.hurt(level.damageSources().onFire(), 1f);
             }
         }
     }
