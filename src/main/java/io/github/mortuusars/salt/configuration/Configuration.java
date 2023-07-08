@@ -168,7 +168,7 @@ public class Configuration {
 
         ROCK_SALT_SIZE = builder
                 .comment("Size of the Rock Salt deposit")
-                .defineInRange("RockSaltSize", 64, 1, 64);
+                .defineInRange("RockSaltSize", 24, 1, 64);
 
         ROCK_SALT_CLUSTER_CHANCE = builder
                 .comment("Chance of the Salt Clusters generating on the deposits (per side)")
