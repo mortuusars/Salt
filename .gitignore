@@ -22,6 +22,8 @@ mcmodsrepo
 eclipse
 run
 
+extra-mods-*
+
 # Files from Forge MDK
 forge*changelog.txt
 /extra-mods-1.18.2/
