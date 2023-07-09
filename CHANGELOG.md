@@ -1,3 +1,6 @@
+### 2023-07-10 - 1.2.1
+- Added Simplified Chinese localization. (junshengxie)
+
 ### 2023-07-08 - 1.2.0
 - Added many new foods to can_be_salted tag. Thanks Zap.
 - Reduced the size of Rock Salt deposit but increased the chance of them generating. 
