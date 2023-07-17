@@ -1,3 +1,6 @@
+### 2023-07-18 - 1.2.2
+- Fixed Salt Cauldron not dropping items.
+
 ### 2023-07-10 - 1.2.1
 - Added Simplified Chinese localization. (junshengxie)
 

@@ -6,9 +6,19 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "salt:salt"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
           "conditions": [
             {
-              "chance": 0.75,
+              "chance": 0.25,
               "condition": "minecraft:random_chance"
             }
           ],
@@ -18,5 +28,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "salt:cauldron_evaporation/salt_level_1"
+  "random_sequence": "salt:cauldron_evaporation/salt_full"
 }

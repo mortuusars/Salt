@@ -43,8 +43,8 @@
           ]
         }
       ],
-      "name": "rock_salt_ore",
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "salt:blocks/rock_salt_ore"
 }

@@ -43,8 +43,8 @@
           ]
         }
       ],
-      "name": "deepslate_rock_salt_ore",
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "salt:blocks/deepslate_rock_salt_ore"
 }

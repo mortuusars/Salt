@@ -1,113 +1,82 @@
 package io.github.mortuusars.salt.data.provider;
 
 import io.github.mortuusars.salt.Salt;
-import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.MinMaxBounds;
-import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DataProvider;
-import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.data.loot.LootTableSubProvider;
+import net.minecraft.data.loot.packs.VanillaBlockLoot;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import net.minecraft.world.level.storage.loot.LootDataType;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
+import net.minecraft.world.level.storage.loot.entries.DynamicLoot;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
-import net.minecraft.world.level.storage.loot.functions.ApplyExplosionDecay;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
+import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
+import net.minecraft.world.level.storage.loot.functions.*;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
-import java.nio.file.Path;
-import java.util.Collections;
-import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
+import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
 
-@SuppressWarnings({"unused", "SameParameterValue"})
-public class LootTables extends LootTableProvider {
-    private static final Logger LOGGER = LogManager.getLogger();
-    private final DataGenerator generator;
+public class LootTables extends VanillaBlockLoot {
+    public static class BlockLoot extends VanillaBlockLoot {
+        @Override
+        protected void generate() {
+            dropSelf(Salt.Blocks.SALT_BLOCK.get());
+            dropSelf(Salt.Blocks.RAW_ROCK_SALT_BLOCK.get());
+            dropSelf(Salt.Blocks.SALT_LAMP.get());
+            dropOther(Salt.Blocks.SALT_CAULDRON.get(), Blocks.CAULDRON);
 
-    public LootTables(DataGenerator generator) {
-        super(generator.getPackOutput(), BuiltInLootTables.all(), Collections.emptyList());
-        this.generator = generator;
+            add(Salt.Blocks.ROCK_SALT_ORE.get(), block -> createOreDrop(block, Salt.Items.RAW_ROCK_SALT.get()));
+            add(Salt.Blocks.DEEPSLATE_ROCK_SALT_ORE.get(), block -> createOreDrop(block, Salt.Items.RAW_ROCK_SALT.get()));
+
+            dropWhenSilkTouch(Salt.Blocks.SMALL_SALT_BUD.get());
+            dropWhenSilkTouch(Salt.Blocks.MEDIUM_SALT_BUD.get());
+            dropWhenSilkTouch(Salt.Blocks.LARGE_SALT_BUD.get());
+            add(Salt.Blocks.SALT_CLUSTER.get(), block -> createSilkTouchDispatchTable(block, LootItem.lootTableItem(Salt.Items.RAW_ROCK_SALT.get())
+                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))
+                    .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
+                    .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.CLUSTER_MAX_HARVESTABLES)))
+                    .otherwise(this.applyExplosionDecay(block, LootItem.lootTableItem(Salt.Items.SALT_CLUSTER.get())
+                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)))))));
+        }
+
+        @Override
+        protected @NotNull Iterable<Block> getKnownBlocks() {
+            return ForgeRegistries.BLOCKS.getEntries().stream()
+                    .filter(e -> e.getKey().location().getNamespace().equals(Salt.ID))
+                    .map(Map.Entry::getValue)
+                    .collect(Collectors.toList());
+        }
     }
 
-    @Override
-    public @NotNull CompletableFuture<?> run(@NotNull CachedOutput cache) {
-        // Not using CompletableFuture because some loot tables not generating. ¯\_(ツ)_/¯
-//        return CompletableFuture.runAsync(() -> {
-
-            // Blocks:
-
-            writeTable(cache, Salt.Blocks.SALT_CAULDRON.getId(),
-                    LootTable.lootTable()
-                            .setParamSet(LootContextParamSets.BLOCK)
-                            .withPool(
-                                    LootPool.lootPool()
-                                            .setRolls(ConstantValue.exactly(1))
-                                            .add(LootItem.lootTableItem(Items.CAULDRON))
-                                            .when(ExplosionCondition.survivesExplosion()))
-                            .build());
-
-            dropsSelf(cache, Salt.Items.SALT_BLOCK.get());
-            dropsSelf(cache, Salt.Items.RAW_ROCK_SALT_BLOCK.get());
-
-            writeTable(cache, new ResourceLocation("salt:blocks/" + Salt.Blocks.ROCK_SALT_ORE.getId().getPath()),
-                    silkTouchOrDefaultTable(Salt.Blocks.ROCK_SALT_ORE.get(), Salt.Items.RAW_ROCK_SALT.get(), 1, 3)
-                            .build());
-
-            writeTable(cache, new ResourceLocation("salt:blocks/" + Salt.Blocks.DEEPSLATE_ROCK_SALT_ORE.getId()
-                            .getPath()),
-                    silkTouchOrDefaultTable(Salt.Blocks.DEEPSLATE_ROCK_SALT_ORE.get(), Salt.Items.RAW_ROCK_SALT.get(), 1, 3)
-                            .build());
-
-            writeTable(cache, new ResourceLocation("salt:blocks/" + Salt.Blocks.SALT_CLUSTER.getId().getPath()),
-                    silkTouchOrDefaultTable(Salt.Blocks.SALT_CLUSTER.get(), Salt.Items.RAW_ROCK_SALT.get(), 1, 3)
-                            .build());
-
-            writeTable(cache, new ResourceLocation("salt:blocks/" + Salt.Blocks.LARGE_SALT_BUD.getId()
-                    .getPath()), silkTouchTable(Salt.Items.LARGE_SALT_BUD.get()).build());
-            writeTable(cache, new ResourceLocation("salt:blocks/" + Salt.Blocks.MEDIUM_SALT_BUD.getId()
-                    .getPath()), silkTouchTable(Salt.Items.MEDIUM_SALT_BUD.get()).build());
-            writeTable(cache, new ResourceLocation("salt:blocks/" + Salt.Blocks.SMALL_SALT_BUD.getId()
-                    .getPath()), silkTouchTable(Salt.Items.SMALL_SALT_BUD.get()).build());
-
-            dropsSelf(cache, Salt.Items.SALT_LAMP.get());
-
-            // Evaporated salt:
-
-            writeTable(cache, Salt.resource("cauldron_evaporation/salt_level_1"),
+    public static class GameplayLoot implements LootTableSubProvider {
+        @Override
+        public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer) {
+            consumer.accept(Salt.resource("cauldron_evaporation/salt_level_1"),
                     LootTable.lootTable().withPool(
                                     LootPool.lootPool()
                                             .setRolls(ConstantValue.exactly(1))
                                             .add(LootItem.lootTableItem(Salt.Items.SALT.get())
-                                                    .when(LootItemRandomChanceCondition.randomChance(0.75f))))
-                            .build());
+                                                    .when(LootItemRandomChanceCondition.randomChance(0.75f)))));
 
-            writeTable(cache, Salt.resource("cauldron_evaporation/salt_level_2"),
+            consumer.accept(Salt.resource("cauldron_evaporation/salt_level_2"),
                     LootTable.lootTable().withPool(
                                     LootPool.lootPool()
                                             .setRolls(ConstantValue.exactly(1))
                                             .add(LootItem.lootTableItem(Salt.Items.SALT.get())
-                                                    .when(LootItemRandomChanceCondition.randomChance(0.9f))))
-                            .build());
+                                                    .when(LootItemRandomChanceCondition.randomChance(0.9f)))));
 
-            writeTable(cache, Salt.resource("cauldron_evaporation/salt_full"),
+            consumer.accept(Salt.resource("cauldron_evaporation/salt_full"),
                     LootTable.lootTable().withPool(
                                     LootPool.lootPool()
                                             .setRolls(ConstantValue.exactly(1))
@@ -116,53 +85,7 @@ public class LootTables extends LootTableProvider {
                                     LootPool.lootPool()
                                             .setRolls(ConstantValue.exactly(1))
                                             .add(LootItem.lootTableItem(Salt.Items.SALT.get())
-                                                    .when(LootItemRandomChanceCondition.randomChance(0.25f))))
-                            .build());
-//        });
-
-        return CompletableFuture.runAsync(() -> {});
-    }
-
-    private void dropsSelf(CachedOutput cache, BlockItem blockItem) {
-        writeTable(cache, new ResourceLocation("salt:blocks/" + Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(blockItem.getBlock()))
-                        .getPath()),
-                LootTable.lootTable()
-                        .setParamSet(LootContextParamSets.BLOCK)
-                        .withPool(
-                        LootPool.lootPool()
-                                .setRolls(ConstantValue.exactly(1))
-                                .add(LootItem.lootTableItem(blockItem)))
-                        .build());
-    }
-
-    protected LootTable.Builder silkTouchTable(Item lootItem) {
-        return LootTable.lootTable()
-                .setParamSet(LootContextParamSets.BLOCK)
-                .withPool(
-                LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
-                        .add(LootItem.lootTableItem(lootItem)
-                                .when(MatchTool.toolMatches(ItemPredicate.Builder.item()
-                                        .hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1)))))));
-    }
-
-    protected LootTable.Builder silkTouchOrDefaultTable(Block block, Item lootItem, float min, float max) {
-        LootPool.Builder builder = LootPool.lootPool()
-                .name(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath())
-                .setRolls(ConstantValue.exactly(1))
-                .add(AlternativesEntry.alternatives(
-                                LootItem.lootTableItem(block)
-                                        .when(MatchTool.toolMatches(ItemPredicate.Builder.item()
-                                                .hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))))),
-                                LootItem.lootTableItem(lootItem)
-                                        .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
-                                        .apply(ApplyExplosionDecay.explosionDecay())));
-        return LootTable.lootTable().setParamSet(LootContextParamSets.BLOCK).withPool(builder);
-    }
-
-    private void writeTable(CachedOutput cache, ResourceLocation location, LootTable lootTable) {
-        Path outputFolder = this.generator.getPackOutput().getOutputFolder();
-        Path path = outputFolder.resolve("data/" + location.getNamespace() + "/loot_tables/" + location.getPath() + ".json");
-        DataProvider.saveStable(cache, LootDataType.TABLE.parser().toJsonTree(lootTable), path);
+                                                    .when(LootItemRandomChanceCondition.randomChance(0.25f)))));
+        }
     }
 }
