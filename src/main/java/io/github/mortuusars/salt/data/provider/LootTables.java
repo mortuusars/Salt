@@ -6,6 +6,7 @@ import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.data.loot.packs.VanillaBlockLoot;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -42,12 +43,21 @@ public class LootTables extends VanillaBlockLoot {
             dropWhenSilkTouch(Salt.Blocks.SMALL_SALT_BUD.get());
             dropWhenSilkTouch(Salt.Blocks.MEDIUM_SALT_BUD.get());
             dropWhenSilkTouch(Salt.Blocks.LARGE_SALT_BUD.get());
-            add(Salt.Blocks.SALT_CLUSTER.get(), block -> createSilkTouchDispatchTable(block, LootItem.lootTableItem(Salt.Items.RAW_ROCK_SALT.get())
-                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))
-                    .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
-                    .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.CLUSTER_MAX_HARVESTABLES)))
-                    .otherwise(this.applyExplosionDecay(block, LootItem.lootTableItem(Salt.Items.SALT_CLUSTER.get())
-                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)))))));
+//            add(Salt.Blocks.SALT_CLUSTER.get(), block -> createSilkTouchDispatchTable(block, LootItem.lootTableItem(Salt.Items.RAW_ROCK_SALT.get())
+//                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))
+//                    .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
+//                    .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.CLUSTER_MAX_HARVESTABLES)))
+//                    .otherwise(this.applyExplosionDecay(block, LootItem.lootTableItem(Salt.Items.RAW_ROCK_SALT.get())
+//                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)))))));
+
+            add(Salt.Blocks.SALT_CLUSTER.get(), (block) ->
+                    createSilkTouchDispatchTable(block, LootItem.lootTableItem(Salt.Items.RAW_ROCK_SALT.get())
+                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))
+                            .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
+                            .when(MatchTool.toolMatches(ItemPredicate.Builder.item()
+                                    .of(ItemTags.CLUSTER_MAX_HARVESTABLES)))
+                            .otherwise(this.applyExplosionDecay(block, LootItem.lootTableItem(Salt.Items.RAW_ROCK_SALT.get())
+                                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))))));
         }
 
         @Override
@@ -64,17 +74,17 @@ public class LootTables extends VanillaBlockLoot {
         public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer) {
             consumer.accept(Salt.resource("cauldron_evaporation/salt_level_1"),
                     LootTable.lootTable().withPool(
-                                    LootPool.lootPool()
-                                            .setRolls(ConstantValue.exactly(1))
-                                            .add(LootItem.lootTableItem(Salt.Items.SALT.get())
-                                                    .when(LootItemRandomChanceCondition.randomChance(0.75f)))));
+                            LootPool.lootPool()
+                                    .setRolls(ConstantValue.exactly(1))
+                                    .add(LootItem.lootTableItem(Salt.Items.SALT.get())
+                                            .when(LootItemRandomChanceCondition.randomChance(0.75f)))));
 
             consumer.accept(Salt.resource("cauldron_evaporation/salt_level_2"),
                     LootTable.lootTable().withPool(
-                                    LootPool.lootPool()
-                                            .setRolls(ConstantValue.exactly(1))
-                                            .add(LootItem.lootTableItem(Salt.Items.SALT.get())
-                                                    .when(LootItemRandomChanceCondition.randomChance(0.9f)))));
+                            LootPool.lootPool()
+                                    .setRolls(ConstantValue.exactly(1))
+                                    .add(LootItem.lootTableItem(Salt.Items.SALT.get())
+                                            .when(LootItemRandomChanceCondition.randomChance(0.9f)))));
 
             consumer.accept(Salt.resource("cauldron_evaporation/salt_full"),
                     LootTable.lootTable().withPool(
