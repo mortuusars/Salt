@@ -1,6 +1,5 @@
-### 2023-12-23 - 1.2.3
+### 2023-12-27 - 1.2.3
 - Added Salt item to `forge:salt`, `forge:dusts` and `forge:dusts/salt` tags. 
-- Fixed Salt Cluster dropping two clusters instead of Raw Rock Salt when broken with empty hand. 
 
 ### 2023-07-18 - 1.2.2
 - Fixed Salt Cauldron not dropping items.
