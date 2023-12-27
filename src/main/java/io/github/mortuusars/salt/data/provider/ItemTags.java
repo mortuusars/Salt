@@ -1,36 +1,32 @@
 package io.github.mortuusars.salt.data.provider;
 
 import io.github.mortuusars.salt.Salt;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import org.jetbrains.annotations.NotNull;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.concurrent.CompletableFuture;
-
 public class ItemTags extends ItemTagsProvider {
-    public ItemTags(DataGenerator generator, CompletableFuture<HolderLookup.Provider> pLookupProvider, BlockTagsProvider blockTagsProvider, @Nullable ExistingFileHelper existingFileHelper) {
-        super(generator.getPackOutput(), pLookupProvider, blockTagsProvider.contentsGetter(), Salt.ID, existingFileHelper);
+    public ItemTags(DataGenerator generator, BlockTagsProvider blockTagsProvider, @Nullable ExistingFileHelper existingFileHelper) {
+        super(generator, blockTagsProvider, Salt.ID, existingFileHelper);
     }
 
-
     @Override
-    protected void addTags(HolderLookup.@NotNull Provider provider) {
+    protected void addTags() {
         tag(Salt.ItemTags.FORGE_TORCHES)
                 .add(Items.TORCH);
+
+        tag(Salt.ItemTags.FORGE_SALTS)
+                .add(Salt.Items.SALT.get());
 
         tag(TagKey.create(ForgeRegistries.ITEMS.getRegistryKey(), new ResourceLocation("forge:salt")));
         tag(TagKey.create(ForgeRegistries.ITEMS.getRegistryKey(), new ResourceLocation("forge:dusts")));
         tag(TagKey.create(ForgeRegistries.ITEMS.getRegistryKey(), new ResourceLocation("forge:dusts/salt")));
-
-        tag(Salt.ItemTags.FORGE_SALTS)
-                .add(Salt.Items.SALT.get());
 
 
         // CAN_BE_SALTED tag is created manually now.
@@ -309,17 +305,5 @@ public class ItemTags extends ItemTagsProvider {
 //                "fried_egg",
 //                "chicken_nugget"
 //        );
-    }
-
-    private void optionalTags(TagAppender<Item> tag, String namespace, String... items) {
-        for (String item : items) {
-            tag.addOptionalTag(new ResourceLocation(namespace, item));
-        }
-    }
-
-    private void optionalItems(TagAppender<Item> tag, String namespace, String... items) {
-        for (String item : items) {
-            tag.addOptional(new ResourceLocation(namespace, item));
-        }
     }
 }
