@@ -6,20 +6,16 @@ import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.data.loot.packs.VanillaBlockLoot;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.entries.DynamicLoot;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
-import net.minecraft.world.level.storage.loot.functions.*;
+import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
-import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
@@ -43,12 +39,6 @@ public class LootTables extends VanillaBlockLoot {
             dropWhenSilkTouch(Salt.Blocks.SMALL_SALT_BUD.get());
             dropWhenSilkTouch(Salt.Blocks.MEDIUM_SALT_BUD.get());
             dropWhenSilkTouch(Salt.Blocks.LARGE_SALT_BUD.get());
-//            add(Salt.Blocks.SALT_CLUSTER.get(), block -> createSilkTouchDispatchTable(block, LootItem.lootTableItem(Salt.Items.RAW_ROCK_SALT.get())
-//                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))
-//                    .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
-//                    .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.CLUSTER_MAX_HARVESTABLES)))
-//                    .otherwise(this.applyExplosionDecay(block, LootItem.lootTableItem(Salt.Items.RAW_ROCK_SALT.get())
-//                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)))))));
 
             add(Salt.Blocks.SALT_CLUSTER.get(), (block) ->
                     createSilkTouchDispatchTable(block, LootItem.lootTableItem(Salt.Items.RAW_ROCK_SALT.get())

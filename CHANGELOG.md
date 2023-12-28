@@ -1,3 +1,6 @@
+### 2023-12-28 - 1.2.4
+- Tag changes from 1.2.3 are actually applied now.
+
 ### 2023-12-23 - 1.2.3
 - Added Salt item to `forge:salt`, `forge:dusts` and `forge:dusts/salt` tags. 
 - Fixed Salt Cluster dropping two clusters instead of Raw Rock Salt when broken with empty hand. 
