@@ -1,4 +1,4 @@
-### 2023-12-27 - 1.2.3
+### 2023-12-28 - 1.2.4
 - Added Salt item to `forge:salt`, `forge:dusts` and `forge:dusts/salt` tags. 
 
 ### 2023-07-18 - 1.2.2
