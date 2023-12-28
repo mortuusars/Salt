@@ -24,8 +24,11 @@ public class ItemTags extends ItemTagsProvider {
         tag(Salt.ItemTags.FORGE_SALTS)
                 .add(Salt.Items.SALT.get());
 
-        tag(TagKey.create(ForgeRegistries.ITEMS.getRegistryKey(), new ResourceLocation("forge:salt")));
-        tag(TagKey.create(ForgeRegistries.ITEMS.getRegistryKey(), new ResourceLocation("forge:dusts")));
-        tag(TagKey.create(ForgeRegistries.ITEMS.getRegistryKey(), new ResourceLocation("forge:dusts/salt")));
+        tag(TagKey.create(ForgeRegistries.ITEMS.getRegistryKey(), new ResourceLocation("forge:salt")))
+                .add(Salt.Items.SALT.get());
+        tag(TagKey.create(ForgeRegistries.ITEMS.getRegistryKey(), new ResourceLocation("forge:dusts")))
+                .add(Salt.Items.SALT.get());
+        tag(TagKey.create(ForgeRegistries.ITEMS.getRegistryKey(), new ResourceLocation("forge:dusts/salt")))
+                .add(Salt.Items.SALT.get());
     }
 }

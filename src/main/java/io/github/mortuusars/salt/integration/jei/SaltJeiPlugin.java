@@ -20,6 +20,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 @JeiPlugin
 public class SaltJeiPlugin implements IModPlugin {
@@ -31,12 +34,12 @@ public class SaltJeiPlugin implements IModPlugin {
     private static final ResourceLocation ID = Salt.resource("jei_plugin");
 
     @Override
-    public ResourceLocation getPluginUid() {
+    public @NotNull ResourceLocation getPluginUid() {
         return ID;
     }
 
     @Override
-    public void registerCategories(IRecipeCategoryRegistration registration) {
+    public void registerCategories(@NotNull IRecipeCategoryRegistration registration) {
         if (isSaltEvaporationEnabled())
             registration.addRecipeCategories(new SaltEvaporationCategory(registration.getJeiHelpers().getGuiHelper()));
 
@@ -45,7 +48,7 @@ public class SaltJeiPlugin implements IModPlugin {
     }
 
     @Override
-    public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
+    public void registerRecipeCatalysts(@NotNull IRecipeCatalystRegistration registration) {
         if (isSaltEvaporationEnabled())
             registration.addRecipeCatalyst(new ItemStack(Items.CAULDRON), SALT_EVAPORATION_RECIPE_TYPE);
 
@@ -54,7 +57,7 @@ public class SaltJeiPlugin implements IModPlugin {
     }
 
     @Override
-    public void registerRecipes(IRecipeRegistration registration) {
+    public void registerRecipes(@NotNull IRecipeRegistration registration) {
         if (isSaltEvaporationEnabled())
             registration.addRecipes(SALT_EVAPORATION_RECIPE_TYPE, ImmutableList.of(new SaltEvaporationDummy()));
 
@@ -72,7 +75,7 @@ public class SaltJeiPlugin implements IModPlugin {
         return Configuration.JEI_SALT_EVAPORATION_ENABLED.get()
                 && Configuration.EVAPORATION_ENABLED.get()
                 && Configuration.EVAPORATION_CHANCE.get() > 0.0d
-                && !ForgeRegistries.BLOCKS.tags().getTag(Salt.BlockTags.HEATERS).isEmpty();
+                && !Objects.requireNonNull(ForgeRegistries.BLOCKS.tags()).getTag(Salt.BlockTags.HEATERS).isEmpty();
     }
 
     private boolean isSaltCrystalGrowingEnabled() {

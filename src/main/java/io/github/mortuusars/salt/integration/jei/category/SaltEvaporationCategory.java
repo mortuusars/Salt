@@ -19,9 +19,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class SaltEvaporationCategory implements IRecipeCategory<SaltEvaporationDummy> {
     public static final ResourceLocation UID = Salt.resource("salt_evaporation");
@@ -44,7 +46,7 @@ public class SaltEvaporationCategory implements IRecipeCategory<SaltEvaporationD
     }
 
     @Override
-    public List<Component> getTooltipStrings(SaltEvaporationDummy recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+    public @NotNull List<Component> getTooltipStrings(@NotNull SaltEvaporationDummy recipe, @NotNull IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
         if ( (mouseX >= 15 && mouseX < 60) && (mouseY >= 8 && mouseY < 50))
             return waterCauldronTooltip;
         else if ( (mouseX >= 15 && mouseX < 60) && (mouseY >= 50 && mouseY < 85))
@@ -56,8 +58,8 @@ public class SaltEvaporationCategory implements IRecipeCategory<SaltEvaporationD
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, SaltEvaporationDummy recipe, IFocusGroup focuses) {
-        Item salt = ForgeRegistries.ITEMS.tags().getTag(Salt.ItemTags.FORGE_SALTS).stream().findFirst()
+    public void setRecipe(IRecipeLayoutBuilder builder, @NotNull SaltEvaporationDummy recipe, @NotNull IFocusGroup focuses) {
+        Item salt = Objects.requireNonNull(ForgeRegistries.ITEMS.tags()).getTag(Salt.ItemTags.FORGE_SALTS).stream().findFirst()
                 .orElse(Salt.Items.SALT.get());
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 122, 14)
@@ -65,20 +67,20 @@ public class SaltEvaporationCategory implements IRecipeCategory<SaltEvaporationD
     }
 
     @Override
-    public RecipeType<SaltEvaporationDummy> getRecipeType() {
+    public @NotNull RecipeType<SaltEvaporationDummy> getRecipeType() {
         return SaltJeiPlugin.SALT_EVAPORATION_RECIPE_TYPE;
     }
 
     @Override
-    public Component getTitle() {
+    public @NotNull Component getTitle() {
         return title;
     }
     @Override
-    public IDrawable getBackground() {
+    public @NotNull IDrawable getBackground() {
         return background;
     }
     @Override
-    public IDrawable getIcon() {
+    public @NotNull IDrawable getIcon() {
         return icon;
     }
 }
