@@ -103,7 +103,9 @@ public class Salt
         private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Salt.ID);
 
         public static final RegistryObject<SandBlock> SALT_BLOCK = BLOCKS.register("salt_block",
-                () -> new SaltSandBlock(0xe7d5cf, BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.SAND)));
+                () -> new SaltSandBlock(0xe7d5cf, BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.SAND)
+                        .mapColor(MapColor.COLOR_LIGHT_GRAY)
+                        .randomTicks()));
 
         public static final RegistryObject<SaltBlock> ROCK_SALT_ORE = BLOCKS.register("rock_salt_ore",
                 () -> new SaltBlock(net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(), BlockBehaviour.Properties.of()

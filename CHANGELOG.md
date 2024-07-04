@@ -1,3 +1,6 @@
+# Unreleased
+- Fixed Salt Block not dissolving in water and not melting ice.
+
 ### 2024-06-20 - 1.2.5
 - Fixed salting recipe not reloading with `/reload` command. 
 - Added french localization.
