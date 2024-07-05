@@ -1,5 +1,6 @@
-# Unreleased
+### 2024-07-05 - 1.2.6
 - Fixed Salt Block not dissolving in water and not melting ice.
+- Fixed #salt:salt_cluster_growables not working for blocks that aren't salt.
 
 ### 2024-06-20 - 1.2.5
 - Fixed salting recipe not reloading with `/reload` command. 

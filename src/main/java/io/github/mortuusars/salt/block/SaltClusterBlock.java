@@ -98,7 +98,6 @@ public class SaltClusterBlock extends Block implements ISaltBlock {
 
     @Override
     public void randomTick(BlockState state, @NotNull ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
-
         // Cluster does not call ISaltBlock#onSaltRandomTick because functionality differs a little
 
         BlockPos basePos = pos.relative(state.getValue(FACING).getOpposite());
@@ -110,10 +109,17 @@ public class SaltClusterBlock extends Block implements ISaltBlock {
 
         if (Dissolving.maybeDissolveInRain(getDissolvedState(state, level, pos, Fluids.WATER), level, pos))
             return;
+    }
 
-        if (state.getValue(FACING) == Direction.UP) {
-            BlockPos belowPos = pos.below();
-            ISaltBlock.maybeGrowCluster(level.getBlockState(belowPos), belowPos, level);
+    @Override
+    public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+        if (ISaltBlock.canGrowCluster(pos, level)) {
+            Fluid drippingFluid = ISaltBlock.getFluidDrippingOn(level, pos);
+
+            if (drippingFluid == Fluids.WATER)
+                ISaltBlock.growCluster(state, pos.below(), level);
+            else if (drippingFluid != Fluids.EMPTY)
+                level.destroyBlock(pos, false);
         }
     }
 

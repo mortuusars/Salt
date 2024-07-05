@@ -53,8 +53,6 @@ public interface ISaltBlock {
         if (Dissolving.maybeDissolveInRain(getDissolvedState(state, level, pos, Fluids.WATER), level, pos))
             return false;
 
-        maybeGrowCluster(state, pos, level);
-
         return true;
     }
 
@@ -100,6 +98,9 @@ public interface ISaltBlock {
     }
 
     static boolean canGrowCluster(BlockPos clusterPos, ServerLevel level) {
+        if (!level.getBlockState(clusterPos.below()).is(Salt.BlockTags.SALT_CLUSTER_GROWABLES))
+            return false;
+
         BlockState blockStateAbove = level.getBlockState(clusterPos);
         return blockStateAbove.isAir() || (blockStateAbove.getBlock() instanceof SaltClusterBlock && !blockStateAbove.is(Salt.Blocks.SALT_CLUSTER.get()));
     }
@@ -119,18 +120,17 @@ public interface ISaltBlock {
 
         level.setBlockAndUpdate(clusterPos, clusterState.setValue(SaltClusterBlock.FACING, Direction.UP));
 
-        Random random = new Random();
-
-        level.playSound(null, clusterPos, Salt.Sounds.SALT_CLUSTER_FALL.get(), SoundSource.BLOCKS, 0.3f, random.nextFloat() * 0.3f + 0.75f);
+        level.playSound(null, clusterPos, Salt.Sounds.SALT_CLUSTER_FALL.get(),
+                SoundSource.BLOCKS, 0.3f, level.random.nextFloat() * 0.3f + 0.75f);
 
         BlockState placedClusterState = level.getBlockState(clusterPos);
         BlockParticleOption particleType = new BlockParticleOption(ParticleTypes.BLOCK, placedClusterState);
         VoxelShape shape = placedClusterState.getShape(level, clusterPos);
         for (int i = 0; i < 8; i++) {
             level.sendParticles(particleType,
-                    clusterPos.getX() + random.nextDouble(shape.min(Direction.Axis.X), shape.max(Direction.Axis.X)),
-                    clusterPos.getY() + random.nextDouble(shape.min(Direction.Axis.Y), shape.max(Direction.Axis.Y)),
-                    clusterPos.getZ() + random.nextDouble(shape.min(Direction.Axis.Z), shape.max(Direction.Axis.Z)),
+                    clusterPos.getX() + level.random.triangle(shape.min(Direction.Axis.X), shape.max(Direction.Axis.X)),
+                    clusterPos.getY() + level.random.triangle(shape.min(Direction.Axis.Y), shape.max(Direction.Axis.Y)),
+                    clusterPos.getZ() + level.random.triangle(shape.min(Direction.Axis.Z), shape.max(Direction.Axis.Z)),
                     1, 0f, 0f, 0f, 0f);
         }
     }

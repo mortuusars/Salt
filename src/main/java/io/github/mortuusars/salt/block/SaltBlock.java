@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
@@ -39,5 +40,18 @@ public class SaltBlock extends Block implements ISaltBlock {
         if (!onSaltRandomTick(state, level, pos, random))
             //noinspection UnnecessaryReturnStatement
             return;
+    }
+
+    @Override
+    public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+        BlockPos clusterPos = pos.above();
+        if (ISaltBlock.canGrowCluster(clusterPos, level)) {
+            Fluid drippingFluid = ISaltBlock.getFluidDrippingOn(level, clusterPos);
+
+            if (drippingFluid == Fluids.WATER)
+                ISaltBlock.growCluster(state, pos, level);
+            else if (drippingFluid != Fluids.EMPTY)
+                level.destroyBlock(clusterPos, false);
+        }
     }
 }

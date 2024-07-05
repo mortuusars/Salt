@@ -14,11 +14,15 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Objects;
 
 public class SaltCrystalGrowingCategory implements IRecipeCategory<SaltCrystalGrowingDummy> {
     public static final ResourceLocation UID = Salt.resource("salt_crystal_growing");
@@ -51,8 +55,10 @@ public class SaltCrystalGrowingCategory implements IRecipeCategory<SaltCrystalGr
                         new ItemStack(Salt.Items.LARGE_SALT_BUD.get()),
                         new ItemStack(Salt.Items.SALT_CLUSTER.get())));
 
+        //noinspection DataFlowIssue
+        List<ItemStack> growables = ForgeRegistries.BLOCKS.tags().getTag(Salt.BlockTags.SALT_CLUSTER_GROWABLES).stream().map(ItemStack::new).toList();
         builder.addSlot(RecipeIngredientRole.INPUT, 104, 127)
-                .addItemStack(new ItemStack(Salt.Items.RAW_ROCK_SALT_BLOCK.get()));
+                .addItemStacks(growables);
     }
 
     @Override
