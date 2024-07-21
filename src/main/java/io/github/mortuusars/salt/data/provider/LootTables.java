@@ -28,6 +28,7 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -42,18 +43,18 @@ public class LootTables extends LootTableProvider {
     }
 
     @Override
-    public void run(CachedOutput cache) {
+    public void run(@NotNull CachedOutput cache) {
 
         // Blocks:
 
-        writeTable(cache, Salt.Blocks.SALT_CAULDRON.getId(),
+        writeTable(cache, new ResourceLocation("salt:blocks/" + Salt.Blocks.SALT_CAULDRON.getId().getPath()),
                 LootTable.lootTable()
                         .setParamSet(LootContextParamSets.BLOCK)
                         .withPool(
-                        LootPool.lootPool()
-                                .setRolls(ConstantValue.exactly(1))
-                                .add(LootItem.lootTableItem(Items.CAULDRON))
-                                .when(ExplosionCondition.survivesExplosion()))
+                                LootPool.lootPool()
+                                        .setRolls(ConstantValue.exactly(1))
+                                        .add(LootItem.lootTableItem(Items.CAULDRON))
+                                        .when(ExplosionCondition.survivesExplosion()))
                         .build());
 
         dropsSelf(cache, Salt.Items.SALT_BLOCK.get());
